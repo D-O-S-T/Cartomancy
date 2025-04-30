@@ -1,0 +1,22 @@
+{
+  "name": "eremita",
+  "version": "1.0.0",
+  "description": "Projeto Aplicado 4.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/D-O-S-T/EREMITA.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/D-O-S-T/EREMITA/issues"
+  },
+  "homepage": "https://github.com/D-O-S-T/EREMITA#readme"
+}
