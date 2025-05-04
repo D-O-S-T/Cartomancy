@@ -1,8 +1,10 @@
-import mysql from "mysql"
+import pkg from "pg"
+const { Pool } = pkg;
 
-export const db = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password : "alex123",
-  database: "crud"
+export const db = new Pool ({
+    user: 'postgres',       
+    host: 'localhost',
+    database: 'crud', 
+    password : 'alex123',
+    port: 5432
 })
