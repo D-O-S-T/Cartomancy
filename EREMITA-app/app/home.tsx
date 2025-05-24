@@ -6,6 +6,16 @@ const { width, height } = Dimensions.get('window');
 export default function Home() {
     return (
         <View style={styles.container}>
+
+          <View style={styles.topCapsule}>
+    <Image
+      source={require('../assets/EREMITA.png')}
+      style={styles.topLogo}
+      resizeMode="contain"
+    />
+  </View>
+
+        
         <LinearGradient
                 colors={['#8E2DE2', '#C13584']}
                 start={{ x: 0.5, y: 0 }}
@@ -44,8 +54,23 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: height * 1.2,
     height: height * 1.2,
-    top: height / 2 - (height * 1.2) / 2,
+    top: height / 2 - (height * 1.2) / 2 + 205,
     left: width / 2 - (height * 1.2) / 2,
     zIndex: 0,
+    },
+    topCapsule: {
+    backgroundColor: '#94399B',
+    width: '100%',
+    height: 130,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: 50, 
+    position: 'absolute',
+    top: 0,
+    zIndex: 2, 
+    },
+    topLogo: {
+    width: 50,
+    height: 50,
     },
 });
