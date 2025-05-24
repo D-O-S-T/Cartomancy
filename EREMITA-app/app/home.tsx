@@ -29,7 +29,11 @@ export default function Home() {
                 resizeMode="contain"
         />
 
-            <Text style={styles.title}>Home Screen</Text>
+            <Text style={styles.title}>Para iniciar a sua jornada, escolha o baralho:</Text>
+            <Text style={styles.description}>Tarot de Rider-Waite</Text>
+            <Text style={styles.description}>Tarot de Marselha</Text>
+            <Text style={styles.description}>Baralho Cigano</Text>
+
             <Text style={styles.description}>ANA PAULA SAPATÃO</Text>
         </View>
     );
@@ -49,6 +53,7 @@ const styles = StyleSheet.create({
     description: {
         fontSize: 16,
         color: 'pink',
+        marginTop: 10,
     },
     eclipse: {
     position: 'absolute',
