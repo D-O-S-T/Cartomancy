@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "expo-linear-gradient": "~14.1.4",
-    "react-native-linear-gradient": "^2.8.3"
-  }
-}
