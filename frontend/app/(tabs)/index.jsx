@@ -36,7 +36,7 @@ export default function WelcomeScreen() {
           />
         </View>
 
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={() => router.push('/login')}>
           <Text style={styles.buttonText}>Já Possuo Cadastro</Text>
         </TouchableOpacity>
 
