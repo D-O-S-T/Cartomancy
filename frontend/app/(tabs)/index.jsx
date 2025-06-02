@@ -1,23 +1,15 @@
-import { View, Text, StyleSheet, Image, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, Dimensions } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import RNPickerSelect from 'react-native-picker-select';
-import { useState } from 'react';
+import { useRouter } from 'expo-router';
 
 const { width, height } = Dimensions.get('window');
 
-export default function Home() {
-  const [selectedDeck, setSelectedDeck] = useState('');
+export default function WelcomeScreen() {
+  const router = useRouter();
 
   return (
     <View style={styles.container}>
-      <View style={styles.topCapsule}>
-        <Image
-          source={require('../../assets/eremita-logo.png')}
-          style={styles.topLogo}
-          resizeMode="contain"
-        />
-      </View>
-
+      {/* Fundo geral roxo/rosa */}
       <LinearGradient
         colors={['#8E2DE2', '#C13584']}
         start={{ x: 0.5, y: 0 }}
@@ -25,29 +17,37 @@ export default function Home() {
         style={StyleSheet.absoluteFill}
       />
 
+      {/* Imagem de brilho Eclipse (atrás de tudo) */}
       <Image
         source={require('../../assets/gradient.png')}
         style={styles.eclipse}
         resizeMode="contain"
       />
 
-      <Text style={styles.title}>Para iniciar a sua jornada, escolha o baralho:</Text>
+      {/* Conteúdo em cima da imagem */}
+      <View style={styles.content}>
+        <Text style={styles.title}>Seja Bem Vindo(a){'\n'}ao Eremita!</Text>
 
-      <View style={styles.pickerWrapper}>
-        <RNPickerSelect
-          onValueChange={(value) => setSelectedDeck(value)}
-          placeholder={{ label: 'Selecione um baralho...', value: null }}
-          style={{
-            inputIOS: styles.picker,
-            inputAndroid: styles.picker,
-            placeholder: { color: '#ddd' },
-          }}
-          items={[
-            { label: 'Tarot de Rider-Waite', value: 'rider' },
-            { label: 'Tarot de Marselha', value: 'marselha' },
-            { label: 'Baralho Cigano', value: 'cigano' },
-          ]}
-        />
+        {/* Círculo com a logo dentro */}
+        <View style={styles.logoPlaceholder}>
+          <Image
+            source={require('../../assets/eremita-logo.png')}
+            style={styles.logo}
+          />
+        </View>
+
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.buttonText}>Já Possuo Cadastro</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.buttonText}>Quero Me Cadastrar</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => router.push('/home')}>
+        <Text style={styles.footer}>Acessar sem cadastro</Text>
+      </TouchableOpacity>
+
       </View>
     </View>
   );
@@ -56,51 +56,61 @@ export default function Home() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
+    justifyContent: 'center',
   },
-  title: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    color: '#fff',
-    marginBottom: 20,
-    textAlign: 'center',
-    paddingHorizontal: 20,
-  },
-  pickerWrapper: {
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-    borderRadius: 10,
-    width: '80%',
-    padding: 12,
-  },
-  picker: {
-    fontSize: 16,
-    paddingVertical: 12,
-    paddingHorizontal: 10,
-    color: '#fff',
-    backgroundColor: 'transparent',
+  content: {
+    zIndex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   eclipse: {
     position: 'absolute',
     width: height * 1.2,
     height: height * 1.2,
-    top: height / 2 - (height * 1.2) / 2 + 205,
+    top: height / 2 - (height * 1.2) / 2,
     left: width / 2 - (height * 1.2) / 2,
     zIndex: 0,
   },
-  topCapsule: {
-    backgroundColor: '#94399B',
-    width: '100%',
-    height: 130,
+  title: {
+    color: '#fff',
+    fontSize: 26,
+    textAlign: 'center',
+    marginBottom: 50,
+    fontWeight: 'bold',
+  },
+  logoPlaceholder: {
+    width: 200,
+    height: 200,
+    borderRadius: 100,
+    borderWidth: 4,
+    borderColor: '#fff',
+    marginBottom: 30,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingTop: 50,
-    position: 'absolute',
-    top: 0,
-    zIndex: 2,
+    overflow: 'hidden', 
   },
-  topLogo: {
-    width: 50,
-    height: 50,
+  logo: {
+    width: '85%',
+    height: '85%',
+    resizeMode: 'contain',
+  },
+  button: {
+    borderWidth: 1,
+    borderColor: '#fff',
+    borderRadius: 20,
+    paddingVertical: 22,
+    paddingHorizontal: 55,
+    marginVertical: 10,
+    backgroundColor: 'rgba(255, 255, 255, 0.07)',
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 16,
+  },
+  footer: {
+    marginTop: 70,
+    color: '#fff',
+    fontSize: 16,
   },
 });
