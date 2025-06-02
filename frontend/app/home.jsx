@@ -4,16 +4,19 @@ import {
   StyleSheet,
   Image,
   Dimensions,
-  Platform,
+  TouchableOpacity,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import RNPickerSelect from "react-native-picker-select";
 import { useState } from "react";
+import { useRouter } from "expo-router";
+import { AntDesign } from "@expo/vector-icons";
 
 const { width, height } = Dimensions.get("window");
 
 export default function Home() {
   const [selectedDeck, setSelectedDeck] = useState(null);
+  const router = useRouter();
 
   return (
     <View style={styles.container}>
@@ -39,6 +42,15 @@ export default function Home() {
           style={styles.topLogo}
           resizeMode="contain"
         />
+      </View>
+
+      {/* Header com botão de voltar */}
+      <View style={styles.header}>
+        <View style={styles.headerContent}>
+          <TouchableOpacity onPress={() => router.back()}>
+            <AntDesign name="arrowleft" size={28} color="#fff" />
+          </TouchableOpacity>
+        </View>
       </View>
 
       {/* Content */}
@@ -81,6 +93,15 @@ export default function Home() {
             ]}
           />
         </View>
+
+        {/* Botões */}
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.buttonText}>Arcanos Maiores</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.buttonText}>Arcanos Menores</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -92,6 +113,46 @@ const styles = StyleSheet.create({
     alignItems: "center",
     position: "relative",
     backgroundColor: "#000",
+  },
+  eclipse: {
+    position: "absolute",
+    width: height * 1.2,
+    height: height * 1.2,
+    top: height / 2 - (height * 1.2) / 2 + 205,
+    left: width / 2 - (height * 1.2) / 2,
+    zIndex: 0,
+    opacity: 0.2,
+  },
+  topCapsule: {
+    backgroundColor: "#94399B",
+    width: "100%",
+    height: 130,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingTop: 50,
+    position: "absolute",
+    top: 0,
+    zIndex: 3,
+  },
+  topLogo: {
+    width: 50,
+    height: 50,
+  },
+  header: {
+    width: "100%",
+    alignItems: "center",
+    marginTop: 10,
+    zIndex: 4,
+    position: "absolute",
+    top: 40,
+    left: 0,
+  },
+  headerContent: {
+    width: "100%",
+    maxWidth: 280,
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    paddingLeft: 20,
   },
   content: {
     marginTop: 180,
@@ -123,28 +184,18 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     outlineStyle: "none", // web only
   },
-  eclipse: {
-    position: "absolute",
-    width: height * 1.2,
-    height: height * 1.2,
-    top: height / 2 - (height * 1.2) / 2 + 205,
-    left: width / 2 - (height * 1.2) / 2,
-    zIndex: 0,
-    opacity: 0.2,
+  button: {
+    borderWidth: 1,
+    borderColor: "#fff",
+    borderRadius: 20,
+    paddingVertical: 18,
+    paddingHorizontal: 60,
+    backgroundColor: "rgba(255, 255, 255, 0.07)",
+    marginBottom: 15,
   },
-  topCapsule: {
-    backgroundColor: "#94399B",
-    width: "100%",
-    height: 130,
-    alignItems: "center",
-    justifyContent: "center",
-    paddingTop: 50,
-    position: "absolute",
-    top: 0,
-    zIndex: 3,
-  },
-  topLogo: {
-    width: 50,
-    height: 50,
+  buttonText: {
+    color: "#fff",
+    fontSize: 16,
+    textAlign: "center",
   },
 });
