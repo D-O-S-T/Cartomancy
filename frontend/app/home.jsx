@@ -54,20 +54,23 @@ export default function Home() {
             style={{
               inputIOS: {
                 ...styles.picker,
-                backgroundColor: "rgba(0, 0, 0, 0.2)", // Fix iOS white bg
+                color: "#000",
+                backgroundColor: "#fff",
                 borderRadius: 8,
               },
               inputAndroid: {
                 ...styles.picker,
-                backgroundColor: "rgba(255, 255, 255, 0.1)",
+                color: "#000",
+                backgroundColor: "#fff",
               },
               inputWeb: {
                 ...styles.picker,
-                backgroundColor: "rgba(255, 255, 255, 0.1)",
-                width: "100%", // enforce size on web
+                color: "#000",
+                backgroundColor: "#fff",
+                width: "100%",
               },
               placeholder: {
-                color: "#ccc",
+                color: "#888",
               },
             }}
             useNativeAndroidPickerStyle={false}
@@ -115,7 +118,6 @@ const styles = StyleSheet.create({
   },
   picker: {
     fontSize: 16,
-    color: "#fff",
     paddingVertical: 12,
     paddingHorizontal: 10,
     borderRadius: 8,
