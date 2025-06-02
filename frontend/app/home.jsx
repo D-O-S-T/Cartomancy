@@ -1,53 +1,83 @@
-import { View, Text, StyleSheet, Image, Dimensions } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
-import RNPickerSelect from 'react-native-picker-select';
-import { useState } from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  Dimensions,
+  Platform,
+} from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
+import RNPickerSelect from "react-native-picker-select";
+import { useState } from "react";
 
-const { width, height } = Dimensions.get('window');
+const { width, height } = Dimensions.get("window");
 
 export default function Home() {
-  const [selectedDeck, setSelectedDeck] = useState('');
+  const [selectedDeck, setSelectedDeck] = useState(null);
 
   return (
     <View style={styles.container}>
-      <View style={styles.topCapsule}>
-        <Image
-          source={require('../assets/eremita-logo.png')}
-          style={styles.topLogo}
-          resizeMode="contain"
-        />
-      </View>
-
+      {/* Gradient background */}
       <LinearGradient
-        colors={['#8E2DE2', '#C13584']}
+        colors={["#8E2DE2", "#C13584"]}
         start={{ x: 0.5, y: 0 }}
         end={{ x: 0.5, y: 1 }}
         style={StyleSheet.absoluteFill}
       />
 
+      {/* Circular Eclipse */}
       <Image
-        source={require('../assets/gradient.png')}
+        source={require("../assets/gradient.png")}
         style={styles.eclipse}
         resizeMode="contain"
       />
 
-      <Text style={styles.title}>Para iniciar a sua jornada, escolha o baralho:</Text>
-
-      <View style={styles.pickerWrapper}>
-        <RNPickerSelect
-          onValueChange={(value) => setSelectedDeck(value)}
-          placeholder={{ label: 'Selecione um baralho...', value: null }}
-          style={{
-            inputIOS: styles.picker,
-            inputAndroid: styles.picker,
-            placeholder: { color: '#ddd' },
-          }}
-          items={[
-            { label: 'Tarot de Rider-Waite', value: 'rider' },
-            { label: 'Tarot de Marselha', value: 'marselha' },
-            { label: 'Baralho Cigano', value: 'cigano' },
-          ]}
+      {/* Top capsule with logo */}
+      <View style={styles.topCapsule}>
+        <Image
+          source={require("../assets/eremita-logo.png")}
+          style={styles.topLogo}
+          resizeMode="contain"
         />
+      </View>
+
+      {/* Content */}
+      <View style={styles.content}>
+        <Text style={styles.title}>
+          Para iniciar a sua jornada, escolha o baralho:
+        </Text>
+
+        <View style={styles.pickerWrapper}>
+          <RNPickerSelect
+            onValueChange={(value) => setSelectedDeck(value)}
+            placeholder={{ label: "Selecione um baralho...", value: null }}
+            style={{
+              inputIOS: {
+                ...styles.picker,
+                backgroundColor: "rgba(0, 0, 0, 0.2)", // Fix iOS white bg
+                borderRadius: 8,
+              },
+              inputAndroid: {
+                ...styles.picker,
+                backgroundColor: "rgba(255, 255, 255, 0.1)",
+              },
+              inputWeb: {
+                ...styles.picker,
+                backgroundColor: "rgba(255, 255, 255, 0.1)",
+                width: "100%", // enforce size on web
+              },
+              placeholder: {
+                color: "#ccc",
+              },
+            }}
+            useNativeAndroidPickerStyle={false}
+            items={[
+              { label: "Tarot de Rider-Waite", value: "rider" },
+              { label: "Tarot de Marselha", value: "marselha" },
+              { label: "Baralho Cigano", value: "cigano" },
+            ]}
+          />
+        </View>
       </View>
     </View>
   );
@@ -56,48 +86,60 @@ export default function Home() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: "center",
+    position: "relative",
+    backgroundColor: "#000",
+  },
+  content: {
+    marginTop: 180,
+    alignItems: "center",
+    width: "100%",
+    paddingHorizontal: 20,
+    zIndex: 2,
   },
   title: {
     fontSize: 22,
-    fontWeight: 'bold',
-    color: '#fff',
+    fontWeight: "bold",
+    color: "#fff",
     marginBottom: 20,
-    textAlign: 'center',
-    paddingHorizontal: 20,
+    textAlign: "center",
   },
   pickerWrapper: {
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    width: "80%",
+    maxWidth: 320,
+    alignSelf: "center",
     borderRadius: 10,
-    width: '80%',
-    padding: 12,
+    padding: 0,
+    marginBottom: 30,
+    overflow: "hidden",
   },
   picker: {
     fontSize: 16,
+    color: "#fff",
     paddingVertical: 12,
     paddingHorizontal: 10,
-    color: '#fff',
-    backgroundColor: 'transparent',
+    borderRadius: 8,
+    outlineStyle: "none", // web only
   },
   eclipse: {
-    position: 'absolute',
+    position: "absolute",
     width: height * 1.2,
     height: height * 1.2,
     top: height / 2 - (height * 1.2) / 2 + 205,
     left: width / 2 - (height * 1.2) / 2,
     zIndex: 0,
+    opacity: 0.2,
   },
   topCapsule: {
-    backgroundColor: '#94399B',
-    width: '100%',
+    backgroundColor: "#94399B",
+    width: "100%",
     height: 130,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     paddingTop: 50,
-    position: 'absolute',
+    position: "absolute",
     top: 0,
-    zIndex: 2,
+    zIndex: 3,
   },
   topLogo: {
     width: 50,
