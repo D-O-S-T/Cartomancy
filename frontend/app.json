@@ -1,5 +1,6 @@
 {
   "expo": {
+    "entryPoint": "./app/tabs/index.jsx",
     "name": "EREMITA-app",
     "slug": "EREMITA-app",
     "version": "1.0.0",

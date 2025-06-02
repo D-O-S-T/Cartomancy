@@ -9,7 +9,7 @@ export default function Home() {
 
           <View style={styles.topCapsule}>
     <Image
-      source={require('../assets/EREMITA.png')}
+      source={require('../assets/eremita-logo.png')}
       style={styles.topLogo}
       resizeMode="contain"
     />
@@ -24,7 +24,7 @@ export default function Home() {
         />
 
         <Image
-                source={require('../assets/Eclipse.png')}
+                source={require('../assets/gradient.png')}
                 style={styles.eclipse}
                 resizeMode="contain"
         />
