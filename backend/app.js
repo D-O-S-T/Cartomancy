@@ -13,6 +13,7 @@ app.use(express.json());
 // ⬇️ depois, as rotas
 app.use('/api/trilhas', trilhaRoutes);
 app.use('/api/usuarios', userRoutes);
+app.use('/api/anotacoes', anotacaoRoutes);
 
 // Swagger
 swaggerSetup(app);
