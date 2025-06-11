@@ -6,5 +6,6 @@ const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, async () => {
   await conectarDB(); // isso mantém sua conexão ativa 💙
-  console.log(`🚀 Servidor rodando em http://localhost:${PORT}`);
+  console.log(`Servidor rodando em http://localhost:${PORT}`);
+    console.log(`Swagger disponível em http://localhost:${PORT}/api-docs`);
 });
