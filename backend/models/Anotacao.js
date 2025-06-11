@@ -23,17 +23,12 @@ const Anotacao = sequelize.define('trilhas', {
     type: DataTypes.TEXT,
     allowNull: true
   },
-  criado_em: {
-    type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW
-  },
-  atualizado_em: {
-    type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW
-  }
 }, {
     tableName: 'anotacoes',
-    timestamps: false // desabilita createdAt/updatedAt automáticos
+    timestamps: true,
+    timestamps: true,
+    createdAt: 'criado_em',
+    updatedAt: 'atualizado_em'
 });
 
 module.exports = Anotacao;
