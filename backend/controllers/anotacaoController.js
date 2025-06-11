@@ -26,16 +26,16 @@ exports.editarAnotacao = async (req, res) => {
     if (editadas === 0) return res.status(404).json({ erro: 'Anotação não encontrada'});
     res.json({ mensagem: 'Anotação editada com sucesso'});
   } catch (error) {
-    res.status(400).json({ erro: 'Erro ao atualizar amotação', detalhes: error.mensage });
+    res.status(400).json({ erro: 'Erro ao atualizar amotação', detalhes: error.menssage });
   }
 };
 
 exports.excluirAnotacao = async (req, res) => {
   try{
     const {id} = req.params;
-    const [apagadas] = await Anotacao.update(req.body, {where: {id}});
+    const [apagadas] = await Anotacao.destroy(req.body, {where: {id}});
 
-    if (editadas === 0) return res.status(404).json({ erro: 'Anotação não encontrada'});
+    if (apagadas === 0) return res.status(404).json({ erro: 'Anotação não encontrada'});
     res.json({ mensagem: 'Anotação apagada com sucesso'});
   } catch (error) {
     res.status(400).json({ erro: 'Erro ao excluir amotação', detalhes: error.mensage });
