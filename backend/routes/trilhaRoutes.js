@@ -2,10 +2,17 @@ const express = require('express');
 const router = express.Router();
 const trilhaController = require('../controllers/trilhaController');
 
-router.get('/', trilhaController.listar);
-router.post('/', trilhaController.cadastrar);
-router.put('/:id', trilhaController.atualizar);
-router.delete('/:id', trilhaController.excluir);
+router.get('/', trilhaController.listarTrilha);
+router.post('/', trilhaController.cadastrarTrilha);
+router.put('/:id', trilhaController.atualizarTrilha);
+router.delete('/:id', trilhaController.excluirTrilha);
+
+/**
+ * @swagger
+ * tags:
+ *   name: Trilhas
+ *   description: Gerenciamento de Trilhas
+ */
 
 /**
  * @swagger
@@ -30,7 +37,7 @@ router.delete('/:id', trilhaController.excluir);
  *                     type: string
  *                     example: Trilha Introdutória
  */
-router.get('/', trilhaController.listar);
+router.get('/', trilhaController.listarTrilha);
 
 /**
  * @swagger
@@ -52,7 +59,7 @@ router.get('/', trilhaController.listar);
  *       201:
  *         description: Trilha criada com sucesso
  */
-router.post('/', trilhaController.cadastrar);
+router.post('/', trilhaController.cadastrarTrilha);
 
 /**
  * @swagger
@@ -95,7 +102,7 @@ router.post('/', trilhaController.cadastrar);
  *         description: Trilha não encontrada
  */
 
-router.put('/:id', trilhaController.atualizar);
+router.put('/:id', trilhaController.atualizarTrilha);
 
 /**
  * @swagger
@@ -115,6 +122,6 @@ router.put('/:id', trilhaController.atualizar);
  *       404:
  *         description: Trilha não encontrada
  */
-router.delete('/:id', trilhaController.excluir);
+router.delete('/:id', trilhaController.excluirTrilha);
 
 module.exports = router;
