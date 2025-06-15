@@ -5,6 +5,7 @@ const listarCartas = async (req, res) => {
     const cartas = await Carta.findAll();
     res.json(cartas);
   } catch (error) {
+    console.error('❌ ERRO AO BUSCAR CARTAS:', error); // <-- log do erro
     res.status(500).json({ erro: 'Erro ao buscar cartas.' });
   }
 };
@@ -22,6 +23,7 @@ const editarCarta = async (req, res) => {
     await carta.update(dados);
     res.json(carta);
   } catch (error) {
+    console.error('❌ ERRO AO ATUALIZAR CARTA:', error); // <-- log do erro
     res.status(500).json({ erro: 'Erro ao atualizar carta.' });
   }
 };
