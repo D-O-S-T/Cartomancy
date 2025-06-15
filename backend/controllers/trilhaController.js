@@ -1,32 +1,57 @@
 const Trilha = require('../models/Trilha');
 
-exports.listarTrilha = async (req, res) => {
-  const trilhas = await Trilha.findAll();
-  res.json(trilhas);
+const listarTrilha = async (req, res) => {
+  try {
+    const trilhas = await Trilha.findAll();
+    res.json(trilhas);
+  } catch (error) {
+    res.status(500).json({ erro: 'Erro ao listar trilhas', detalhes: error.message });
+  }
 };
 
-exports.cadastrarTrilha = async (req, res) => {
-  const { nome } = req.body;
-  const novaTrilha = await Trilha.create({ nome });
-  res.status(201).json(novaTrilha);
+const cadastrarTrilha = async (req, res) => {
+  try {
+    const { nome } = req.body;
+    const novaTrilha = await Trilha.create({ nome });
+    res.status(201).json(novaTrilha);
+  } catch (error) {
+    res.status(400).json({ erro: 'Erro ao cadastrar trilha', detalhes: error.message });
+  }
 };
 
-exports.atualizarTrilha = async (req, res) => {
-  const { id } = req.params;
-  const { nome } = req.body;
-  const trilha = await Trilha.findByPk(id);
-  if (!trilha) return res.status(404).json({ erro: 'Trilha não encontrada' });
+const atualizarTrilha = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { nome } = req.body;
+    const trilha = await Trilha.findByPk(id);
 
-  trilha.nome = nome;
-  await trilha.save();
-  res.json(trilha);
+    if (!trilha) return res.status(404).json({ erro: 'Trilha não encontrada' });
+
+    trilha.nome = nome;
+    await trilha.save();
+    res.json(trilha);
+  } catch (error) {
+    res.status(400).json({ erro: 'Erro ao atualizar trilha', detalhes: error.message });
+  }
 };
 
-exports.excluirTrilha = async (req, res) => {
-  const { id } = req.params;
-  const trilha = await Trilha.findByPk(id);
-  if (!trilha) return res.status(404).json({ erro: 'Trilha não encontrada' });
+const excluirTrilha = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const trilha = await Trilha.findByPk(id);
 
-  await trilha.destroy();
-  res.json({ mensagem: 'Trilha removida com sucesso' });
+    if (!trilha) return res.status(404).json({ erro: 'Trilha não encontrada' });
+
+    await trilha.destroy();
+    res.json({ mensagem: 'Trilha removida com sucesso' });
+  } catch (error) {
+    res.status(400).json({ erro: 'Erro ao excluir trilha', detalhes: error.message });
+  }
+};
+
+module.exports = {
+  listarTrilha,
+  cadastrarTrilha,
+  atualizarTrilha,
+  excluirTrilha
 };

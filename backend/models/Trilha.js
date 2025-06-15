@@ -17,3 +17,4 @@ const Trilha = sequelize.define('trilhas', {
 });
 
 module.exports = Trilha;
+
