@@ -77,7 +77,7 @@ router.post('/', anotacaoController.criarAnotacao);
  * @swagger
  * /api/anotacoes/{id}:
  *   put:
- *     summary: Atualiza uma anotação
+ *     summary: Atualiza apenas o conteúdo da anotação
  *     tags: [Anotacoes]
  *     parameters:
  *       - in: path
@@ -93,15 +93,16 @@ router.post('/', anotacaoController.criarAnotacao);
  *           schema:
  *             type: object
  *             properties:
- *               titulo:
- *                 type: string
- *                 example: "Anotação atualizada"
  *               descricao:
  *                 type: string
- *                 example: "Conteúdo atualizado"
+ *                 example: "Novo conteúdo da anotação"
  *     responses:
  *       200:
  *         description: Anotação atualizada com sucesso
+ *       404:
+ *         description: Anotação não encontrada
+ *       500:
+ *         description: Erro ao atualizar anotação
  */
 router.put('/:id', anotacaoController.editarAnotacao);
 

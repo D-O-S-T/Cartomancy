@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
 const { sequelize } = require('./db'); 
+const Referencia = require('./Referencias');
 
 const Anotacao = sequelize.define('Anotacao', {
   id: {
@@ -22,6 +23,14 @@ const Anotacao = sequelize.define('Anotacao', {
   conteudo: {
     type: DataTypes.TEXT,
     allowNull: true
+  },
+  referencia_id: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: 'referencias',
+      key: 'id'
+    },
+  allowNull: false
   }
 }, {
   tableName: 'anotacoes',
