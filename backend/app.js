@@ -4,6 +4,7 @@ const userRoutes = require('./routes/userRoutes');
 const swaggerSetup = require('./config/swagger');
 const trilhaRoutes = require('./routes/trilhaRoutes');
 const anotacaoRoutes = require('./routes/anotacaoRoutes');
+const cartaRoutes = require('./routes/cartaRoutes');
 
 const app = express();
 
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use('/api/trilhas', trilhaRoutes);
 app.use('/api/usuarios', userRoutes);
 app.use('/api/anotacoes', anotacaoRoutes);
+app.use('/api/cartas', cartaRoutes);
 
 // Swagger
 swaggerSetup(app);
