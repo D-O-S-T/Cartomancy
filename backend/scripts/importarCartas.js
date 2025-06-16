@@ -26,3 +26,4 @@ const importarCartas = async () => {
 };
 
 module.exports = importarCartas; // se quiser chamar pela rota do backend
+
