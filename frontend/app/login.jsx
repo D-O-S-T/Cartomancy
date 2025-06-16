@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
-import { AntDesign } from "@expo/vector-icons";
+import Header from "./components/header";
 
 const { width, height } = Dimensions.get("window");
 
@@ -35,13 +35,7 @@ export default function LoginScreen() {
       />
 
       {/* Cabeçalho com botão de voltar */}
-      <View style={styles.header}>
-        <View style={styles.headerContent}>
-          <TouchableOpacity onPress={() => router.back()}>
-            <AntDesign name="arrowleft" size={28} color="#fff" />
-          </TouchableOpacity>
-        </View>
-      </View>
+      <Header />
 
       {/* Conteúdo principal */}
       <View style={styles.content}>

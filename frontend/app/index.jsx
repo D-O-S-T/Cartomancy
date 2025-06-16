@@ -19,7 +19,7 @@ export default function WelcomeScreen() {
 
       {/* Imagem de brilho Eclipse (atrás de tudo) */}
       <Image
-        source={require('../../assets/gradient.png')}
+        source={require('../assets/gradient.png')}
         style={styles.eclipse}
         resizeMode="contain"
       />
@@ -31,7 +31,7 @@ export default function WelcomeScreen() {
         {/* Círculo com a logo dentro */}
         <View style={styles.logoPlaceholder}>
           <Image
-            source={require('../../assets/eremita-logo.png')}
+            source={require('../assets/eremita-logo.png')}
             style={styles.logo}
           />
         </View>
