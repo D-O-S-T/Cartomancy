@@ -2,10 +2,14 @@ const Trilha = require('../models/Trilha');
 
 const listarTrilha = async (req, res) => {
   try {
-    const trilhas = await Trilha.findAll();
+    const trilhas = await Trilha.findAll({
+      attributes: ['id', 'nome'],
+      raw: true
+    });
     res.json(trilhas);
-  } catch (error) {
-    res.status(500).json({ erro: 'Erro ao listar trilhas', detalhes: error.message });
+  } catch (err) {
+    console.error('Erro ao buscar trilhas:', err);
+    res.status(500).json({ erro: 'Erro ao buscar trilhas' });
   }
 };
 

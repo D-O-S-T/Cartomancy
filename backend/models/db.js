@@ -18,9 +18,6 @@ const conectarDB = async () => {
   try {
     await sequelize.authenticate();
     console.log(`Conectado ao banco ${process.env.DB_NAME}!`);
-
-    // Sincroniza as tabelas (cria/atualiza conforme os models)
-    await sequelize.sync({ alter: true });
     console.log('Tabelas sincronizadas com sucesso!');
   } catch (error) {
     console.error('Erro ao conectar ou sincronizar o banco:', error);

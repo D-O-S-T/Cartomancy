@@ -1,5 +1,8 @@
+
 const Anotacao = require('../models/Anotacao');
-const Referencia = require('../models/Referencias');
+const Referencia = require('../models/Referencia');
+const Trilha = require('../models/Trilha');
+const User = require('../models/Usuario');
 
 const listarAnotacao = async (req, res) => {
   try {
@@ -11,29 +14,45 @@ const listarAnotacao = async (req, res) => {
 };
 
 const criarAnotacao = async (req, res) => {
-  const { conteudo, tipo_material, material_id } = req.body;
-
-  if (!conteudo || !tipo_material || !material_id) {
-    return res.status(400).json({ erro: 'Campos obrigatórios ausentes' });
-  }
-
   try {
-    // 1. Busca ou cria a referência
-    const [referencia] = await Referencia.findOrCreate({
-      where: { tipo_material, material_id }
-    });
+    //dados vindos do front
+    const { conteudo, usuario_id, trilha_id, tipo, id_original } = req.body;
 
-    // 2. Cria a anotação com essa referência
-    const anotacao = await Anotacao.create({
-      conteudo,
-      referencia_id: referencia.id
-    });
+    console.log('tipo:', tipo, 'id_original:', id_original);
 
-    return res.status(201).json(anotacao);
-  } catch (err) {
-    return res.status(500).json({ erro: 'Erro ao criar anotação', detalhes: err.message });
+    if (!usuario_id || !trilha_id) {
+      return res.status(400).json({ erro: 'Campos obrigatórios ausentes: usuario_id e trilha_id são necessários.' });
+    }
+
+    let referencia = null;
+
+    // Só cria a referência se foi enviado
+    if (tipo && id_original) {
+      referencia = await Referencia.create({
+        tipo_material: tipo,
+        material_id: id_original
+      });
+      console.log('Referência criada:', referencia);
+    } else {
+      console.log('Não foi enviado tipo ou id_original, não cria referência.');
   }
+
+    const anotacao = await Anotacao.create({
+    conteudo,
+    usuario_id,
+    trilha_id,
+    referencia_id: referencia ? referencia.id : null
+  });
+
+  return res.status(201).json(anotacao);
+
+} catch (erro) {
+  console.error(erro);
+  return res.status(500).json({ erro: 'Erro ao criar anotação' });
+}
 };
+
+
 
 const editarAnotacao = async (req, res) => {
   const { id } = req.params;

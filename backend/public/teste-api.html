@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Criar Anotação</title>
+</head>
+
+<body>
+    <h2>Criar Anotação</h2>
+
+    <label for="usuario_id">Usuário:</label>
+    <select id="usuario_id" required>
+        <option value="">Selecione um usuário</option>
+    </select>
+    <br /><br />
+
+    <label for="trilha_id">Trilha:</label>
+    <select id="trilha_id" required>
+        <option value="">Selecione uma trilha</option>
+    </select>
+    <br /><br />
+
+    <label for="materialSelecionado">Material (opcional):</label>
+    <select id="materialSelecionado" disabled>
+        <option value="">Selecione um material</option>
+    </select>
+    <br /><br />
+
+    <label for="conteudo">Conteúdo da anotação:</label><br />
+    <textarea id="conteudo" rows="4" cols="50" required></textarea>
+    <br /><br />
+
+    <button id="btnCriar">Criar Anotação</button>
+
+    <pre id="resposta" style="white-space: pre-wrap; margin-top: 20px;"></pre>
+
+    <script>
+        const BASE_URL = 'http://localhost:5000/api/anotacoes';
+        const USUARIOS_URL = 'http://localhost:5000/api/usuarios';
+        const TRILHAS_URL = 'http://localhost:5000/api/trilhas';
+        const MATERIAIS_URL = 'http://localhost:5000/materiais';
+
+        const usuarioSelect = document.getElementById('usuario_id');
+        const trilhaSelect = document.getElementById('trilha_id');
+        const materialSelect = document.getElementById('materialSelecionado');
+        const conteudoInput = document.getElementById('conteudo');
+        const respostaPre = document.getElementById('resposta');
+        const btnCriar = document.getElementById('btnCriar');
+
+        // Carrega usuários
+        async function carregarUsuarios() {
+            try {
+                const res = await fetch(USUARIOS_URL);
+                const usuarios = await res.json();
+                usuarios.forEach(u => {
+                    const opt = document.createElement('option');
+                    opt.value = u.id;
+                    opt.textContent = u.nome;
+                    usuarioSelect.appendChild(opt);
+                });
+            } catch (e) {
+                respostaPre.textContent = 'Erro ao carregar usuários: ' + e.message;
+            }
+        }
+
+        // Carrega trilhas
+        async function carregarTrilhas() {
+            try {
+                const res = await fetch(TRILHAS_URL);
+                const trilhas = await res.json();
+                trilhas.forEach(t => {
+                    const opt = document.createElement('option');
+                    opt.value = t.id;
+                    opt.textContent = t.nome;
+                    trilhaSelect.appendChild(opt);
+                });
+            } catch (e) {
+                respostaPre.textContent = 'Erro ao carregar trilhas: ' + e.message;
+            }
+        }
+
+        // Carrega materiais de acordo com a trilha
+        async function carregarMateriais(trilha_id) {
+            materialSelect.innerHTML = '<option value="">Nenhum material</option>';
+            materialSelect.disabled = true;
+
+            if (!trilha_id) return;
+
+            try {
+                const res = await fetch(`${MATERIAIS_URL}?trilha_id=${trilha_id}`);
+                const materiais = await res.json();
+
+                materiais.forEach(mat => {
+                    if (!mat.tipo || !mat.id) return;
+                    const opt = document.createElement('option');
+                    opt.value = `${mat.tipo}|${mat.id}`;
+                    opt.textContent = `[${mat.tipo.toUpperCase()}] ${mat.titulo || 'Sem título'}`;
+                    materialSelect.appendChild(opt);
+                });
+
+                materialSelect.disabled = false;
+            } catch (e) {
+                respostaPre.textContent = 'Erro ao carregar materiais: ' + e.message;
+            }
+        }
+
+        trilhaSelect.addEventListener('change', () => {
+            const trilha_id = trilhaSelect.value;
+            carregarMateriais(trilha_id);
+        });
+
+        btnCriar.addEventListener('click', async () => {
+            respostaPre.textContent = '';
+
+            const usuario_id = usuarioSelect.value;
+            const trilha_id = trilhaSelect.value;
+            const conteudo = conteudoInput.value.trim();
+            const materialSelecionado = materialSelect.value;
+
+            if (!usuario_id || !trilha_id || !conteudo) {
+                respostaPre.textContent = 'Preencha todos os campos obrigatórios.';
+                return;
+            }
+
+            const dados = {
+                usuario_id: Number(usuario_id),
+                trilha_id: Number(trilha_id),
+                conteudo: conteudo
+            };
+
+            if (materialSelecionado) {
+                const [tipo, id_original] = materialSelecionado.split('|');
+                dados.tipo = tipo;
+                dados.id_original = Number(id_original);
+            }
+
+            try {
+                const res = await fetch(BASE_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(dados)
+                });
+
+                if (!res.ok) {
+                    const texto = await res.text();
+                    throw new Error(texto || 'Erro desconhecido');
+                }
+
+                const json = await res.json();
+                respostaPre.textContent = 'Anotação criada:\n' + JSON.stringify(json, null, 2);
+
+                // Limpa tudo
+                conteudoInput.value = '';
+                usuarioSelect.value = '';
+                trilhaSelect.value = '';
+                materialSelect.innerHTML = '<option value="">Nenhum material</option>';
+                materialSelect.disabled = true;
+
+            } catch (err) {
+                respostaPre.textContent = 'Erro: ' + err.message;
+            }
+        });
+
+        // Carregar usuários e trilhas na inicialização
+        carregarUsuarios();
+        carregarTrilhas();
+    </script>
+</body>
+
+</html>

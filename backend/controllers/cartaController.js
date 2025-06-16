@@ -26,7 +26,7 @@ const listarCartas = async (req, res) => {
 
     res.json(cartasFinal);
   } catch (error) {
-    console.error('❌ ERRO AO BUSCAR CARTAS:', error.message);
+    console.error(' ERRO AO BUSCAR CARTAS:', error.message);
     res.status(500).json({ erro: 'Erro ao buscar cartas.' });
   }
 };

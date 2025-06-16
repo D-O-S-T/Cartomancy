@@ -1,7 +1,7 @@
 require('dotenv').config();
 const app = require('./app');
 const { conectarDB } = require('./models/db');
-const importarCartas = require('./utils/importarCartas'); // ajuste o caminho se necessário
+const importarCartas = require('./scripts/importarCartas'); // ajuste o caminho se necessário
 
 const PORT = process.env.PORT || 5000;
 
