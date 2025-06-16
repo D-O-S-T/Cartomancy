@@ -29,29 +29,29 @@ export default function Home() {
       />
 
       {/* Circular Eclipse */}
-      <Image
-        source={require("../assets/gradient.png")}
+      {/* <Image
+        source={require("../../assets/gradient.png")}
         style={styles.eclipse}
         resizeMode="contain"
-      />
+      /> */}
 
       {/* Top capsule with logo */}
       <View style={styles.topCapsule}>
         <Image
-          source={require("../assets/eremita-logo.png")}
+          source={require("../../assets/eremita-logo.png")}
           style={styles.topLogo}
           resizeMode="contain"
         />
       </View>
 
       {/* Header com botão de voltar */}
-      <View style={styles.header}>
+      {/* <View style={styles.header}>
         <View style={styles.headerContent}>
           <TouchableOpacity onPress={() => router.back()}>
             <AntDesign name="arrowleft" size={28} color="#fff" />
           </TouchableOpacity>
         </View>
-      </View>
+      </View> */}
 
       {/* Content */}
       <View style={styles.content}>

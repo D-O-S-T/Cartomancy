@@ -18,11 +18,11 @@ export default function WelcomeScreen() {
       />
 
       {/* Imagem de brilho Eclipse (atrás de tudo) */}
-      <Image
+      {/* <Image
         source={require('../assets/gradient.png')}
         style={styles.eclipse}
         resizeMode="contain"
-      />
+      /> */}
 
       {/* Conteúdo em cima da imagem */}
       <View style={styles.content}>

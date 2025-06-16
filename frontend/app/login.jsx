@@ -10,7 +10,6 @@ import {
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
-import Header from "./components/header";
 
 const { width, height } = Dimensions.get("window");
 
@@ -28,14 +27,14 @@ export default function LoginScreen() {
       />
 
       {/* Imagem de brilho ao fundo */}
-      <Image
+      {/* <Image
         source={require("../assets/gradient.png")}
         style={styles.eclipse}
         resizeMode="contain"
-      />
+      /> */}
 
       {/* Cabeçalho com botão de voltar */}
-      <Header />
+      {/* <Header /> */}
 
       {/* Conteúdo principal */}
       <View style={styles.content}>

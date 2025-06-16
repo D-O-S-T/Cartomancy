@@ -1,28 +1,28 @@
-import { Slot } from 'expo-router';
-import { useFonts } from 'expo-font';
-import { View, ActivityIndicator, StyleSheet } from 'react-native';
+import { View, StyleSheet } from "react-native";
+import { Slot } from "expo-router";
 
 export default function RootLayout() {
-  const [fontsLoaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
-
-  if (!fontsLoaded) {
-    return (
-      <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="#6C33A3" />
-      </View>
-    );
-  }
-
-  return <Slot />;
+  return (
+    <View style={styles.container}>
+      <Slot />
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
-  loadingContainer: {
+  container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#000', // Optional dark background
+    maxWidth: 430, // or your app's intended max width
+    alignSelf: 'center',
+    width: '100%',
+    backgroundColor: '#000'
   },
+  tabBarStyle: {
+    backgroundColor: "#8E2DE2",
+    borderTopWidth: 0,
+    maxWidth: 430,
+    alignSelf: 'center',
+    width: '100%',
+    height: 56,
+  }
 });
