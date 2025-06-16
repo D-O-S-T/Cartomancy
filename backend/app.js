@@ -10,8 +10,6 @@ const videoRoutes = require('./routes/videoRoutes');
 const pdfRoutes = require('./routes/pdfRoutes');
 const materiaisRoutes = require('./routes/materiaisRoutes');
 
-
-
 const app = express();
 
 // ⬇️ middlewares primeiro

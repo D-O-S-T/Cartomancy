@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>Criar Anotação</title>
+    <title>Gerenciamento de Anotações</title>
 </head>
 
 <body>
@@ -32,6 +32,7 @@
     <br /><br />
 
     <button id="btnCriar">Criar Anotação</button>
+    <button id="btnListar">Listar Anotações</button>
 
     <pre id="resposta" style="white-space: pre-wrap; margin-top: 20px;"></pre>
 
@@ -47,8 +48,21 @@
         const conteudoInput = document.getElementById('conteudo');
         const respostaPre = document.getElementById('resposta');
         const btnCriar = document.getElementById('btnCriar');
+        const btnListar = document.getElementById('btnListar');
 
-        // Carrega usuários
+        let todosMateriais = [];
+
+        // Carregar todos os materiais (sem filtro)
+        async function carregarTodosMateriais() {
+            try {
+                const res = await fetch(MATERIAIS_URL);
+                todosMateriais = await res.json();
+            } catch (e) {
+                respostaPre.textContent = 'Erro ao carregar todos os materiais: ' + e.message;
+            }
+        }
+
+        // Carregar usuários
         async function carregarUsuarios() {
             try {
                 const res = await fetch(USUARIOS_URL);
@@ -64,7 +78,7 @@
             }
         }
 
-        // Carrega trilhas
+        // Carregar trilhas
         async function carregarTrilhas() {
             try {
                 const res = await fetch(TRILHAS_URL);
@@ -80,7 +94,7 @@
             }
         }
 
-        // Carrega materiais de acordo com a trilha
+        // Carregar materiais da trilha selecionada
         async function carregarMateriais(trilha_id) {
             materialSelect.innerHTML = '<option value="">Nenhum material</option>';
             materialSelect.disabled = true;
@@ -95,7 +109,7 @@
                     if (!mat.tipo || !mat.id) return;
                     const opt = document.createElement('option');
                     opt.value = `${mat.tipo}|${mat.id}`;
-                    opt.textContent = `[${mat.tipo.toUpperCase()}] ${mat.titulo || 'Sem título'}`;
+                    opt.textContent = `[${mat.tipo.toUpperCase()}] ${mat.titulo || mat.name || 'Sem título'}`;
                     materialSelect.appendChild(opt);
                 });
 
@@ -106,8 +120,7 @@
         }
 
         trilhaSelect.addEventListener('change', () => {
-            const trilha_id = trilhaSelect.value;
-            carregarMateriais(trilha_id);
+            carregarMateriais(trilhaSelect.value);
         });
 
         btnCriar.addEventListener('click', async () => {
@@ -115,18 +128,18 @@
 
             const usuario_id = usuarioSelect.value;
             const trilha_id = trilhaSelect.value;
-            const conteudo = conteudoInput.value.trim();
             const materialSelecionado = materialSelect.value;
+            const conteudo = conteudoInput.value.trim();
 
-            if (!usuario_id || !trilha_id || !conteudo) {
+            if (!conteudo || !usuario_id || !trilha_id) {
                 respostaPre.textContent = 'Preencha todos os campos obrigatórios.';
                 return;
             }
 
             const dados = {
+                conteudo,
                 usuario_id: Number(usuario_id),
-                trilha_id: Number(trilha_id),
-                conteudo: conteudo
+                trilha_id: Number(trilha_id)
             };
 
             if (materialSelecionado) {
@@ -143,18 +156,17 @@
                 });
 
                 if (!res.ok) {
-                    const texto = await res.text();
-                    throw new Error(texto || 'Erro desconhecido');
+                    const erroTexto = await res.text();
+                    throw new Error(erroTexto || 'Erro desconhecido');
                 }
 
                 const json = await res.json();
-                respostaPre.textContent = 'Anotação criada:\n' + JSON.stringify(json, null, 2);
+                respostaPre.textContent = 'Anotação criada com sucesso:\n' + JSON.stringify(json, null, 2);
 
-                // Limpa tudo
                 conteudoInput.value = '';
                 usuarioSelect.value = '';
                 trilhaSelect.value = '';
-                materialSelect.innerHTML = '<option value="">Nenhum material</option>';
+                materialSelect.innerHTML = '<option value="">Selecione um material</option>';
                 materialSelect.disabled = true;
 
             } catch (err) {
@@ -162,9 +174,49 @@
             }
         });
 
-        // Carregar usuários e trilhas na inicialização
-        carregarUsuarios();
-        carregarTrilhas();
+        // Listar anotações
+        btnListar.addEventListener('click', async () => {
+            respostaPre.textContent = '';
+
+            try {
+                const res = await fetch(BASE_URL);
+                const anotacoes = await res.json();
+
+                let texto = '';
+
+                for (const anotacao of anotacoes) {
+                    texto += `ID: ${anotacao.id}\n`;
+                    texto += `Conteúdo: ${anotacao.conteudo}\n`;
+
+                    if (anotacao.referencia) {
+                        const tipo = anotacao.referencia.tipo_material;
+                        const idOriginal = anotacao.referencia.material_id;
+
+                        const material = todosMateriais.find(m => m.tipo === tipo && m.id === idOriginal);
+                        const titulo = material?.titulo || material?.name || '(sem título)';
+
+                        texto += `Material: [${tipo}] ${titulo}\n`;
+                    } else {
+                        texto += `Material: (sem material)\n`;
+                    }
+
+                    texto += '\n';
+                }
+
+                respostaPre.textContent = texto;
+
+            } catch (err) {
+                respostaPre.textContent = 'Erro ao listar anotações: ' + err.message;
+            }
+        });
+
+        // Carregamento inicial
+        (async () => {
+            await carregarUsuarios();
+            await carregarTrilhas();
+            await carregarTodosMateriais();
+        })();
+
     </script>
 </body>
 

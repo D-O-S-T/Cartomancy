@@ -1,5 +1,8 @@
 const { DataTypes } = require('sequelize');
 const { sequelize } = require('./db');
+const Anotacao = require('./Referencia');
+// No controller/anotacaoController.js
+
 
 const Referencia = sequelize.define('Referencia', {
   id: {

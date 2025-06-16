@@ -1,8 +1,9 @@
 const { DataTypes } = require('sequelize');
 const { sequelize } = require('./db'); 
 const Referencia = require('./Referencia');
-const User = require('./Usuario');
+const Usuario = require('./Usuario');
 const Trilha = require('./Trilha');
+
 
 const Anotacao = sequelize.define('Anotacao', {
   id: {
@@ -35,24 +36,6 @@ const Anotacao = sequelize.define('Anotacao', {
   timestamps: true,
   createdAt: 'criado_em',
   updatedAt: 'atualizado_em'
-});
-
-// Relacionamento
-Anotacao.belongsTo(Referencia, {
-  foreignKey: 'referencia_id',
-  as: 'referencia'
-});
-
-// Relacionamento com Usuario
-Anotacao.belongsTo(User, {
-  foreignKey: 'usuario_id',
-  as: 'usuario'
-});
-
-// Relacionamento com Trilha
-Anotacao.belongsTo(Trilha, {
-  foreignKey: 'trilha_id',
-  as: 'trilha'
 });
 
 module.exports = Anotacao;
