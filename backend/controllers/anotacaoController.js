@@ -1,5 +1,5 @@
 const Anotacao = require('../models/Anotacao');
-const Referencia = require('../models/Referencia');
+const Referencia = require('../models/Referencias');
 
 const listarAnotacao = async (req, res) => {
   try {

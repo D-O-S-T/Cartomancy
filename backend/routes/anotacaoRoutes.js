@@ -2,16 +2,11 @@ const express = require('express');
 const router = express.Router();
 const anotacaoController = require('../controllers/anotacaoController');
 
-router.get('/', anotacaoController.listarAnotacao);
-router.post('/', anotacaoController.criarAnotacao);
-router.put('/:id', anotacaoController.editarAnotacao);
-router.delete('/:id', anotacaoController.excluirAnotacao);
-
 /**
  * @swagger
  * tags:
- *   name: Anotacoes
- *   description: Gerenciamento de Anotações
+ *   name: Anotações
+ *   description: Criação e edição de anotações de conteúdo
  */
 
 /**
@@ -19,7 +14,7 @@ router.delete('/:id', anotacaoController.excluirAnotacao);
  * /api/anotacoes:
  *   get:
  *     summary: Lista todas as anotações
- *     tags: [Anotacoes]
+ *     tags: [Anotações]
  *     responses:
  *       200:
  *         description: Lista de anotações retornada com sucesso
@@ -53,7 +48,7 @@ router.get('/', anotacaoController.listarAnotacao);
  * /api/anotacoes:
  *   post:
  *     summary: Cria uma nova anotação
- *     tags: [Anotacoes]
+ *     tags: [Anotações]
  *     requestBody:
  *       required: true
  *       content:
@@ -78,7 +73,7 @@ router.post('/', anotacaoController.criarAnotacao);
  * /api/anotacoes/{id}:
  *   put:
  *     summary: Atualiza apenas o conteúdo da anotação
- *     tags: [Anotacoes]
+ *     tags: [Anotações]
  *     parameters:
  *       - in: path
  *         name: id
@@ -111,7 +106,7 @@ router.put('/:id', anotacaoController.editarAnotacao);
  * /api/anotacoes/{id}:
  *   delete:
  *     summary: Exclui uma anotação
- *     tags: [Anotacoes]
+ *     tags: [Anotações]
  *     parameters:
  *       - in: path
  *         name: id

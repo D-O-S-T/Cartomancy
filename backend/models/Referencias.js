@@ -9,11 +9,11 @@ const Referencia = sequelize.define('Referencia', {
   },
   tipo_material: {
     type: DataTypes.ENUM('carta', 'video', 'pdf', 'link'),
-    allowNull: false
+    // Você pode adicionar mais tipos no futuro, se necessário
   },
   material_id: {
     type: DataTypes.INTEGER,
-    allowNull: false
+    // Esse campo pode ser usado como chave estrangeira em código, sem obrigatoriedade aqui
   }
 }, {
   tableName: 'referencias',
