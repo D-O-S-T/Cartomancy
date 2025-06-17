@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+const db = require('./models'); 
 const userRoutes = require('./routes/usuarioRoutes');
 const swaggerSetup = require('./config/swagger');
 const trilhaRoutes = require('./routes/trilhaRoutes');

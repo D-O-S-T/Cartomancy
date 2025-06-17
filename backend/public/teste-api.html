@@ -7,8 +7,6 @@
 </head>
 
 <body>
-    <h2>Criar Anotação</h2>
-
     <label for="usuario_id">Usuário:</label>
     <select id="usuario_id" required>
         <option value="">Selecione um usuário</option>
@@ -20,6 +18,8 @@
         <option value="">Selecione uma trilha</option>
     </select>
     <br /><br />
+    <hr />
+    <h2>Criar Anotação</h2>
 
     <label for="materialSelecionado">Material (opcional):</label>
     <select id="materialSelecionado" disabled>
@@ -32,6 +32,27 @@
     <br /><br />
 
     <button id="btnCriar">Criar Anotação</button>
+    <hr />
+    <h2>Editar Anotação</h2>
+
+    <label for="edit_id">ID da Anotação:</label>
+    <input type="number" id="edit_id" min="1" />
+    <br /><br />
+
+    <label for="edit_conteudo">Novo Conteúdo:</label><br />
+    <textarea id="edit_conteudo" rows="4" cols="50"></textarea>
+    <br /><br />
+
+    <button id="btnEditar">Editar Anotação</button>
+    <hr />
+    <h2>Excluir Anotação</h2>
+
+    <label for="delete_id">ID da Anotação:</label>
+    <input type="number" id="delete_id" min="1" />
+    <br /><br />
+
+    <button id="btnExcluir">Excluir Anotação</button>
+    <hr />
     <button id="btnListar">Listar Anotações</button>
 
     <pre id="resposta" style="white-space: pre-wrap; margin-top: 20px;"></pre>
@@ -44,12 +65,16 @@
 
         const usuarioSelect = document.getElementById('usuario_id');
         const trilhaSelect = document.getElementById('trilha_id');
+        const editIdInput = document.getElementById('edit_id');
+        const editConteudoInput = document.getElementById('edit_conteudo');
+        const btnExcluir = document.getElementById('btnExcluir');
+        const deleteIdInput = document.getElementById('delete_id');
         const materialSelect = document.getElementById('materialSelecionado');
         const conteudoInput = document.getElementById('conteudo');
         const respostaPre = document.getElementById('resposta');
         const btnCriar = document.getElementById('btnCriar');
         const btnListar = document.getElementById('btnListar');
-
+        const btnEditar = document.getElementById('btnEditar');
         let todosMateriais = [];
 
         // Carregar todos os materiais (sem filtro)
@@ -174,6 +199,40 @@
             }
         });
 
+        btnEditar.addEventListener('click', async () => {
+            respostaPre.textContent = '';
+
+            const id = editIdInput.value.trim();
+            const conteudo = editConteudoInput.value.trim();
+
+            if (!id || !conteudo) {
+                respostaPre.textContent = 'Informe o ID da anotação e o novo conteúdo.';
+                return;
+            }
+
+            try {
+                const res = await fetch(`${BASE_URL}/${id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ conteudo })
+                });
+
+                if (!res.ok) {
+                    const erroTexto = await res.text();
+                    throw new Error(erroTexto || 'Erro desconhecido');
+                }
+
+                const json = await res.json();
+                respostaPre.textContent = 'Anotação editada com sucesso:\n' + JSON.stringify(json, null, 2);
+
+                editIdInput.value = '';
+                editConteudoInput.value = '';
+
+            } catch (err) {
+                respostaPre.textContent = 'Erro ao editar anotação: ' + err.message;
+            }
+        });
+
         // Listar anotações
         btnListar.addEventListener('click', async () => {
             respostaPre.textContent = '';
@@ -207,6 +266,38 @@
 
             } catch (err) {
                 respostaPre.textContent = 'Erro ao listar anotações: ' + err.message;
+            }
+        });
+
+        btnExcluir.addEventListener('click', async () => {
+            respostaPre.textContent = '';
+
+            const id = deleteIdInput.value.trim();
+            if (!id) {
+                respostaPre.textContent = 'Informe o ID da anotação que deseja excluir.';
+                return;
+            }
+
+            const confirmar = confirm(`Tem certeza que deseja excluir a anotação ID ${id}?`);
+            if (!confirmar) return;
+
+            try {
+                const res = await fetch(`${BASE_URL}/${id}`, {
+                    method: 'DELETE'
+                });
+
+                if (!res.ok) {
+                    const erroTexto = await res.text();
+                    throw new Error(erroTexto || 'Erro desconhecido');
+                }
+
+                const json = await res.json();
+                respostaPre.textContent = 'Anotação excluída com sucesso:\n' + JSON.stringify(json, null, 2);
+
+                deleteIdInput.value = '';
+
+            } catch (err) {
+                respostaPre.textContent = 'Erro ao excluir anotação: ' + err.message;
             }
         });
 

@@ -5,47 +5,15 @@ const User = require('../models/Usuario');
 
 const Carta = require('../models/Carta');
 const Video = require('../models/Video');
-const PDF = require('../models/Pdf');
+const Pdf = require('../models/Pdf');
 
 
 // Controller para listar anotações
 const listarAnotacao = async (req, res) => {
   try {
-    // Busca anotações com a referencia relacionada
-    const anotacao = await Anotacao.findAll({
-      include: [{ model: Referencia, as: 'referencia' }]
-    });
+    const anotacoes = await Anotacao.findAll();
 
-    // Para cada anotação, busca o título do material usando helper
-    const resultado = await Promise.all(anotacao.map(async (anotacao) => {
-      let materialNome = '(sem material)';
-
-      if (anotacao.referencia) {
-        const { tipo_material, material_id } = anotacao.referencia;
-
-
-        if (tipo_material === 'carta') {
-          const carta = await Carta.findByPk(material_id);
-          if (carta) materialNome = carta.name || '(sem nome)';
-        } else if (tipo_material === 'video') {
-          const video = await Video.findByPk(material_id);
-          if (video) materialNome = video.titulo || '(sem título)';
-        } else if (tipo_material === 'pdf') {
-          const pdf = await PDF.findByPk(material_id);
-          if (pdf) materialNome = pdf.titulo || '(sem título)';
-        }
-      }
-
-      return {
-        id: anotacao.id,
-        conteudo: anotacao.conteudo,
-        usuario_id: anotacao.usuario_id,
-        trilha_id: anotacao.trilha_id,
-        material: materialNome
-      };
-    }));
-
-    res.json(resultado);
+    res.json(anotacoes);
   } catch (error) {
     console.error('Erro ao listar anotações:', error);
     res.status(500).json({ erro: 'Erro ao listar anotações' });
@@ -90,6 +58,7 @@ const editarAnotacao = async (req, res) => {
 
   try {
     const anotacao = await Anotacao.findByPk(id);
+    
     if (!anotacao) return res.status(404).json({ erro: 'Anotação não encontrada' });
 
     anotacao.conteudo = conteudo;

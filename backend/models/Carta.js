@@ -28,6 +28,10 @@ const Carta = sequelize.define('Carta', {
     type: DataTypes.TEXT,
     allowNull: false
   },
+  trilha_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
   desc: {
     type: DataTypes.TEXT,
     allowNull: false

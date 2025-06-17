@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const { sequelize } = require('./db');
 
-const Video = sequelize.define('Pdf', {
+const Pdf = sequelize.define('Pdf', {  // nome correto do model
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -24,8 +24,8 @@ const Video = sequelize.define('Pdf', {
     allowNull: false,
   },
 }, {
-  tableName: 'videos',
+  tableName: 'pdf',
   timestamps: false,
 });
 
-module.exports = Video;
+module.exports = Pdf;  // exporte com o nome correto
