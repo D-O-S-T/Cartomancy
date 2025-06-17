@@ -3,59 +3,108 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>Gerenciamento de Anotações</title>
+    <title>CRUD Anotações Simples</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        select,
+        input[type="number"],
+        textarea {
+            width: 100%;
+            padding: 6px;
+            margin-top: 5px;
+            box-sizing: border-box;
+            font-size: 1rem;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 8px 12px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        #resposta {
+            margin-top: 25px;
+            background: #eee;
+            padding: 10px;
+            border-radius: 4px;
+            white-space: pre-wrap;
+            font-family: monospace;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+    </style>
 </head>
 
 <body>
-    <label for="usuario_id">Usuário:</label>
-    <select id="usuario_id" required>
-        <option value="">Selecione um usuário</option>
-    </select>
-    <br /><br />
+    <h1>Gerenciamento de Anotações</h1>
 
-    <label for="trilha_id">Trilha:</label>
-    <select id="trilha_id" required>
-        <option value="">Selecione uma trilha</option>
-    </select>
-    <br /><br />
-    <hr />
-    <h2>Criar Anotação</h2>
+    <!-- Formulário Criar -->
+    <form id="formCriar">
+        <label for="usuario_id">Usuário</label>
+        <select id="usuario_id" required>
+            <option value="" disabled selected>Selecione um usuário</option>
+        </select>
 
-    <label for="materialSelecionado">Material (opcional):</label>
-    <select id="materialSelecionado" disabled>
-        <option value="">Selecione um material</option>
-    </select>
-    <br /><br />
+        <label for="trilha_id">Trilha</label>
+        <select id="trilha_id" required>
+            <option value="" disabled selected>Selecione uma trilha</option>
+        </select>
 
-    <label for="conteudo">Conteúdo da anotação:</label><br />
-    <textarea id="conteudo" rows="4" cols="50" required></textarea>
-    <br /><br />
+        <label for="materialSelecionado">Material (opcional)</label>
+        <select id="materialSelecionado" disabled>
+            <option value="" selected>Selecione um material</option>
+        </select>
 
-    <button id="btnCriar">Criar Anotação</button>
-    <hr />
-    <h2>Editar Anotação</h2>
+        <label for="conteudo">Conteúdo da Anotação</label>
+        <textarea id="conteudo" required placeholder="Digite o conteúdo da anotação"></textarea>
 
-    <label for="edit_id">ID da Anotação:</label>
-    <input type="number" id="edit_id" min="1" />
-    <br /><br />
+        <button type="submit">Criar Anotação</button>
+    </form>
 
-    <label for="edit_conteudo">Novo Conteúdo:</label><br />
-    <textarea id="edit_conteudo" rows="4" cols="50"></textarea>
-    <br /><br />
+    <!-- Formulário Editar -->
+    <form id="formEditar">
+        <label for="edit_id">ID da Anotação para Editar</label>
+        <input type="number" id="edit_id" min="1" required placeholder="Informe o ID da anotação" />
 
-    <button id="btnEditar">Editar Anotação</button>
-    <hr />
-    <h2>Excluir Anotação</h2>
+        <label for="edit_conteudo">Novo Conteúdo</label>
+        <textarea id="edit_conteudo" required placeholder="Digite o novo conteúdo"></textarea>
 
-    <label for="delete_id">ID da Anotação:</label>
-    <input type="number" id="delete_id" min="1" />
-    <br /><br />
+        <button type="submit">Editar Anotação</button>
+    </form>
 
-    <button id="btnExcluir">Excluir Anotação</button>
-    <hr />
+    <!-- Formulário Excluir -->
+    <form id="formExcluir">
+        <label for="delete_id">ID da Anotação para Excluir</label>
+        <input type="number" id="delete_id" min="1" required placeholder="Informe o ID da anotação" />
+
+        <button type="submit">Excluir Anotação</button>
+    </form>
+
     <button id="btnListar">Listar Anotações</button>
 
-    <pre id="resposta" style="white-space: pre-wrap; margin-top: 20px;"></pre>
+    <pre id="resposta"></pre>
 
     <script>
         const BASE_URL = 'http://localhost:5000/api/anotacoes';
@@ -65,29 +114,15 @@
 
         const usuarioSelect = document.getElementById('usuario_id');
         const trilhaSelect = document.getElementById('trilha_id');
-        const editIdInput = document.getElementById('edit_id');
-        const editConteudoInput = document.getElementById('edit_conteudo');
-        const btnExcluir = document.getElementById('btnExcluir');
-        const deleteIdInput = document.getElementById('delete_id');
         const materialSelect = document.getElementById('materialSelecionado');
         const conteudoInput = document.getElementById('conteudo');
         const respostaPre = document.getElementById('resposta');
-        const btnCriar = document.getElementById('btnCriar');
-        const btnListar = document.getElementById('btnListar');
-        const btnEditar = document.getElementById('btnEditar');
-        let todosMateriais = [];
 
-        // Carregar todos os materiais (sem filtro)
-        async function carregarTodosMateriais() {
-            try {
-                const res = await fetch(MATERIAIS_URL);
-                todosMateriais = await res.json();
-            } catch (e) {
-                respostaPre.textContent = 'Erro ao carregar todos os materiais: ' + e.message;
-            }
-        }
+        const editIdInput = document.getElementById('edit_id');
+        const editConteudoInput = document.getElementById('edit_conteudo');
 
-        // Carregar usuários
+        const deleteIdInput = document.getElementById('delete_id');
+
         async function carregarUsuarios() {
             try {
                 const res = await fetch(USUARIOS_URL);
@@ -103,7 +138,6 @@
             }
         }
 
-        // Carregar trilhas
         async function carregarTrilhas() {
             try {
                 const res = await fetch(TRILHAS_URL);
@@ -119,7 +153,6 @@
             }
         }
 
-        // Carregar materiais da trilha selecionada
         async function carregarMateriais(trilha_id) {
             materialSelect.innerHTML = '<option value="">Nenhum material</option>';
             materialSelect.disabled = true;
@@ -148,7 +181,8 @@
             carregarMateriais(trilhaSelect.value);
         });
 
-        btnCriar.addEventListener('click', async () => {
+        document.getElementById('formCriar').addEventListener('submit', async e => {
+            e.preventDefault();
             respostaPre.textContent = '';
 
             const usuario_id = usuarioSelect.value;
@@ -199,7 +233,8 @@
             }
         });
 
-        btnEditar.addEventListener('click', async () => {
+        document.getElementById('formEditar').addEventListener('submit', async e => {
+            e.preventDefault();
             respostaPre.textContent = '';
 
             const id = editIdInput.value.trim();
@@ -233,43 +268,8 @@
             }
         });
 
-        // Listar anotações
-        btnListar.addEventListener('click', async () => {
-            respostaPre.textContent = '';
-
-            try {
-                const res = await fetch(BASE_URL);
-                const anotacoes = await res.json();
-
-                let texto = '';
-
-                for (const anotacao of anotacoes) {
-                    texto += `ID: ${anotacao.id}\n`;
-                    texto += `Conteúdo: ${anotacao.conteudo}\n`;
-
-                    if (anotacao.referencia) {
-                        const tipo = anotacao.referencia.tipo_material;
-                        const idOriginal = anotacao.referencia.material_id;
-
-                        const material = todosMateriais.find(m => m.tipo === tipo && m.id === idOriginal);
-                        const titulo = material?.titulo || material?.name || '(sem título)';
-
-                        texto += `Material: [${tipo}] ${titulo}\n`;
-                    } else {
-                        texto += `Material: (sem material)\n`;
-                    }
-
-                    texto += '\n';
-                }
-
-                respostaPre.textContent = texto;
-
-            } catch (err) {
-                respostaPre.textContent = 'Erro ao listar anotações: ' + err.message;
-            }
-        });
-
-        btnExcluir.addEventListener('click', async () => {
+        document.getElementById('formExcluir').addEventListener('submit', async e => {
+            e.preventDefault();
             respostaPre.textContent = '';
 
             const id = deleteIdInput.value.trim();
@@ -301,13 +301,32 @@
             }
         });
 
-        // Carregamento inicial
+        document.getElementById('btnListar').addEventListener('click', async () => {
+            respostaPre.textContent = '';
+
+            try {
+                const res = await fetch(BASE_URL);
+                const anotacoes = await res.json();
+
+                let texto = '';
+
+                for (const anotacao of anotacoes) {
+                    texto += `ID: ${anotacao.id}\n`;
+                    texto += `Conteúdo: ${anotacao.conteudo}\n\n`;
+                }
+
+                respostaPre.textContent = texto || 'Nenhuma anotação encontrada.';
+
+            } catch (err) {
+                respostaPre.textContent = 'Erro ao listar anotações: ' + err.message;
+            }
+        });
+
+        // Inicializa selects ao carregar página
         (async () => {
             await carregarUsuarios();
             await carregarTrilhas();
-            await carregarTodosMateriais();
         })();
-
     </script>
 </body>
 

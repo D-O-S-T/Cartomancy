@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Login</title>
+</head>
+
+<body>
+    <h1>Login</h1>
+
+    <form id="loginForm">
+        <input type="email" id="email" placeholder="Email" required />
+        <input type="password" id="senha" placeholder="Senha" required />
+        <button type="submit">Entrar</button>
+    </form>
+
+    <div id="msg"></div>
+
+    <script>
+        const loginForm = document.getElementById('loginForm');
+        const msgDiv = document.getElementById('msg');
+
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const email = document.getElementById('email').value.trim();
+            const senha_hash = document.getElementById('senha').value.trim();
+
+            const res = await fetch('http://localhost:5000/api/usuarios/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, senha_hash }),
+            });
+
+            const data = await res.json();
+
+            if (res.ok) {
+                msgDiv.style.color = 'green';
+                msgDiv.textContent = data.mensagem + ' - Bem vindo(a), ' + data.usuario.nome;
+                if (data.usuario.tipo_usuario === 'admin') {
+                    window.location.href = '/crudAdmin'; // redireciona para a página admin
+                } else {
+                    window.location.href = '/crud'; // redireciona para página estudante
+                }
+            } else {
+                msgDiv.style.color = 'red';
+                msgDiv.textContent = data.erro || 'Erro no login.';
+            }
+        });
+    </script>
+</body>
+
+</html>

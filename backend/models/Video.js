@@ -11,10 +11,10 @@ const Video = sequelize.define('Video', {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  desc: {
+  desc: {                     // <- aqui abriu chaves
     type: DataTypes.STRING,
     allowNull: true,
-  },
+  },                          // <- fechou chaves
   url: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -22,10 +22,14 @@ const Video = sequelize.define('Video', {
   trilha_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
+    references: {
+      model: 'trilhas',       // geralmente o nome da tabela é minúsculo
+      key: 'id',
+    },
   },
-}, {
-  tableName: 'videos',
-  timestamps: false,
+}, {                         // <- **Aqui abre um novo objeto para as opções**
+  tableName: 'videos',        // <- **Aqui vai a opção tableName**
+  timestamps: false,          // <- **E timestamps**
 });
 
 module.exports = Video;

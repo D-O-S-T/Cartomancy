@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      max-width: 800px;
+    }
+
+    section {
+      margin-bottom: 40px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid #ccc;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      max-width: 400px;
+      margin-top: 8px;
+      margin-bottom: 12px;
+      padding: 8px;
+      font-size: 1rem;
+      box-sizing: border-box;
+    }
+
+    button {
+      padding: 10px 18px;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 8px;
+    }
+
+    pre {
+      background-color: #f0f0f0;
+      padding: 12px;
+      white-space: pre-wrap;
+      max-height: 300px;
+      overflow-y: auto;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+
+    h1 {
+      margin-bottom: 24px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Admin</h1>
+
+  <!-- Seção Trilhas -->
+  <section id="section-trilhas">
+    <h2>Gerenciar Trilhas</h2>
+
+    <h3>Adicionar Trilha</h3>
+    <input type="text" id="nomeTrilha" placeholder="Nome da Trilha" />
+    <button id="btnCriarTrilha">Criar Trilha</button>
+
+    <hr />
+
+    <h3>Editar Trilha</h3>
+    <input type="number" id="editIdTrilha" min="1" placeholder="ID da Trilha para editar" />
+    <input type="text" id="editNomeTrilha" placeholder="Novo nome da Trilha" />
+    <button id="btnEditarTrilha">Editar Trilha</button>
+
+    <hr />
+
+    <h3>Excluir Trilha</h3>
+    <input type="number" id="deleteIdTrilha" min="1" placeholder="ID da Trilha para excluir" />
+    <button id="btnExcluirTrilha">Excluir Trilha</button>
+
+    <hr />
+
+    <button id="btnListarTrilhas">Listar Trilhas</button>
+  </section>
+
+  <!-- Seção Vídeos -->
+  <section id="section-videos">
+    <h2>Gerenciar Vídeos</h2>
+
+    <h3>Adicionar Vídeo</h3>
+    <select id="selectTrilhaVideo">
+      <option value="">Selecione uma trilha</option>
+    </select>
+    <input type="text" id="tituloVideo" placeholder="Título do Vídeo" />
+    <textarea id="descVideo" rows="3" placeholder="Descrição (opcional)"></textarea>
+    <input type="text" id="urlVideo" placeholder="URL do Vídeo" />
+    <button id="btnCriarVideo">Criar Vídeo</button>
+
+    <hr />
+
+    <h3>Excluir Vídeo</h3>
+    <input type="number" id="deleteIdVideo" min="1" placeholder="ID do Vídeo para excluir" />
+    <button id="btnExcluirVideo">Excluir Vídeo</button>
+
+    <hr />
+
+    <button id="btnListarVideos">Listar Vídeos</button>
+  </section>
+
+  <!-- Área de Resposta -->
+  <h2>Resultado / Resposta</h2>
+  <pre id="resposta"></pre>
+
+  <script>
+    // URLs das APIs
+    const BASE_URL_TRILHAS = 'http://localhost:5000/api/trilhas';
+    const BASE_URL_VIDEOS = 'http://localhost:5000/api/videos';
+
+    const respostaPre = document.getElementById('resposta');
+
+    // Inputs Trilhas
+    const nomeTrilhaInput = document.getElementById('nomeTrilha');
+    const editIdTrilhaInput = document.getElementById('editIdTrilha');
+    const editNomeTrilhaInput = document.getElementById('editNomeTrilha');
+    const deleteIdTrilhaInput = document.getElementById('deleteIdTrilha');
+
+    // Inputs Vídeos
+    const selectTrilhaVideo = document.getElementById('selectTrilhaVideo');
+    const tituloVideoInput = document.getElementById('tituloVideo');
+    const descVideoInput = document.getElementById('descVideo');
+    const urlVideoInput = document.getElementById('urlVideo');
+    const deleteIdVideoInput = document.getElementById('deleteIdVideo');
+
+    // --- Funções Auxiliares ---
+
+    async function carregarTrilhasNoSelect() {
+      try {
+        const res = await fetch(BASE_URL_TRILHAS);
+        if (!res.ok) throw new Error('Erro ao carregar trilhas');
+        const trilhas = await res.json();
+
+        selectTrilhaVideo.innerHTML = '<option value="">Selecione uma trilha</option>';
+
+        trilhas.forEach(t => {
+          const opt = document.createElement('option');
+          opt.value = t.id;
+          opt.textContent = t.nome;
+          selectTrilhaVideo.appendChild(opt);
+        });
+      } catch (err) {
+        respostaPre.textContent = 'Erro ao carregar trilhas para o vídeo: ' + err.message;
+      }
+    }
+
+    // --- CRUD Trilhas ---
+
+    document.getElementById('btnCriarTrilha').addEventListener('click', async () => {
+      respostaPre.textContent = '';
+      const nome = nomeTrilhaInput.value.trim();
+      if (!nome) {
+        respostaPre.textContent = 'Informe o nome da trilha.';
+        return;
+      }
+
+      try {
+        const res = await fetch(BASE_URL_TRILHAS, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ nome })
+        });
+        if (!res.ok) {
+          const text = await res.text();
+          throw new Error(text || 'Erro desconhecido');
+        }
+        const json = await res.json();
+        respostaPre.textContent = 'Trilha criada com sucesso:\n' + JSON.stringify(json, null, 2);
+
+        nomeTrilhaInput.value = '';
+        await carregarTrilhasNoSelect();
+      } catch (err) {
+        respostaPre.textContent = 'Erro ao criar trilha: ' + err.message;
+      }
+    });
+
+    document.getElementById('btnEditarTrilha').addEventListener('click', async () => {
+      respostaPre.textContent = '';
+      const id = editIdTrilhaInput.value.trim();
+      const nome = editNomeTrilhaInput.value.trim();
+
+      if (!id) {
+        respostaPre.textContent = 'Informe o ID da trilha para editar.';
+        return;
+      }
+      if (!nome) {
+        respostaPre.textContent = 'Informe o novo nome da trilha.';
+        return;
+      }
+
+      try {
+        const res = await fetch(`${BASE_URL_TRILHAS}/${id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ nome })
+        });
+        if (!res.ok) {
+          const text = await res.text();
+          throw new Error(text || 'Erro desconhecido');
+        }
+        const json = await res.json();
+        respostaPre.textContent = 'Trilha editada com sucesso:\n' + JSON.stringify(json, null, 2);
+
+        editIdTrilhaInput.value = '';
+        editNomeTrilhaInput.value = '';
+        await carregarTrilhasNoSelect();
+      } catch (err) {
+        respostaPre.textContent = 'Erro ao editar trilha: ' + err.message;
+      }
+    });
+
+    document.getElementById('btnExcluirTrilha').addEventListener('click', async () => {
+      respostaPre.textContent = '';
+      const id = deleteIdTrilhaInput.value.trim();
+
+      if (!id) {
+        respostaPre.textContent = 'Informe o ID da trilha para excluir.';
+        return;
+      }
+      if (!confirm(`Confirma exclusão da trilha ID ${id}?`)) return;
+
+      try {
+        const res = await fetch(`${BASE_URL_TRILHAS}/${id}`, {
+          method: 'DELETE'
+        });
+        if (!res.ok) {
+          const text = await res.text();
+          throw new Error(text || 'Erro desconhecido');
+        }
+        const json = await res.json();
+        respostaPre.textContent = 'Trilha excluída com sucesso:\n' + JSON.stringify(json, null, 2);
+
+        deleteIdTrilhaInput.value = '';
+        await carregarTrilhasNoSelect();
+      } catch (err) {
+        respostaPre.textContent = 'Erro ao excluir trilha: ' + err.message;
+      }
+    });
+
+    document.getElementById('btnListarTrilhas').addEventListener('click', async () => {
+      respostaPre.textContent = '';
+      try {
+        const res = await fetch(BASE_URL_TRILHAS);
+        if (!res.ok) throw new Error('Erro ao buscar trilhas');
+        const trilhas = await res.json();
+
+        if (trilhas.length === 0) {
+          respostaPre.textContent = 'Nenhuma trilha cadastrada.';
+          return;
+        }
+
+        let texto = '';
+        trilhas.forEach(t => {
+          texto += `ID: ${t.id}\nNome: ${t.nome}\n\n`;
+        });
+        respostaPre.textContent = texto;
+      } catch (err) {
+        respostaPre.textContent = 'Erro ao listar trilhas: ' + err.message;
+      }
+    });
+
+    // --- CRUD Vídeos ---
+
+    document.getElementById('btnCriarVideo').addEventListener('click', async () => {
+      respostaPre.textContent = '';
+      const titulo = tituloVideoInput.value.trim();
+      const desc = descVideoInput.value.trim();
+      const url = urlVideoInput.value.trim();
+      const trilha_id = selectTrilhaVideo.value;
+
+      if (!titulo || !url || !trilha_id) {
+        respostaPre.textContent = 'Preencha todos os campos obrigatórios: título, URL e trilha.';
+        return;
+      }
+
+      const dados = { titulo, desc, url, trilha_id: Number(trilha_id) };
+
+      try {
+        const res = await fetch(BASE_URL_VIDEOS, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(dados)
+        });
+        if (!res.ok) {
+          const text = await res.text();
+          throw new Error(text || 'Erro desconhecido');
+        }
+        const json = await res.json();
+        respostaPre.textContent = 'Vídeo criado com sucesso:\n' + JSON.stringify(json, null, 2);
+
+        tituloVideoInput.value = '';
+        descVideoInput.value = '';
+        urlVideoInput.value = '';
+        selectTrilhaVideo.value = '';
+      } catch (err) {
+        respostaPre.textContent = 'Erro ao criar vídeo: ' + err.message;
+      }
+    });
+
+    document.getElementById('btnExcluirVideo').addEventListener('click', async () => {
+      respostaPre.textContent = '';
+      const id = deleteIdVideoInput.value.trim();
+
+      if (!id) {
+        respostaPre.textContent = 'Informe o ID do vídeo para excluir.';
+        return;
+      }
+      if (!confirm(`Confirma exclusão do vídeo ID ${id}?`)) return;
+
+      try {
+        const res = await fetch(`${BASE_URL_VIDEOS}/${id}`, {
+          method: 'DELETE'
+        });
+        if (!res.ok) {
+          const text = await res.text();
+          throw new Error(text || 'Erro desconhecido');
+        }
+        const json = await res.json();
+        respostaPre.textContent = 'Vídeo excluído com sucesso:\n' + JSON.stringify(json, null, 2);
+
+        deleteIdVideoInput.value = '';
+      } catch (err) {
+        respostaPre.textContent = 'Erro ao excluir vídeo: ' + err.message;
+      }
+    });
+
+    document.getElementById('btnListarVideos').addEventListener('click', async () => {
+      respostaPre.textContent = '';
+      try {
+        const res = await fetch(BASE_URL_VIDEOS);
+        if (!res.ok) throw new Error('Erro ao buscar vídeos');
+        const videos = await res.json();
+
+        if (videos.length === 0) {
+          respostaPre.textContent = 'Nenhum vídeo cadastrado.';
+          return;
+        }
+
+        let texto = '';
+        videos.forEach(v => {
+          texto += `ID: ${v.id}\nTítulo: ${v.titulo}\nDescrição: ${v.desc || '(sem descrição)'}\nURL: ${v.url}\nTrilha ID: ${v.trilha_id}\n\n`;
+        });
+        respostaPre.textContent = texto;
+      } catch (err) {
+        respostaPre.textContent = 'Erro ao listar vídeos: ' + err.message;
+      }
+    });
+
+    // Carregar trilhas para o select ao iniciar
+    carregarTrilhasNoSelect();
+  </script>
+</body>
+
+</html>

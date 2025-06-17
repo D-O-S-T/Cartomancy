@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const userController = require('../controllers/usuarioController');
+const usuarioController = require('../controllers/usuarioController');
+
+router.post('/login', usuarioController.login);
 
 /**
  * @swagger
@@ -20,7 +22,7 @@ const userController = require('../controllers/usuarioController');
  *       200:
  *         description: Lista retornada com sucesso
  */
-router.get('/', userController.listarUsuarios);
+router.get('/', usuarioController.listarUsuarios);
 
 /**
  * @swagger
@@ -46,7 +48,7 @@ router.get('/', userController.listarUsuarios);
  *       201:
  *         description: Usuário criado com sucesso
  */
-router.post('/', userController.criarUsuario);
+//router.post('/criar', usuarioController.criarUsuario);
 
 /**
  * @swagger
@@ -76,7 +78,7 @@ router.post('/', userController.criarUsuario);
  *       200:
  *         description: Usuário atualizado com sucesso
  */
-router.put('/:id', userController.atualizarUsuario); // ✅ Ajustado aqui
+//router.put('/:id', usuarioController.atualizarUsuario); // 
 
 /**
  * @swagger
@@ -95,6 +97,8 @@ router.put('/:id', userController.atualizarUsuario); // ✅ Ajustado aqui
  *       200:
  *         description: Usuário excluído com sucesso
  */
-router.delete('/:id', userController.excluirUsuario);
+//router.delete('/:id', usuarioController.excluirUsuario);
+
+
 
 module.exports = router;

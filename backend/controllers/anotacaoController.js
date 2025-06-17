@@ -1,7 +1,7 @@
 const Anotacao = require('../models/Anotacao');
 const Referencia = require('../models/Referencia');
 const Trilha = require('../models/Trilha');
-const User = require('../models/Usuario');
+const Usuario = require('../models/Usuario');
 
 const Carta = require('../models/Carta');
 const Video = require('../models/Video');
@@ -58,7 +58,7 @@ const editarAnotacao = async (req, res) => {
 
   try {
     const anotacao = await Anotacao.findByPk(id);
-    
+
     if (!anotacao) return res.status(404).json({ erro: 'Anotação não encontrada' });
 
     anotacao.conteudo = conteudo;
