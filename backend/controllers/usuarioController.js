@@ -36,10 +36,41 @@ const listarUsuarios = async (req, res) => {
   }
 };
 
+const cadastrarUsuario = async (req, res) => {
+  try {
+    const { nome, email, senha, tipo_usuario } = req.body;
 
+    if (!nome || !email || !senha || !tipo_usuario) {
+      return res.status(400).json({ erro: 'Preencha todos os campos.' });
+    }
 
+    const usuarioExistente = await Usuario.findOne({ where: { email } });
+    if (usuarioExistente) {
+      return res.status(409).json({ erro: 'Email já cadastrado.' });
+    }
+
+    const novoUsuario = await Usuario.create({
+      nome,
+      email,
+      senha_hash: senha,
+      tipo_usuario
+    });
+
+    res.status(201).json({
+      id: novoUsuario.id,
+      nome: novoUsuario.nome,
+      tipo_usuario: novoUsuario.tipo_usuario
+    });
+  } catch (err) {
+    res.status(500).json({ erro: 'Erro ao cadastrar usuário.' });
+  }
+};
+
+// Outras funções (login, listarUsuarios)...
 
 module.exports = {
+  cadastrarUsuario,
   login,
   listarUsuarios,
 };
+

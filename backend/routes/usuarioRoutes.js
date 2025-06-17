@@ -3,12 +3,12 @@ const router = express.Router();
 const usuarioController = require('../controllers/usuarioController');
 
 router.post('/login', usuarioController.login);
+router.post('/cadastrar', usuarioController.cadastrarUsuario);
 
 /**
  * @swagger
  * tags:
  *   name: Usuários
- * 
  *   description: Operações relacionadas aos usuários
  */
 
@@ -26,7 +26,7 @@ router.get('/', usuarioController.listarUsuarios);
 
 /**
  * @swagger
- * /api/usuarios:
+ * /api/usuarios/cadastrar:
  *   post:
  *     summary: Cria um novo usuário
  *     tags: [Usuários]
@@ -39,16 +39,39 @@ router.get('/', usuarioController.listarUsuarios);
  *             required:
  *               - nome
  *               - email
+ *               - senha
+ *               - tipo_usuario
  *             properties:
  *               nome:
  *                 type: string
  *               email:
  *                 type: string
+ *               senha:
+ *                 type: string
+ *               tipo_usuario:
+ *                 type: string
+ *                 description: Tipo do usuário (ex: "admin", "estudante")
  *     responses:
  *       201:
  *         description: Usuário criado com sucesso
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: integer
+ *                 nome:
+ *                   type: string
+ *                 tipo_usuario:
+ *                   type: string
+ *       400:
+ *         description: Falta de campos obrigatórios
+ *       409:
+ *         description: Email já cadastrado
+ *       500:
+ *         description: Erro interno do servidor
  */
-//router.post('/criar', usuarioController.criarUsuario);
 
 /**
  * @swagger
@@ -78,7 +101,7 @@ router.get('/', usuarioController.listarUsuarios);
  *       200:
  *         description: Usuário atualizado com sucesso
  */
-//router.put('/:id', usuarioController.atualizarUsuario); // 
+//router.put('/:id', usuarioController.atualizarUsuario);
 
 /**
  * @swagger
@@ -98,7 +121,5 @@ router.get('/', usuarioController.listarUsuarios);
  *         description: Usuário excluído com sucesso
  */
 //router.delete('/:id', usuarioController.excluirUsuario);
-
-
 
 module.exports = router;
