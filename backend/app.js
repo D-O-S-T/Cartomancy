@@ -1,0 +1,48 @@
+const express = require('express');
+const cors = require('cors');
+const path = require('path');
+const db = require('./models'); 
+const usuarioRoutes = require('./routes/usuarioRoutes');
+const swaggerSetup = require('./config/swagger');
+const trilhaRoutes = require('./routes/trilhaRoutes');
+const anotacaoRoutes = require('./routes/anotacaoRoutes');
+const cartaRoutes = require('./routes/cartaRoutes');
+const videoRoutes = require('./routes/videoRoutes');
+const pdfRoutes = require('./routes/pdfRoutes');
+const materiaisRoutes = require('./routes/materiaisRoutes');
+
+const app = express();
+
+// ⬇️ middlewares primeiro
+app.use(cors());
+app.use(express.json());
+
+// ⬇️ depois, as rotas
+app.use('/api/trilhas', trilhaRoutes);
+app.use('/api/usuarios', usuarioRoutes);
+app.use('/api/anotacoes', anotacaoRoutes);
+app.use('/api/cartas', cartaRoutes);
+app.use('/api/videos', videoRoutes);
+app.use('/pdfs', pdfRoutes);
+app.use('/materiais', materiaisRoutes);
+
+// Swagger
+swaggerSetup(app);
+
+// Middleware para servir arquivos estáticos da pasta "public"
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Rota padrão para servir o index.html (opcional, mas recomendado)
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'pagInicial.html'));
+});
+
+app.get('/crudAdmin', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'crudAdmin.html'));
+});
+
+app.get('/crud', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'crud.html'));
+});
+
+module.exports = app;

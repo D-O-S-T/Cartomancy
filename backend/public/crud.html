@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>CRUD Anotações Simples</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        select,
+        input[type="number"],
+        textarea {
+            width: 100%;
+            padding: 6px;
+            margin-top: 5px;
+            box-sizing: border-box;
+            font-size: 1rem;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 8px 12px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        #resposta {
+            margin-top: 25px;
+            background: #eee;
+            padding: 10px;
+            border-radius: 4px;
+            white-space: pre-wrap;
+            font-family: monospace;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Gerenciamento de Anotações</h1>
+
+    <!-- Formulário Criar -->
+    <form id="formCriar">
+        <label for="usuario_id">Usuário</label>
+        <select id="usuario_id" required>
+            <option value="" disabled selected>Selecione um usuário</option>
+        </select>
+
+        <label for="trilha_id">Trilha</label>
+        <select id="trilha_id" required>
+            <option value="" disabled selected>Selecione uma trilha</option>
+        </select>
+
+        <label for="materialSelecionado">Material (opcional)</label>
+        <select id="materialSelecionado" disabled>
+            <option value="" selected>Selecione um material</option>
+        </select>
+
+        <label for="conteudo">Conteúdo da Anotação</label>
+        <textarea id="conteudo" required placeholder="Digite o conteúdo da anotação"></textarea>
+
+        <button type="submit">Criar Anotação</button>
+    </form>
+
+    <!-- Formulário Editar -->
+    <form id="formEditar">
+        <label for="edit_id">ID da Anotação para Editar</label>
+        <input type="number" id="edit_id" min="1" required placeholder="Informe o ID da anotação" />
+
+        <label for="edit_conteudo">Novo Conteúdo</label>
+        <textarea id="edit_conteudo" required placeholder="Digite o novo conteúdo"></textarea>
+
+        <button type="submit">Editar Anotação</button>
+    </form>
+
+    <!-- Formulário Excluir -->
+    <form id="formExcluir">
+        <label for="delete_id">ID da Anotação para Excluir</label>
+        <input type="number" id="delete_id" min="1" required placeholder="Informe o ID da anotação" />
+
+        <button type="submit">Excluir Anotação</button>
+    </form>
+
+    <button id="btnListar">Listar Anotações</button>
+
+    <pre id="resposta"></pre>
+
+    <script>
+        const BASE_URL = 'http://localhost:5000/api/anotacoes';
+        const USUARIOS_URL = 'http://localhost:5000/api/usuarios';
+        const TRILHAS_URL = 'http://localhost:5000/api/trilhas';
+        const MATERIAIS_URL = 'http://localhost:5000/materiais';
+
+        const usuarioSelect = document.getElementById('usuario_id');
+        const trilhaSelect = document.getElementById('trilha_id');
+        const materialSelect = document.getElementById('materialSelecionado');
+        const conteudoInput = document.getElementById('conteudo');
+        const respostaPre = document.getElementById('resposta');
+
+        const editIdInput = document.getElementById('edit_id');
+        const editConteudoInput = document.getElementById('edit_conteudo');
+
+        const deleteIdInput = document.getElementById('delete_id');
+
+        async function carregarUsuarios() {
+            try {
+                const res = await fetch(USUARIOS_URL);
+                const usuarios = await res.json();
+                usuarios.forEach(u => {
+                    const opt = document.createElement('option');
+                    opt.value = u.id;
+                    opt.textContent = u.nome;
+                    usuarioSelect.appendChild(opt);
+                });
+            } catch (e) {
+                respostaPre.textContent = 'Erro ao carregar usuários: ' + e.message;
+            }
+        }
+
+        async function carregarTrilhas() {
+            try {
+                const res = await fetch(TRILHAS_URL);
+                const trilhas = await res.json();
+                trilhas.forEach(t => {
+                    const opt = document.createElement('option');
+                    opt.value = t.id;
+                    opt.textContent = t.nome;
+                    trilhaSelect.appendChild(opt);
+                });
+            } catch (e) {
+                respostaPre.textContent = 'Erro ao carregar trilhas: ' + e.message;
+            }
+        }
+
+        async function carregarMateriais(trilha_id) {
+            materialSelect.innerHTML = '<option value="">Nenhum material</option>';
+            materialSelect.disabled = true;
+
+            if (!trilha_id) return;
+
+            try {
+                const res = await fetch(`${MATERIAIS_URL}?trilha_id=${trilha_id}`);
+                const materiais = await res.json();
+
+                materiais.forEach(mat => {
+                    if (!mat.tipo || !mat.id) return;
+                    const opt = document.createElement('option');
+                    opt.value = `${mat.tipo}|${mat.id}`;
+                    opt.textContent = `[${mat.tipo.toUpperCase()}] ${mat.titulo || mat.name || 'Sem título'}`;
+                    materialSelect.appendChild(opt);
+                });
+
+                materialSelect.disabled = false;
+            } catch (e) {
+                respostaPre.textContent = 'Erro ao carregar materiais: ' + e.message;
+            }
+        }
+
+        trilhaSelect.addEventListener('change', () => {
+            carregarMateriais(trilhaSelect.value);
+        });
+
+        document.getElementById('formCriar').addEventListener('submit', async e => {
+            e.preventDefault();
+            respostaPre.textContent = '';
+
+            const usuario_id = usuarioSelect.value;
+            const trilha_id = trilhaSelect.value;
+            const materialSelecionado = materialSelect.value;
+            const conteudo = conteudoInput.value.trim();
+
+            if (!conteudo || !usuario_id || !trilha_id) {
+                respostaPre.textContent = 'Preencha todos os campos obrigatórios.';
+                return;
+            }
+
+            const dados = {
+                conteudo,
+                usuario_id: Number(usuario_id),
+                trilha_id: Number(trilha_id)
+            };
+
+            if (materialSelecionado) {
+                const [tipo, id_original] = materialSelecionado.split('|');
+                dados.tipo = tipo;
+                dados.id_original = Number(id_original);
+            }
+
+            try {
+                const res = await fetch(BASE_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(dados)
+                });
+
+                if (!res.ok) {
+                    const erroTexto = await res.text();
+                    throw new Error(erroTexto || 'Erro desconhecido');
+                }
+
+                const json = await res.json();
+                respostaPre.textContent = 'Anotação criada com sucesso:\n' + JSON.stringify(json, null, 2);
+
+                conteudoInput.value = '';
+                usuarioSelect.value = '';
+                trilhaSelect.value = '';
+                materialSelect.innerHTML = '<option value="">Selecione um material</option>';
+                materialSelect.disabled = true;
+
+            } catch (err) {
+                respostaPre.textContent = 'Erro: ' + err.message;
+            }
+        });
+
+        document.getElementById('formEditar').addEventListener('submit', async e => {
+            e.preventDefault();
+            respostaPre.textContent = '';
+
+            const id = editIdInput.value.trim();
+            const conteudo = editConteudoInput.value.trim();
+
+            if (!id || !conteudo) {
+                respostaPre.textContent = 'Informe o ID da anotação e o novo conteúdo.';
+                return;
+            }
+
+            try {
+                const res = await fetch(`${BASE_URL}/${id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ conteudo })
+                });
+
+                if (!res.ok) {
+                    const erroTexto = await res.text();
+                    throw new Error(erroTexto || 'Erro desconhecido');
+                }
+
+                const json = await res.json();
+                respostaPre.textContent = 'Anotação editada com sucesso:\n' + JSON.stringify(json, null, 2);
+
+                editIdInput.value = '';
+                editConteudoInput.value = '';
+
+            } catch (err) {
+                respostaPre.textContent = 'Erro ao editar anotação: ' + err.message;
+            }
+        });
+
+        document.getElementById('formExcluir').addEventListener('submit', async e => {
+            e.preventDefault();
+            respostaPre.textContent = '';
+
+            const id = deleteIdInput.value.trim();
+            if (!id) {
+                respostaPre.textContent = 'Informe o ID da anotação que deseja excluir.';
+                return;
+            }
+
+            const confirmar = confirm(`Tem certeza que deseja excluir a anotação ID ${id}?`);
+            if (!confirmar) return;
+
+            try {
+                const res = await fetch(`${BASE_URL}/${id}`, {
+                    method: 'DELETE'
+                });
+
+                if (!res.ok) {
+                    const erroTexto = await res.text();
+                    throw new Error(erroTexto || 'Erro desconhecido');
+                }
+
+                const json = await res.json();
+                respostaPre.textContent = 'Anotação excluída com sucesso:\n' + JSON.stringify(json, null, 2);
+
+                deleteIdInput.value = '';
+
+            } catch (err) {
+                respostaPre.textContent = 'Erro ao excluir anotação: ' + err.message;
+            }
+        });
+
+        document.getElementById('btnListar').addEventListener('click', async () => {
+            respostaPre.textContent = '';
+
+            try {
+                const res = await fetch(BASE_URL);
+                const anotacoes = await res.json();
+
+                let texto = '';
+
+                for (const anotacao of anotacoes) {
+                    texto += `ID: ${anotacao.id}\n`;
+                    texto += `Conteúdo: ${anotacao.conteudo}\n\n`;
+                }
+
+                respostaPre.textContent = texto || 'Nenhuma anotação encontrada.';
+
+            } catch (err) {
+                respostaPre.textContent = 'Erro ao listar anotações: ' + err.message;
+            }
+        });
+
+        // Inicializa selects ao carregar página
+        (async () => {
+            await carregarUsuarios();
+            await carregarTrilhas();
+        })();
+    </script>
+</body>
+
+</html>

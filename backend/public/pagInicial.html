@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Login</title>
+</head>
+
+<body>
+    <h1>Login</h1>
+    <form id="loginForm">
+        <input type="email" id="loginEmail" name="email" placeholder="Email" required /><br /><br />
+        <input type="password" id="loginSenha" name="senha" placeholder="Senha" required /><br /><br />
+        <button type="submit">Entrar</button>
+    </form>
+
+    <hr />
+
+    <h1>Cadastro de Usuário</h1>
+    <form id="formCadastro">
+        <input type="text" id="cadastroNome" name="nome" placeholder="Nome completo" required /><br /><br />
+        <input type="email" id="cadastroEmail" name="email" placeholder="Email" required /><br /><br />
+        <input type="password" id="cadastroSenha" name="senha" placeholder="Senha" required /><br /><br />
+        <button type="submit">Cadastrar</button>
+    </form>
+
+    <pre id="resposta" style="white-space: pre-wrap; margin-top: 20px;"></pre>
+    <div id="msg"></div>
+
+    <script>
+        const loginForm = document.getElementById('loginForm');
+        const msgDiv = document.getElementById('msg');
+
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const email = document.getElementById('loginEmail').value.trim();
+            const senha_hash = document.getElementById('loginSenha').value.trim();
+
+            try {
+                const res = await fetch('http://localhost:5000/api/usuarios/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, senha_hash }),
+                });
+
+                const data = await res.json();
+
+                if (res.ok) {
+                    msgDiv.style.color = 'green';
+                    msgDiv.textContent = `${data.mensagem} - Bem vindo(a), ${data.usuario.nome}`;
+                    if (data.usuario.tipo_usuario === 'admin') {
+                        window.location.href = '/crudAdmin';
+                    } else {
+                        window.location.href = '/crud';
+                    }
+                } else {
+                    msgDiv.style.color = 'red';
+                    msgDiv.textContent = data.erro || 'Erro no login.';
+                }
+            } catch (error) {
+                msgDiv.style.color = 'red';
+                msgDiv.textContent = 'Erro na requisição: ' + error.message;
+            }
+        });
+
+        const formCadastro = document.getElementById('formCadastro');
+        const resposta = document.getElementById('resposta');
+
+        formCadastro.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const nome = document.getElementById('cadastroNome').value.trim();
+            const email = document.getElementById('cadastroEmail').value.trim();
+            const senha = document.getElementById('cadastroSenha').value.trim();
+            const tipo_usuario = 'estudante';  // valor fixo para novos cadastros
+
+            if (!nome || !email || !senha) {
+                resposta.textContent = 'Preencha todos os campos.';
+                return;
+            }
+
+            try {
+                const res = await fetch('http://localhost:5000/api/usuarios/cadastrar', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ nome, email, senha, tipo_usuario })
+                });
+
+                const textoResposta = await res.text();
+
+                let data;
+                try {
+                    data = JSON.parse(textoResposta);
+                } catch {
+                    resposta.textContent = 'Resposta do servidor não está em JSON válido.';
+                    return;
+                }
+
+                if (!res.ok) {
+                    resposta.textContent = `Erro: ${data.erro || 'Não foi possível cadastrar.'}`;
+                    return;
+                }
+
+                resposta.textContent = `Usuário cadastrado com sucesso!\nID: ${data.id}\nNome: ${data.nome}\nTipo: ${data.tipo_usuario}`;
+                formCadastro.reset();
+
+            } catch (error) {
+                resposta.textContent = 'Erro ao cadastrar: ' + error.message;
+            }
+        });
+    </script>
+</body>
+
+</html>
