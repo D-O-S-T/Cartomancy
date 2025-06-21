@@ -50,7 +50,7 @@ router.get('/', usuarioController.listarUsuarios);
  *                 type: string
  *               tipo_usuario:
  *                 type: string
- *                 description: Tipo do usuário (ex: "admin", "estudante")
+ *                 description: "Tipo do usuário (ex: 'admin', 'estudante')"
  *     responses:
  *       201:
  *         description: Usuário criado com sucesso
