@@ -40,11 +40,11 @@ export default function WelcomeScreen() {
           <Text style={styles.buttonText}>Já Possuo Cadastro</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={() => router.push('/register')}>
           <Text style={styles.buttonText}>Quero Me Cadastrar</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => router.push('/home')}>
+        <TouchableOpacity onPress={() => router.push('/lectures')}>
         <Text style={styles.footer}>Acessar sem cadastro</Text>
       </TouchableOpacity>
 

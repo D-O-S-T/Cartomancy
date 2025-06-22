@@ -2,7 +2,6 @@ import {
   View,
   Text,
   StyleSheet,
-  Image,
   TextInput,
   TouchableOpacity,
   Dimensions,
@@ -13,12 +12,12 @@ import { useRouter } from "expo-router";
 
 const { width, height } = Dimensions.get("window");
 
-export default function LoginScreen() {
+export default function CadastroScreen() {
   const router = useRouter();
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Fundo com gradiente */}
+      {/* Fundo gradiente */}
       <LinearGradient
         colors={["#8E2DE2", "#C13584"]}
         start={{ x: 0.5, y: 0 }}
@@ -26,16 +25,15 @@ export default function LoginScreen() {
         style={StyleSheet.absoluteFill}
       />
 
-      {/* Imagem de brilho ao fundo */}
-      {/* <Image
-        source={require("../assets/gradient.png")}
-        style={styles.eclipse}
-        resizeMode="contain"
-      /> */}
-
-      {/* Conteúdo principal */}
+      {/* Conteúdo */}
       <View style={styles.content}>
-        <Text style={styles.title}>Login</Text>
+        <Text style={styles.title}>Criar Conta</Text>
+
+        <TextInput
+          placeholder="Nome"
+          placeholderTextColor="#ccc"
+          style={styles.input}
+        />
 
         <TextInput
           placeholder="Email"
@@ -52,12 +50,15 @@ export default function LoginScreen() {
           secureTextEntry
         />
 
-        <TouchableOpacity>
-          <Text style={styles.forgotPassword}>Esqueceu a senha?</Text>
-        </TouchableOpacity>
+        <TextInput
+          placeholder="Confirmar Senha"
+          placeholderTextColor="#ccc"
+          style={styles.input}
+          secureTextEntry
+        />
 
-        <TouchableOpacity style={styles.loginButton}>
-          <Text style={styles.loginButtonText}>Entrar</Text>
+        <TouchableOpacity style={styles.registerButton}>
+          <Text style={styles.registerButtonText}>Cadastrar</Text>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => router.back()}>
@@ -72,27 +73,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-  },
-  eclipse: {
-    position: "absolute",
-    width: height * 1.2,
-    height: height * 1.2,
-    top: height / 2 - (height * 1.2) / 2,
-    left: width / 2 - (height * 1.2) / 2,
-    zIndex: 0,
-    opacity: 0.2,
-  },
-  header: {
-    width: "100%",
-    alignItems: "center",
-    marginTop: 10,
-    zIndex: 2,
-  },
-  headerContent: {
-    width: "100%",
-    maxWidth: 280,
-    flexDirection: "row",
-    justifyContent: "flex-start",
   },
   content: {
     zIndex: 1,
@@ -117,14 +97,7 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     fontSize: 16,
   },
-  forgotPassword: {
-    color: "#ccc",
-    fontSize: 14,
-    alignSelf: "flex-end",
-    marginRight: 10,
-    marginBottom: 30,
-  },
-  loginButton: {
+  registerButton: {
     borderWidth: 1,
     borderColor: "#fff",
     borderRadius: 20,
@@ -133,11 +106,11 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(255, 255, 255, 0.07)",
     marginTop: 10,
   },
-  loginButtonText: {
+  registerButtonText: {
     color: "#fff",
     fontSize: 16,
   },
-    backButton: {
+  backButton: {
     color: "#ccc",
     fontSize: 14,
     marginTop: 20,

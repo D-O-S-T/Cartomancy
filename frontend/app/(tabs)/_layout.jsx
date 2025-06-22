@@ -1,10 +1,12 @@
-import { Tabs } from "expo-router";
+import { Tabs, useRouter } from "expo-router";
 import { useFonts } from "expo-font";
 import { AntDesign, MaterialIcons } from "@expo/vector-icons";
-import { Text } from "react-native";
+import { Text, View, Image, TouchableOpacity, StyleSheet } from "react-native";
 
 export default function AppLayout() {
-  // Load custom font
+  const router = useRouter();
+
+  // Carrega fonte customizada
   const [fontsLoaded] = useFonts({
     SpaceMono: require("../../assets/fonts/SpaceMono-Regular.ttf"),
   });
@@ -13,20 +15,41 @@ export default function AppLayout() {
     return <Text>Carregando fontes...</Text>;
   }
 
+  // Componente logo centralizado no header
+  const HeaderTitle = () => (
+    <View style={styles.headerTitle}>
+      <Image
+        source={require("../../assets/eremita-logo.png")}
+        style={styles.topLogo}
+        resizeMode="contain"
+      />
+    </View>
+  );
+
+  // Botão voltar customizado no header
+  const HeaderBackButton = () => (
+    <TouchableOpacity
+      style={styles.headerBackButton}
+      onPress={() => router.back()}
+      activeOpacity={0.7}
+    >
+      <AntDesign name="arrowleft" size={20} color="#fff" />
+      <Text style={styles.backButtonText}>Voltar</Text>
+    </TouchableOpacity>
+  );
+
   return (
     <Tabs
       screenOptions={{
-        // Header (top bar)
         headerStyle: {
           backgroundColor: "#8E2DE2",
         },
         headerTintColor: "#fff",
+        headerTitleAlign: "center",
         headerTitleStyle: {
           fontFamily: "SpaceMono",
           fontSize: 22,
         },
-
-        // Bottom tab bar
         tabBarStyle: {
           backgroundColor: "#8E2DE2",
           borderTopWidth: 0,
@@ -35,33 +58,34 @@ export default function AppLayout() {
         tabBarInactiveTintColor: "#ccc",
       }}
     >
-      {/* Lectures Tab */}
       <Tabs.Screen
         name="lectures"
         options={{
-          title: "Lectures",
+          title: "lições",
+          headerTitle: () => <HeaderTitle />,
+          headerLeft: () => <HeaderBackButton />,
           tabBarIcon: ({ color, size }) => (
-            <MaterialIcons name="video-library" size={size} color={color} />
+            <MaterialIcons name="school" size={size} color={color} />
           ),
         }}
       />
-
-      {/* Notes Tab */}
       <Tabs.Screen
         name="notes"
         options={{
-          title: "Notes",
+          title: "anotações",
+          headerTitle: () => <HeaderTitle />,
+          headerLeft: () => <HeaderBackButton />,
           tabBarIcon: ({ color, size }) => (
             <MaterialIcons name="notes" size={size} color={color} />
           ),
         }}
       />
-
-      {/* Profile Tab */}
       <Tabs.Screen
         name="profile"
         options={{
-          title: "Profile",
+          title: "perfil",
+          headerTitle: () => <HeaderTitle />,
+          headerLeft: () => <HeaderBackButton />,
           tabBarIcon: ({ color, size }) => (
             <AntDesign name="user" size={size} color={color} />
           ),
@@ -70,3 +94,25 @@ export default function AppLayout() {
     </Tabs>
   );
 }
+
+const styles = StyleSheet.create({
+  topLogo: {
+    width: 120,
+    height: 35,
+  },
+  headerTitle: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  headerBackButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 15,
+  },
+  backButtonText: {
+    color: "#fff",
+    fontSize: 16,
+    marginLeft: 5,
+  },
+});

@@ -12,7 +12,7 @@ export default function RootLayout() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    maxWidth: 430, // or your app's intended max width
+    maxWidth: 430,
     alignSelf: 'center',
     width: '100%',
     backgroundColor: '#000'
