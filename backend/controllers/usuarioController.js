@@ -68,6 +68,7 @@ const cadastrarUsuario = async (req, res) => {
 
 const editarTipoUsuario = async (req, res) => {
   const { id } = req.params;
+  const { email } = req.body;
   const { tipo_usuario } = req.body;
 
   if (!tipo_usuario) {
