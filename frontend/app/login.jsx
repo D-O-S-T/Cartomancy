@@ -1,24 +1,62 @@
+import React, { useState } from "react";
+import { useRouter } from "expo-router";
 import {
   View,
   Text,
   StyleSheet,
-  Image,
   TextInput,
   TouchableOpacity,
   Dimensions,
   SafeAreaView,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { useRouter } from "expo-router";
 
 const { width, height } = Dimensions.get("window");
 
 export default function LoginScreen() {
   const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+
+  const [message, setMessage] = useState("");
+  const [messageColor, setMessageColor] = useState("red");
+
+  const handleLogin = async () => {
+    console.log("handleLogin chamado");
+    if (!email || !senha) {
+      setMessageColor("red");
+      setMessage("Preencha email e senha.");
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:5000/api/usuarios/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, senha_hash: senha }),
+      });
+
+      const json = await response.json();
+
+      if (!response.ok) {
+        setMessageColor("red");
+        setMessage(json.erro || "Erro no login.");
+        return;
+      }
+
+      setMessageColor("green");
+      setMessage(`Bem-vindo, ${json.usuario.nome}!`);
+
+      setTimeout(() => router.push("/lectures"), 1000);
+    } catch (error) {
+      console.error(error);
+      setMessageColor("red");
+      setMessage("Não foi possível conectar ao servidor.");
+    }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Fundo com gradiente */}
       <LinearGradient
         colors={["#8E2DE2", "#C13584"]}
         start={{ x: 0.5, y: 0 }}
@@ -26,14 +64,6 @@ export default function LoginScreen() {
         style={StyleSheet.absoluteFill}
       />
 
-      {/* Imagem de brilho ao fundo */}
-      {/* <Image
-        source={require("../assets/gradient.png")}
-        style={styles.eclipse}
-        resizeMode="contain"
-      /> */}
-
-      {/* Conteúdo principal */}
       <View style={styles.content}>
         <Text style={styles.title}>Login</Text>
 
@@ -43,6 +73,8 @@ export default function LoginScreen() {
           style={styles.input}
           keyboardType="email-address"
           autoCapitalize="none"
+          value={email}
+          onChangeText={setEmail}
         />
 
         <TextInput
@@ -50,15 +82,30 @@ export default function LoginScreen() {
           placeholderTextColor="#ccc"
           style={styles.input}
           secureTextEntry
+          value={senha}
+          onChangeText={setSenha}
         />
 
         <TouchableOpacity>
           <Text style={styles.forgotPassword}>Esqueceu a senha?</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.loginButton}>
+        <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
           <Text style={styles.loginButtonText}>Entrar</Text>
         </TouchableOpacity>
+
+        {message ? (
+          <Text
+            style={{
+              color: messageColor,
+              marginTop: 20,
+              fontSize: 16,
+              fontWeight: "bold",
+            }}
+          >
+            {message}
+          </Text>
+        ) : null}
 
         <TouchableOpacity onPress={() => router.back()}>
           <Text style={styles.backButton}>Voltar</Text>
@@ -73,32 +120,12 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
   },
-  eclipse: {
-    position: "absolute",
-    width: height * 1.2,
-    height: height * 1.2,
-    top: height / 2 - (height * 1.2) / 2,
-    left: width / 2 - (height * 1.2) / 2,
-    zIndex: 0,
-    opacity: 0.2,
-  },
-  header: {
-    width: "100%",
-    alignItems: "center",
-    marginTop: 10,
-    zIndex: 2,
-  },
-  headerContent: {
-    width: "100%",
-    maxWidth: 280,
-    flexDirection: "row",
-    justifyContent: "flex-start",
-  },
   content: {
+    flex: 1,
     zIndex: 1,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 80,
+    // marginTop: 80, // <-- isso joga tudo pra cima
   },
   title: {
     color: "#fff",
@@ -117,13 +144,6 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     fontSize: 16,
   },
-  forgotPassword: {
-    color: "#ccc",
-    fontSize: 14,
-    alignSelf: "flex-end",
-    marginRight: 10,
-    marginBottom: 30,
-  },
   loginButton: {
     borderWidth: 1,
     borderColor: "#fff",
@@ -137,7 +157,14 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 16,
   },
-    backButton: {
+    forgotPassword: {
+    color: "#ccc",
+    fontSize: 14,
+    alignSelf: "flex-end",
+    marginRight: 10,
+    marginBottom: 30,
+  },
+  backButton: {
     color: "#ccc",
     fontSize: 14,
     marginTop: 20,

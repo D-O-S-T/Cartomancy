@@ -75,10 +75,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   content: {
+    flex: 1,
     zIndex: 1,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 80,
   },
   title: {
     color: "#fff",
