@@ -5,7 +5,7 @@ const Usuario = require('../models/Usuario');
 const Carta = require('../models/Carta');
 const Video = require('../models/Video');
 const Pdf = require('../models/Pdf');
-const { buscarMaterial } = require('../scripts/buscarMaterial');
+const { buscarMaterial } = require('../scripts/buscarMateriais');
 
 
 
