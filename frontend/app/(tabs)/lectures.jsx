@@ -2,20 +2,18 @@ import {
   View,
   Text,
   StyleSheet,
-  Image,
   Dimensions,
   TouchableOpacity,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import RNPickerSelect from "react-native-picker-select";
 import { useState } from "react";
 import { useRouter } from "expo-router";
-import { AntDesign } from "@expo/vector-icons";
+import DeckPicker from "../components/deckPicker";
 
 const { width, height } = Dimensions.get("window");
 
-export default function Home() {
-  const [selectedDeck, setSelectedDeck] = useState(null);
+export default function Lectures() {
+  const [selectedDeck, setSelectedDeck] = useState("rider");
   const router = useRouter();
 
   return (
@@ -34,54 +32,24 @@ export default function Home() {
         style={styles.eclipse}
         resizeMode="contain"
       /> */}
-
       {/* Content */}
+
       <View style={styles.content}>
         <Text style={styles.title}>
           Para iniciar a sua jornada, escolha o baralho:
         </Text>
 
-        <View style={styles.pickerWrapper}>
-          <RNPickerSelect
-            onValueChange={(value) => setSelectedDeck(value)}
-            placeholder={{ label: "Selecione um baralho...", value: null }}
-            style={{
-              inputIOS: {
-                ...styles.picker,
-                color: "#000",
-                backgroundColor: "#fff",
-                borderRadius: 8,
-              },
-              inputAndroid: {
-                ...styles.picker,
-                color: "#000",
-                backgroundColor: "#fff",
-              },
-              inputWeb: {
-                ...styles.picker,
-                color: "#000",
-                backgroundColor: "#fff",
-                width: "100%",
-              },
-              placeholder: {
-                color: "#888",
-              },
-            }}
-            useNativeAndroidPickerStyle={false}
-            items={[
-              { label: "Tarot de Rider-Waite", value: "rider" },
-              { label: "Tarot de Marselha", value: "marselha" },
-              { label: "Baralho Cigano", value: "cigano" },
-            ]}
-          />
-        </View>
+        <DeckPicker
+          selectedDeck={selectedDeck}
+          onSelectDeck={setSelectedDeck}
+        />
 
         {/* Botões */}
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={() => router.push("/majorArcanas")}>
           <Text style={styles.buttonText}>Arcanos Maiores</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={() => router.push("/minorArcanas")}>
           <Text style={styles.buttonText}>Arcanos Menores</Text>
         </TouchableOpacity>
       </View>
