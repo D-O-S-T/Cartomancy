@@ -66,11 +66,44 @@ const cadastrarUsuario = async (req, res) => {
   }
 };
 
-// Outras funções (login, listarUsuarios)...
+const editarTipoUsuario = async (req, res) => {
+  const { id } = req.params;
+  const { tipo_usuario } = req.body;
+
+  if (!tipo_usuario) {
+    return res.status(400).json({ erro: 'O campo tipo_usuario é obrigatório.' });
+  }
+
+  try {
+    const usuario = await Usuario.findByPk(id);
+
+    if (!usuario) {
+      return res.status(404).json({ erro: 'Usuário não encontrado.' });
+    }
+
+    usuario.tipo_usuario = tipo_usuario;
+    await usuario.save();
+
+    res.json({
+      mensagem: 'Tipo de usuário atualizado com sucesso.',
+      usuario: {
+        id: usuario.id,
+        nome: usuario.nome,
+        email: usuario.email,
+        tipo_usuario: usuario.tipo_usuario,
+      }
+    });
+  } catch (err) {
+    console.error('Erro ao atualizar tipo de usuário:', err);
+    res.status(500).json({ erro: 'Erro ao atualizar usuário.' });
+  }
+};
+
 
 module.exports = {
   cadastrarUsuario,
   login,
   listarUsuarios,
+  editarTipoUsuario,
 };
 

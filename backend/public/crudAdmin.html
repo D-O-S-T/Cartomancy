@@ -81,6 +81,28 @@
     <button id="btnListarTrilhas">Listar Trilhas</button>
   </section>
 
+  <!-- Seção Usuários -->
+  <section id="section-usuarios">
+    <h2>Gerenciar Usuários</h2>
+
+    <button id="btnListarUsuarios">Listar Usuários</button>
+
+    <hr />
+
+    <h3>Editar Tipo de Usuário</h3>
+    <input type="number" id="editIdUsuario" min="1" placeholder="ID do Usuário" />
+    <select id="editTipoUsuario">
+      <option value="">Selecione o tipo</option>
+      <option value="admin">admin</option>
+      <option value="estudante">estudante</option>
+    </select>
+    <button id="btnEditarTipoUsuario">Editar Tipo</button>
+
+    <button id="btnListarUsuarios">Listar Usuários</button>
+
+    <hr />
+  </section>
+
   <!-- Seção Vídeos -->
   <section id="section-videos">
     <h2>Gerenciar Vídeos</h2>
@@ -113,6 +135,8 @@
     // URLs das APIs
     const BASE_URL_TRILHAS = 'http://localhost:5000/api/trilhas';
     const BASE_URL_VIDEOS = 'http://localhost:5000/api/videos';
+    const BASE_URL_USUARIOS = 'http://localhost:5000/api/usuarios';
+
 
     const respostaPre = document.getElementById('resposta');
 
@@ -128,6 +152,11 @@
     const descVideoInput = document.getElementById('descVideo');
     const urlVideoInput = document.getElementById('urlVideo');
     const deleteIdVideoInput = document.getElementById('deleteIdVideo');
+
+    //Inputs Usuários
+    const editIdUsuarioInput = document.getElementById('editIdUsuario');
+    const editTipoUsuarioSelect = document.getElementById('editTipoUsuario');
+
 
     // --- Funções Auxiliares ---
 
@@ -351,6 +380,67 @@
         respostaPre.textContent = 'Erro ao listar vídeos: ' + err.message;
       }
     });
+
+    // --- CRUD Usuários ---
+
+    // Listar todos os usuários
+    document.getElementById('btnListarUsuarios').addEventListener('click', async () => {
+      respostaPre.textContent = '';
+
+      try {
+        const res = await fetch(BASE_URL_USUARIOS);
+        if (!res.ok) throw new Error('Erro ao buscar usuários');
+        const usuarios = await res.json();
+
+        if (usuarios.length === 0) {
+          respostaPre.textContent = 'Nenhum usuário encontrado.';
+          return;
+        }
+
+        let texto = '';
+        usuarios.forEach(u => {
+          texto += `ID: ${u.id}\nNome: ${u.nome}\nEmail: ${u.email}\nTipo: ${u.tipo_usuario}\n\n`;
+        });
+
+        respostaPre.textContent = texto;
+      } catch (err) {
+        respostaPre.textContent = 'Erro ao listar usuários: ' + err.message;
+      }
+    });
+
+    // Editar tipo de usuário (admin ou estudante)
+    document.getElementById('btnEditarTipoUsuario').addEventListener('click', async () => {
+      respostaPre.textContent = '';
+      const id = editIdUsuarioInput.value.trim();
+      const tipo = editTipoUsuarioSelect.value;
+
+      if (!id || !tipo) {
+        respostaPre.textContent = 'Informe o ID e o novo tipo do usuário.';
+        return;
+      }
+
+      try {
+        const res = await fetch(`${BASE_URL_USUARIOS}/${id}/tipo`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ tipo_usuario: tipo })
+        });
+
+        if (!res.ok) {
+          const text = await res.text();
+          throw new Error(text || 'Erro desconhecido');
+        }
+
+        const json = await res.json();
+        respostaPre.textContent = 'Usuário atualizado com sucesso:\n' + JSON.stringify(json, null, 2);
+
+        editIdUsuarioInput.value = '';
+        editTipoUsuarioSelect.value = '';
+      } catch (err) {
+        respostaPre.textContent = 'Erro ao atualizar tipo de usuário: ' + err.message;
+      }
+    });
+
 
     // Carregar trilhas para o select ao iniciar
     carregarTrilhasNoSelect();

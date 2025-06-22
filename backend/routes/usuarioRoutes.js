@@ -2,8 +2,13 @@ const express = require('express');
 const router = express.Router();
 const usuarioController = require('../controllers/usuarioController');
 
+// Rota para editar apenas o tipo do usuário
+router.put('/:id/tipo', usuarioController.editarTipoUsuario);
+
 router.post('/login', usuarioController.login);
 router.post('/cadastrar', usuarioController.cadastrarUsuario);
+router.get('/', usuarioController.listarUsuarios);
+
 
 /**
  * @swagger
@@ -21,8 +26,22 @@ router.post('/cadastrar', usuarioController.cadastrarUsuario);
  *     responses:
  *       200:
  *         description: Lista retornada com sucesso
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: integer
+ *                   nome:
+ *                     type: string
+ *                   email:
+ *                     type: string
+ *                   tipo_usuario:
+ *                     type: string
  */
-router.get('/', usuarioController.listarUsuarios);
 
 /**
  * @swagger
@@ -75,9 +94,9 @@ router.get('/', usuarioController.listarUsuarios);
 
 /**
  * @swagger
- * /api/usuarios/{id}:
+ * /api/usuarios/{id}/tipo:
  *   put:
- *     summary: Atualiza um usuário existente
+ *     summary: Atualiza apenas o tipo do usuário
  *     tags: [Usuários]
  *     parameters:
  *       - in: path
@@ -92,16 +111,31 @@ router.get('/', usuarioController.listarUsuarios);
  *         application/json:
  *           schema:
  *             type: object
+ *             required:
+ *               - tipo_usuario
  *             properties:
- *               nome:
+ *               tipo_usuario:
  *                 type: string
- *               email:
- *                 type: string
+ *                 description: "Novo tipo do usuário (ex: 'admin', 'estudante')"
  *     responses:
  *       200:
- *         description: Usuário atualizado com sucesso
+ *         description: Tipo de usuário atualizado com sucesso
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: integer
+ *                 tipo_usuario:
+ *                   type: string
+ *       400:
+ *         description: Campos inválidos ou ausentes
+ *       404:
+ *         description: Usuário não encontrado
+ *       500:
+ *         description: Erro interno do servidor
  */
-//router.put('/:id', usuarioController.atualizarUsuario);
 
 /**
  * @swagger
@@ -119,7 +153,10 @@ router.get('/', usuarioController.listarUsuarios);
  *     responses:
  *       200:
  *         description: Usuário excluído com sucesso
+ *       404:
+ *         description: Usuário não encontrado
+ *       500:
+ *         description: Erro interno do servidor
  */
-//router.delete('/:id', usuarioController.excluirUsuario);
 
 module.exports = router;
