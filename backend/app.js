@@ -1,7 +1,9 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-const db = require('./models'); 
+const axios = require("axios");
+const db = require('./models');
+
 const usuarioRoutes = require('./routes/usuarioRoutes');
 const swaggerSetup = require('./config/swagger');
 const trilhaRoutes = require('./routes/trilhaRoutes');
@@ -13,11 +15,11 @@ const materiaisRoutes = require('./routes/materiaisRoutes');
 
 const app = express();
 
-// ⬇️ middlewares primeiro
+// ⬇️ middlewares
 app.use(cors());
 app.use(express.json());
 
-// ⬇️ depois, as rotas
+// ⬇️ rotas da API
 app.use('/api/trilhas', trilhaRoutes);
 app.use('/api/usuarios', usuarioRoutes);
 app.use('/api/anotacoes', anotacaoRoutes);
@@ -26,13 +28,29 @@ app.use('/api/videos', videoRoutes);
 app.use('/pdfs', pdfRoutes);
 app.use('/materiais', materiaisRoutes);
 
-// Swagger
+// ⬇️ rota proxy de imagens
+app.get("/imagens/:nome", async (req, res) => {
+  const { nome } = req.params;
+  try {
+    const response = await axios.get(`http://data.totl.net/tarot-rwcs-images/${nome}`, {
+      responseType: "arraybuffer",
+    });
+
+    res.set("Content-Type", "image/jpeg");
+    res.send(response.data);
+  } catch (error) {
+    console.error("Erro ao buscar imagem:", error.message);
+    res.status(500).send("Erro ao buscar imagem.");
+  }
+});
+
+// ⬇️ Swagger
 swaggerSetup(app);
 
-// Middleware para servir arquivos estáticos da pasta "public"
+// ⬇️ arquivos estáticos
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Rota padrão para servir o index.html (opcional, mas recomendado)
+// ⬇️ rotas de páginas HTML
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'pagInicial.html'));
 });
