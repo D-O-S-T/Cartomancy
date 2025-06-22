@@ -13,7 +13,7 @@ const anotacaoController = require('../controllers/anotacaoController');
  * @swagger
  * /api/anotacoes:
  *   get:
- *     summary: Lista todas as anotações
+ *     summary: Lista todas as anotações com seus respectivos materiais referenciados
  *     tags: [Anotações]
  *     responses:
  *       200:
@@ -28,18 +28,52 @@ const anotacaoController = require('../controllers/anotacaoController');
  *                   id:
  *                     type: integer
  *                     example: 1
- *                   titulo:
+ *                   conteudo:
  *                     type: string
- *                     example: "Minha primeira anotação"
- *                   descricao:
- *                     type: string
- *                     example: "Conteúdo da anotação"
+ *                     example: "Anotação sobre o material"
  *                   criado_em:
  *                     type: string
  *                     format: date-time
+ *                     example: "2025-06-21T10:00:00.000Z"
  *                   atualizado_em:
  *                     type: string
  *                     format: date-time
+ *                     example: "2025-06-21T11:00:00.000Z"
+ *                   usuario_id:
+ *                     type: integer
+ *                     example: 2
+ *                   trilha_id:
+ *                     type: integer
+ *                     example: 3
+ *                   referencia:
+ *                     type: object
+ *                     nullable: true
+ *                     properties:
+ *                       id:
+ *                         type: integer
+ *                         example: 10
+ *                       tipo_material:
+ *                         type: string
+ *                         example: "cartas"
+ *                       material_id:
+ *                         type: integer
+ *                         example: 7
+ *                       material:
+ *                         type: object
+ *                         nullable: true
+ *                         properties:
+ *                           id:
+ *                             type: integer
+ *                             example: 7
+ *                           titulo:
+ *                             type: string
+ *                             example: "Carta de boas-vindas"
+ *                           autor:
+ *                             type: string
+ *                             example: "Ana"
+ *                           desc:
+ *                             type: string
+ *                             example: "Significado simbólico da carta..."
  */
 router.get('/', anotacaoController.listarAnotacao);
 

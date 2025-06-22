@@ -312,15 +312,39 @@
 
                 for (const anotacao of anotacoes) {
                     texto += `ID: ${anotacao.id}\n`;
-                    texto += `Conteúdo: ${anotacao.conteudo}\n\n`;
+                    texto += `Conteúdo: ${anotacao.conteudo}\n`;
+
+                    if (anotacao.referencia && anotacao.referencia.material) {
+                        const ref = anotacao.referencia;
+                        const mat = ref.material;
+
+                        texto += `Tipo de Material: ${ref.tipo_material}\n`;
+                        texto += `Título: ${mat.titulo || mat.name || 'Sem título'}\n`;
+
+                        // Campos específicos para alguns tipos (exemplo)
+                        if (ref.tipo_material === 'cartas') {
+                            texto += `Autor: ${mat.autor || 'Desconhecido'}\n`;
+                            texto += `Descrição: ${mat.desc || 'Sem descrição'}\n`;
+                        } else if (ref.tipo_material === 'videos') {
+                            texto += `Descrição: ${mat.desc || 'Sem descrição'}\n`;
+                            texto += `URL: ${mat.url || 'N/A'}\n`;
+                        } else if (ref.tipo_material === 'pdfs') {
+                            texto += `Descrição: ${mat.desc || 'Sem descrição'}\n`;
+                            // Outros campos específicos de PDF, se existirem
+                        }
+                    } else {
+                        texto += 'Nenhum material relacionado.\n';
+                    }
+
+                    texto += '\n'; // Espaço entre anotações
                 }
 
                 respostaPre.textContent = texto || 'Nenhuma anotação encontrada.';
-
             } catch (err) {
                 respostaPre.textContent = 'Erro ao listar anotações: ' + err.message;
             }
         });
+
 
         // Inicializa selects ao carregar página
         (async () => {

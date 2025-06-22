@@ -2,18 +2,50 @@ const Anotacao = require('../models/Anotacao');
 const Referencia = require('../models/Referencia');
 const Trilha = require('../models/Trilha');
 const Usuario = require('../models/Usuario');
-
 const Carta = require('../models/Carta');
 const Video = require('../models/Video');
 const Pdf = require('../models/Pdf');
+const { buscarMaterial } = require('../scripts/buscarMaterial');
+
 
 
 // Controller para listar anotações
 const listarAnotacao = async (req, res) => {
   try {
     const anotacoes = await Anotacao.findAll();
+    const resultado = [];
 
-    res.json(anotacoes);
+    for (const anotacao of anotacoes) {
+      let referencia = null;
+      let material = null;
+
+      if (anotacao.referencia_id) {
+        referencia = await Referencia.findByPk(anotacao.referencia_id);
+
+        if (referencia) {
+          material = await buscarMaterial(referencia.tipo_material, referencia.material_id);
+        }
+      }
+
+      resultado.push({
+        id: anotacao.id,
+        conteudo: anotacao.conteudo,
+        criado_em: anotacao.criado_em,
+        atualizado_em: anotacao.atualizado_em,
+        usuario_id: anotacao.usuario_id,
+        trilha_id: anotacao.trilha_id,
+        referencia: referencia
+          ? {
+              id: referencia.id,
+              tipo_material: referencia.tipo_material,
+              material_id: referencia.material_id,
+              material: material || null
+            }
+          : null
+      });
+    }
+
+    res.json(resultado);
   } catch (error) {
     console.error('Erro ao listar anotações:', error);
     res.status(500).json({ erro: 'Erro ao listar anotações' });
