@@ -1,24 +1,448 @@
 [
-  { "slug": "the-fool", "nome": "O Louco", "imagem": "https://data.totl.net/tarot-rwcs-images/m00.jpg" },
-  { "slug": "the-magician", "nome": "O Mago", "imagem": "https://data.totl.net/tarot-rwcs-images/m01.jpg" },
-  { "slug": "the-high-priestess", "nome": "A Sacerdotisa", "imagem": "https://data.totl.net/tarot-rwcs-images/m02.jpg" },
-  { "slug": "the-empress", "nome": "A Imperatriz", "imagem": "https://data.totl.net/tarot-rwcs-images/m03.jpg" },
-  { "slug": "the-emperor", "nome": "O Imperador", "imagem": "https://data.totl.net/tarot-rwcs-images/m04.jpg" },
-  { "slug": "the-hierophant", "nome": "O Hierofante", "imagem": "https://data.totl.net/tarot-rwcs-images/m05.jpg" },
-  { "slug": "the-lovers", "nome": "Os Amantes", "imagem": "https://data.totl.net/tarot-rwcs-images/m06.jpg" },
-  { "slug": "the-chariot", "nome": "O Carro", "imagem": "https://data.totl.net/tarot-rwcs-images/m07.jpg" },
-  { "slug": "strength", "nome": "A Força", "imagem": "https://data.totl.net/tarot-rwcs-images/m08.jpg" },
-  { "slug": "the-hermit", "nome": "O Eremita", "imagem": "https://data.totl.net/tarot-rwcs-images/m09.jpg" },
-  { "slug": "wheel-of-fortune", "nome": "A Roda da Fortuna", "imagem": "https://data.totl.net/tarot-rwcs-images/m10.jpg" },
-  { "slug": "justice", "nome": "A Justiça", "imagem": "https://data.totl.net/tarot-rwcs-images/m11.jpg" },
-  { "slug": "the-hanged-man", "nome": "O Enforcado", "imagem": "https://data.totl.net/tarot-rwcs-images/m12.jpg" },
-  { "slug": "death", "nome": "A Morte", "imagem": "https://data.totl.net/tarot-rwcs-images/m13.jpg" },
-  { "slug": "temperance", "nome": "A Temperança", "imagem": "https://data.totl.net/tarot-rwcs-images/m14.jpg" },
-  { "slug": "the-devil", "nome": "O Diabo", "imagem": "https://data.totl.net/tarot-rwcs-images/m15.jpg" },
-  { "slug": "the-tower", "nome": "A Torre", "imagem": "https://data.totl.net/tarot-rwcs-images/m16.jpg" },
-  { "slug": "the-star", "nome": "A Estrela", "imagem": "https://data.totl.net/tarot-rwcs-images/m17.jpg" },
-  { "slug": "the-moon", "nome": "A Lua", "imagem": "https://data.totl.net/tarot-rwcs-images/m18.jpg" },
-  { "slug": "the-sun", "nome": "O Sol", "imagem": "https://data.totl.net/tarot-rwcs-images/m19.jpg" },
-  { "slug": "judgement", "nome": "O Julgamento", "imagem": "https://data.totl.net/tarot-rwcs-images/m20.jpg" },
-  { "slug": "the-world", "nome": "O Mundo", "imagem": "https://data.totl.net/tarot-rwcs-images/m21.jpg" }
+  {
+    "slug": "the-fool",
+    "nome": "O Louco",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/m00.jpg"
+  },
+  {
+    "slug": "the-magician",
+    "nome": "O Mago",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/m01.jpg"
+  },
+  {
+    "slug": "the-high-priestess",
+    "nome": "A Sacerdotisa",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/m02.jpg"
+  },
+  {
+    "slug": "the-empress",
+    "nome": "A Imperatriz",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/m03.jpg"
+  },
+  {
+    "slug": "the-emperor",
+    "nome": "O Imperador",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/m04.jpg"
+  },
+  {
+    "slug": "the-hierophant",
+    "nome": "O Hierofante",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/m05.jpg"
+  },
+  {
+    "slug": "the-lovers",
+    "nome": "Os Amantes",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/m06.jpg"
+  },
+  {
+    "slug": "the-chariot",
+    "nome": "O Carro",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/m07.jpg"
+  },
+  {
+    "slug": "strength",
+    "nome": "A Força",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/m08.jpg"
+  },
+  {
+    "slug": "the-hermit",
+    "nome": "O Eremita",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/m09.jpg"
+  },
+  {
+    "slug": "wheel-of-fortune",
+    "nome": "A Roda da Fortuna",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/m10.jpg"
+  },
+  {
+    "slug": "justice",
+    "nome": "A Justiça",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/m11.jpg"
+  },
+  {
+    "slug": "the-hanged-man",
+    "nome": "O Enforcado",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/m12.jpg"
+  },
+  {
+    "slug": "death",
+    "nome": "A Morte",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/m13.jpg"
+  },
+  {
+    "slug": "temperance",
+    "nome": "A Temperança",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/m14.jpg"
+  },
+  {
+    "slug": "the-devil",
+    "nome": "O Diabo",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/m15.jpg"
+  },
+  {
+    "slug": "the-tower",
+    "nome": "A Torre",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/m16.jpg"
+  },
+  {
+    "slug": "the-star",
+    "nome": "A Estrela",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/m17.jpg"
+  },
+  {
+    "slug": "the-moon",
+    "nome": "A Lua",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/m18.jpg"
+  },
+  {
+    "slug": "the-sun",
+    "nome": "O Sol",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/m19.jpg"
+  },
+  {
+    "slug": "judgement",
+    "nome": "O Julgamento",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/m20.jpg"
+  },
+  {
+    "slug": "the-world",
+    "nome": "O Mundo",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/m21.jpg"
+  },
+  {
+    "slug": "as-de-paus",
+    "nome": "Ás de Paus",
+    "name_short": "w01",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/w01.jpg"
+  },
+  {
+    "slug": "dois-de-paus",
+    "nome": "Dois de Paus",
+    "name_short": "w02",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/w02.jpg"
+  },
+  {
+    "slug": "três-de-paus",
+    "nome": "Três de Paus",
+    "name_short": "w03",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/w03.jpg"
+  },
+  {
+    "slug": "quatro-de-paus",
+    "nome": "Quatro de Paus",
+    "name_short": "w04",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/w04.jpg"
+  },
+  {
+    "slug": "cinco-de-paus",
+    "nome": "Cinco de Paus",
+    "name_short": "w05",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/w05.jpg"
+  },
+  {
+    "slug": "seis-de-paus",
+    "nome": "Seis de Paus",
+    "name_short": "w06",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/w06.jpg"
+  },
+  {
+    "slug": "sete-de-paus",
+    "nome": "Sete de Paus",
+    "name_short": "w07",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/w07.jpg"
+  },
+  {
+    "slug": "oito-de-paus",
+    "nome": "Oito de Paus",
+    "name_short": "w08",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/w08.jpg"
+  },
+  {
+    "slug": "nove-de-paus",
+    "nome": "Nove de Paus",
+    "name_short": "w09",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/w09.jpg"
+  },
+  {
+    "slug": "dez-de-paus",
+    "nome": "Dez de Paus",
+    "name_short": "w10",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/w10.jpg"
+  },
+  {
+    "slug": "pajem-de-paus",
+    "nome": "Pajem de Paus",
+    "name_short": "w11",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/w11.jpg"
+  },
+  {
+    "slug": "cavaleiro-de-paus",
+    "nome": "Cavaleiro de Paus",
+    "name_short": "w12",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/w12.jpg"
+  },
+  {
+    "slug": "rainha-de-paus",
+    "nome": "Rainha de Paus",
+    "name_short": "w13",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/w13.jpg"
+  },
+  {
+    "slug": "rei-de-paus",
+    "nome": "Rei de Paus",
+    "name_short": "w14",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/w14.jpg"
+  },
+  {
+    "slug": "as-de-copas",
+    "nome": "Ás de Copas",
+    "name_short": "c01",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/c01.jpg"
+  },
+  {
+    "slug": "dois-de-copas",
+    "nome": "Dois de Copas",
+    "name_short": "c02",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/c02.jpg"
+  },
+  {
+    "slug": "três-de-copas",
+    "nome": "Três de Copas",
+    "name_short": "c03",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/c03.jpg"
+  },
+  {
+    "slug": "quatro-de-copas",
+    "nome": "Quatro de Copas",
+    "name_short": "c04",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/c04.jpg"
+  },
+  {
+    "slug": "cinco-de-copas",
+    "nome": "Cinco de Copas",
+    "name_short": "c05",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/c05.jpg"
+  },
+  {
+    "slug": "seis-de-copas",
+    "nome": "Seis de Copas",
+    "name_short": "c06",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/c06.jpg"
+  },
+  {
+    "slug": "sete-de-copas",
+    "nome": "Sete de Copas",
+    "name_short": "c07",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/c07.jpg"
+  },
+  {
+    "slug": "oito-de-copas",
+    "nome": "Oito de Copas",
+    "name_short": "c08",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/c08.jpg"
+  },
+  {
+    "slug": "nove-de-copas",
+    "nome": "Nove de Copas",
+    "name_short": "c09",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/c09.jpg"
+  },
+  {
+    "slug": "dez-de-copas",
+    "nome": "Dez de Copas",
+    "name_short": "c10",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/c10.jpg"
+  },
+  {
+    "slug": "pajem-de-copas",
+    "nome": "Pajem de Copas",
+    "name_short": "c11",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/c11.jpg"
+  },
+  {
+    "slug": "cavaleiro-de-copas",
+    "nome": "Cavaleiro de Copas",
+    "name_short": "c12",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/c12.jpg"
+  },
+  {
+    "slug": "rainha-de-copas",
+    "nome": "Rainha de Copas",
+    "name_short": "c13",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/c13.jpg"
+  },
+  {
+    "slug": "rei-de-copas",
+    "nome": "Rei de Copas",
+    "name_short": "c14",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/c14.jpg"
+  },
+  {
+    "slug": "as-de-espadas",
+    "nome": "Ás de Espadas",
+    "name_short": "s01",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/s01.jpg"
+  },
+  {
+    "slug": "dois-de-espadas",
+    "nome": "Dois de Espadas",
+    "name_short": "s02",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/s02.jpg"
+  },
+  {
+    "slug": "três-de-espadas",
+    "nome": "Três de Espadas",
+    "name_short": "s03",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/s03.jpg"
+  },
+  {
+    "slug": "quatro-de-espadas",
+    "nome": "Quatro de Espadas",
+    "name_short": "s04",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/s04.jpg"
+  },
+  {
+    "slug": "cinco-de-espadas",
+    "nome": "Cinco de Espadas",
+    "name_short": "s05",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/s05.jpg"
+  },
+  {
+    "slug": "seis-de-espadas",
+    "nome": "Seis de Espadas",
+    "name_short": "s06",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/s06.jpg"
+  },
+  {
+    "slug": "sete-de-espadas",
+    "nome": "Sete de Espadas",
+    "name_short": "s07",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/s07.jpg"
+  },
+  {
+    "slug": "oito-de-espadas",
+    "nome": "Oito de Espadas",
+    "name_short": "s08",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/s08.jpg"
+  },
+  {
+    "slug": "nove-de-espadas",
+    "nome": "Nove de Espadas",
+    "name_short": "s09",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/s09.jpg"
+  },
+  {
+    "slug": "dez-de-espadas",
+    "nome": "Dez de Espadas",
+    "name_short": "s10",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/s10.jpg"
+  },
+  {
+    "slug": "pajem-de-espadas",
+    "nome": "Pajem de Espadas",
+    "name_short": "s11",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/s11.jpg"
+  },
+  {
+    "slug": "cavaleiro-de-espadas",
+    "nome": "Cavaleiro de Espadas",
+    "name_short": "s12",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/s12.jpg"
+  },
+  {
+    "slug": "rainha-de-espadas",
+    "nome": "Rainha de Espadas",
+    "name_short": "s13",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/s13.jpg"
+  },
+  {
+    "slug": "rei-de-espadas",
+    "nome": "Rei de Espadas",
+    "name_short": "s14",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/s14.jpg"
+  },
+  {
+    "slug": "as-de-ouros",
+    "nome": "Ás de Ouros",
+    "name_short": "p01",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/p01.jpg"
+  },
+  {
+    "slug": "dois-de-ouros",
+    "nome": "Dois de Ouros",
+    "name_short": "p02",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/p02.jpg"
+  },
+  {
+    "slug": "três-de-ouros",
+    "nome": "Três de Ouros",
+    "name_short": "p03",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/p03.jpg"
+  },
+  {
+    "slug": "quatro-de-ouros",
+    "nome": "Quatro de Ouros",
+    "name_short": "p04",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/p04.jpg"
+  },
+  {
+    "slug": "cinco-de-ouros",
+    "nome": "Cinco de Ouros",
+    "name_short": "p05",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/p05.jpg"
+  },
+  {
+    "slug": "seis-de-ouros",
+    "nome": "Seis de Ouros",
+    "name_short": "p06",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/p06.jpg"
+  },
+  {
+    "slug": "sete-de-ouros",
+    "nome": "Sete de Ouros",
+    "name_short": "p07",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/p07.jpg"
+  },
+  {
+    "slug": "oito-de-ouros",
+    "nome": "Oito de Ouros",
+    "name_short": "p08",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/p08.jpg"
+  },
+  {
+    "slug": "nove-de-ouros",
+    "nome": "Nove de Ouros",
+    "name_short": "p09",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/p09.jpg"
+  },
+  {
+    "slug": "dez-de-ouros",
+    "nome": "Dez de Ouros",
+    "name_short": "p10",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/p10.jpg"
+  },
+  {
+    "slug": "pajem-de-ouros",
+    "nome": "Pajem de Ouros",
+    "name_short": "p11",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/p11.jpg"
+  },
+  {
+    "slug": "cavaleiro-de-ouros",
+    "nome": "Cavaleiro de Ouros",
+    "name_short": "p12",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/p12.jpg"
+  },
+  {
+    "slug": "rainha-de-ouros",
+    "nome": "Rainha de Ouros",
+    "name_short": "p13",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/p13.jpg"
+  },
+  {
+    "slug": "rei-de-ouros",
+    "nome": "Rei de Ouros",
+    "name_short": "p14",
+    "imagem": "https://data.totl.net/tarot-rwcs-images/p14.jpg"
+  }
 ]

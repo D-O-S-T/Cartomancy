@@ -1,31 +1,93 @@
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, Dimensions, SectionList } from "react-native";
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, Dimensions, Image, ScrollView } from "react-native";
+import { useEffect, useState } from "react";
+import axios from "axios";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
 
-const { width, height } = Dimensions.get("window");
-
-// Minor Arcana by suits
-const minorArcanaData = [
-  {
-    title: "Paus",
-    data: ["Ás de Paus", "Dois de Paus", "Três de Paus", "Quatro de Paus", "Cinco de Paus", "Seis de Paus", "Sete de Paus", "Oito de Paus", "Nove de Paus", "Dez de Paus", "Pajem de Paus", "Cavaleiro de Paus", "Rainha de Paus", "Rei de Paus"]
-  },
-  {
-    title: "Copas",
-    data: ["Ás de Copas", "Dois de Copas", "Três de Copas", "Quatro de Copas", "Cinco de Copas", "Seis de Copas", "Sete de Copas", "Oito de Copas", "Nove de Copas", "Dez de Copas", "Pajem de Copas", "Cavaleiro de Copas", "Rainha de Copas", "Rei de Copas"]
-  },
-  {
-    title: "Espadas",
-    data: ["Ás de Espadas", "Dois de Espadas", "Três de Espadas", "Quatro de Espadas", "Cinco de Espadas", "Seis de Espadas", "Sete de Espadas", "Oito de Espadas", "Nove de Espadas", "Dez de Espadas", "Pajem de Espadas", "Cavaleiro de Espadas", "Rainha de Espadas", "Rei de Espadas"]
-  },
-  {
-    title: "Ouros",
-    data: ["Ás de Ouros", "Dois de Ouros", "Três de Ouros", "Quatro de Ouros", "Cinco de Ouros", "Seis de Ouros", "Sete de Ouros", "Oito de Ouros", "Nove de Ouros", "Dez de Ouros", "Pajem de Ouros", "Cavaleiro de Ouros", "Rainha de Ouros", "Rei de Ouros"]
-  }
-];
+const { width } = Dimensions.get("window");
 
 export default function MinorArcanas() {
   const router = useRouter();
+  const [cartasPorNaipe, setCartasPorNaipe] = useState({
+    Paus: [],
+    Copas: [],
+    Espadas: [],
+    Ouros: [],
+  });
+
+  useEffect(() => {
+    axios.get("http://localhost:5000/api/cartas")
+      .then((response) => {
+        const todas = response.data;
+
+        const paus = todas.filter(c => c.name_short.startsWith("w"));
+        const copas = todas.filter(c => c.name_short.startsWith("c"));
+        const espadas = todas.filter(c => c.name_short.startsWith("s"));
+        const ouros = todas.filter(c => c.name_short.startsWith("p"));
+
+        const ordenar = (a, b) => a.name_short.localeCompare(b.name_short);
+
+        setCartasPorNaipe({
+          Paus: paus.sort(ordenar),
+          Copas: copas.sort(ordenar),
+          Espadas: espadas.sort(ordenar),
+          Ouros: ouros.sort(ordenar),
+        });
+      })
+      .catch((error) => {
+        console.error("Erro ao buscar cartas:", error);
+      });
+  }, []);
+
+const nomesAlternativos = {
+  "Pajem de Paus": "Valete de Paus",
+  "Pajem de Copas": "Valete de Copas",
+  "Pajem de Espadas": "Valete de Espadas",
+  "Pajem de Ouros": "Valete de Ouros"
+};
+
+const renderCarta = ({ item }) => {
+  const nomeCorrigido = nomesAlternativos[item.nome] || item.nome || item.name;
+
+  return (
+    <View style={styles.card}>
+      {item.img_url && (
+        <Image
+          source={{ uri: item.img_url }}
+          style={styles.image}
+          resizeMode="contain"
+        />
+      )}
+      <Text style={styles.cardText}>{nomeCorrigido}</Text>
+    </View>
+  );
+};
+
+
+  const renderNaipe = (titulo, data) => {
+    const dataCompletada = [...data];
+    const resto = dataCompletada.length % 3;
+    if (resto !== 0) {
+      for (let i = 0; i < 3 - resto; i++) {
+        dataCompletada.push({ slug: `blank-${titulo}-${i}`, blank: true });
+      }
+    }
+
+    return (
+      <View key={titulo}>
+        <Text style={styles.sectionTitle}>{titulo}</Text>
+        <FlatList
+          data={dataCompletada}
+          keyExtractor={(item) => item.slug}
+          renderItem={({ item }) =>
+            item.blank ? <View style={[styles.card, { backgroundColor: "transparent" }]} /> : renderCarta({ item })
+          }
+          numColumns={3}
+          scrollEnabled={false}
+        />
+      </View>
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -38,25 +100,17 @@ export default function MinorArcanas() {
 
       <View style={styles.header}>
         <Text style={styles.title}>Arcanos Menores</Text>
-
         <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
           <Text style={styles.backButtonText}>Voltar</Text>
         </TouchableOpacity>
       </View>
 
-      <SectionList
-        sections={minorArcanaData}
-        keyExtractor={(item) => item}
-        contentContainerStyle={{ padding: 20 }}
-        renderSectionHeader={({ section: { title } }) => (
-          <Text style={styles.sectionTitle}>{title}</Text>
-        )}
-        renderItem={({ item }) => (
-          <View style={styles.card}>
-            <Text style={styles.cardText}>{item}</Text>
-          </View>
-        )}
-      />
+      <ScrollView contentContainerStyle={styles.grid}>
+        {renderNaipe("Paus", cartasPorNaipe.Paus)}
+        {renderNaipe("Copas", cartasPorNaipe.Copas)}
+        {renderNaipe("Espadas", cartasPorNaipe.Espadas)}
+        {renderNaipe("Ouros", cartasPorNaipe.Ouros)}
+      </ScrollView>
     </View>
   );
 }
@@ -95,15 +149,29 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginTop: 20,
     marginBottom: 10,
+    marginLeft: 10,
+  },
+  grid: {
+    paddingHorizontal: 10,
+    paddingBottom: 30,
   },
   card: {
+    flex: 1,
+    margin: 5,
     backgroundColor: "rgba(255,255,255,0.08)",
-    padding: 18,
-    borderRadius: 18,
-    marginBottom: 10,
+    borderRadius: 12,
+    alignItems: "center",
+    padding: 10,
+  },
+  image: {
+    width: width / 3.5,
+    height: 140,
+    borderRadius: 8,
   },
   cardText: {
     color: "#fff",
-    fontSize: 16,
+    fontSize: 12,
+    marginTop: 5,
+    textAlign: "center",
   },
 });
