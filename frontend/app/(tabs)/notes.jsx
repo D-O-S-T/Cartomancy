@@ -13,34 +13,65 @@ import {
   ScrollView,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Feather } from "@expo/vector-icons";
 
 const { width, height } = Dimensions.get("window");
 
-const anotacoesMock = [
-  { id: "1", titulo: "Anotação sobre Tarot #1" },
-  { id: "2", titulo: "Anotação sobre Tarot #2" },
-  { id: "3", titulo: "Anotação sobre Tarot #3" },
-];
-
 export default function AnotacoesScreen() {
-  const [modalVisible, setModalVisible] = useState(false);
-  const [tituloNota, setTituloNota] = useState("");
+  const [anotacoes, setAnotacoes] = useState([]);
+  const [modalLeituraVisible, setModalLeituraVisible] = useState(false);
+  const [notaSelecionada, setNotaSelecionada] = useState(null);
+  const [modalAddVisible, setModalAddVisible] = useState(false);
   const [conteudoNota, setConteudoNota] = useState("");
 
+  const carregarAnotacoes = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/api/anotacoes");
+      const data = await response.json();
+      setAnotacoes(data);
+    } catch (error) {
+      console.error("Erro ao buscar anotações:", error);
+    }
+  };
+
+  useEffect(() => {
+    carregarAnotacoes();
+  }, []);
+
+  const abrirNota = (nota) => {
+    setNotaSelecionada(nota);
+    setModalLeituraVisible(true);
+  };
+
+  const salvarNota = async () => {
+    if (!conteudoNota.trim()) return;
+
+    try {
+      const res = await fetch("http://localhost:5000/api/anotacoes", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          conteudo: conteudoNota,
+          usuario_id: 1, // você pode adaptar depois
+          trilha_id: 1,
+        }),
+      });
+
+      if (!res.ok) throw new Error(await res.text());
+      await carregarAnotacoes();
+      setConteudoNota("");
+      setModalAddVisible(false);
+    } catch (error) {
+      console.error("Erro ao salvar anotação:", error);
+    }
+  };
+
   const renderItem = ({ item }) => (
-    <TouchableOpacity style={styles.card} onPress={() => {}}>
-      <Text style={styles.cardText}>{item.titulo}</Text>
+    <TouchableOpacity style={styles.card} onPress={() => abrirNota(item)}>
+      <Text style={styles.cardText}>Anotação #{item.id}</Text>
     </TouchableOpacity>
   );
-
-  const salvarNota = () => {
-    console.log("Salvar nota:", tituloNota, conteudoNota);
-    setTituloNota("");
-    setConteudoNota("");
-    setModalVisible(false);
-  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -51,30 +82,73 @@ export default function AnotacoesScreen() {
         style={StyleSheet.absoluteFill}
       />
 
-      {/* Topo */}
       <View style={styles.header}>
         <Text style={styles.title}>Suas Anotações</Text>
-        <TouchableOpacity
-          style={styles.addButton}
-          onPress={() => setModalVisible(true)}
-        >
-          <Feather name="plus" size={24} color="#fff" />
-        </TouchableOpacity>
+
+        <View style={{ flexDirection: "row", gap: 12 }}>
+          <TouchableOpacity
+            style={styles.addButton}
+            onPress={() => carregarAnotacoes()}
+          >
+            <Feather name="refresh-cw" size={22} color="#fff" />
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.addButton}
+            onPress={() => setModalAddVisible(true)}
+          >
+            <Feather name="plus" size={22} color="#fff" />
+          </TouchableOpacity>
+        </View>
       </View>
 
       <FlatList
-        data={anotacoesMock}
-        keyExtractor={(item) => item.id}
+        data={anotacoes}
+        keyExtractor={(item) => item.id.toString()}
         renderItem={renderItem}
         contentContainerStyle={{ padding: 20 }}
+        ListEmptyComponent={
+          <Text style={{ color: "#fff", textAlign: "center", marginTop: 30 }}>
+            Nenhuma anotação encontrada.
+          </Text>
+        }
       />
 
-      {/* Modal */}
+      {/* Modal de leitura */}
       <Modal
-        visible={modalVisible}
+        visible={modalLeituraVisible}
+        animationType="fade"
+        transparent={true}
+        onRequestClose={() => setModalLeituraVisible(false)}
+      >
+        <View style={styles.modalOverlay}>
+          <ScrollView contentContainerStyle={styles.scrollContent}>
+            <View style={styles.modalContent}>
+              <Text style={styles.modalTitle}>
+                Anotação #{notaSelecionada?.id}
+              </Text>
+
+              <Text style={styles.modalTexto}>
+                {notaSelecionada?.conteudo || "Sem conteúdo disponível."}
+              </Text>
+
+              <TouchableOpacity
+                style={styles.saveButton}
+                onPress={() => setModalLeituraVisible(false)}
+              >
+                <Text style={styles.saveButtonText}>Fechar</Text>
+              </TouchableOpacity>
+            </View>
+          </ScrollView>
+        </View>
+      </Modal>
+
+      {/* Modal adicionar anotação */}
+      <Modal
+        visible={modalAddVisible}
         animationType="slide"
         transparent={true}
-        onRequestClose={() => setModalVisible(false)}
+        onRequestClose={() => setModalAddVisible(false)}
       >
         <KeyboardAvoidingView
           behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -83,14 +157,6 @@ export default function AnotacoesScreen() {
           <ScrollView contentContainerStyle={styles.scrollContent}>
             <View style={styles.modalContent}>
               <Text style={styles.modalTitle}>Adicionar Nota</Text>
-
-              <TextInput
-                placeholder="Título da nota"
-                placeholderTextColor="#ccc"
-                style={styles.input}
-                value={tituloNota}
-                onChangeText={setTituloNota}
-              />
 
               <TextInput
                 placeholder="Conteúdo da nota"
@@ -106,9 +172,10 @@ export default function AnotacoesScreen() {
               <TouchableOpacity style={styles.saveButton} onPress={salvarNota}>
                 <Text style={styles.saveButtonText}>Salvar</Text>
               </TouchableOpacity>
+
               <TouchableOpacity
                 style={styles.cancelButton}
-                onPress={() => setModalVisible(false)}
+                onPress={() => setModalAddVisible(false)}
               >
                 <Text style={styles.cancelButtonText}>Cancelar</Text>
               </TouchableOpacity>
@@ -165,7 +232,6 @@ const styles = StyleSheet.create({
     width: "90%",
     maxWidth: 430,
     alignSelf: "center",
-    maxHeight: "70%",
   },
   scrollContent: {
     flexGrow: 1,
@@ -179,24 +245,11 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
   },
-  input: {
-    backgroundColor: "rgba(255,255,255,0.1)",
+  modalTexto: {
     color: "#fff",
-    paddingVertical: 14,
-    paddingHorizontal: 20,
-    borderRadius: 15,
-    marginBottom: 15,
     fontSize: 16,
-  },
-  textArea: {
-    backgroundColor: "rgba(255,255,255,0.1)",
-    color: "#fff",
-    paddingVertical: 14,
-    paddingHorizontal: 20,
-    borderRadius: 15,
-    marginBottom: 20,
-    fontSize: 16,
-    minHeight: 120,
+    marginBottom: 25,
+    textAlign: "left",
   },
   saveButton: {
     backgroundColor: "#8E2DE2",
@@ -208,6 +261,16 @@ const styles = StyleSheet.create({
   saveButtonText: {
     color: "#fff",
     fontSize: 16,
+  },
+  textArea: {
+    backgroundColor: "rgba(255,255,255,0.1)",
+    color: "#fff",
+    paddingVertical: 14,
+    paddingHorizontal: 20,
+    borderRadius: 15,
+    marginBottom: 20,
+    fontSize: 16,
+    minHeight: 120,
   },
   cancelButton: {
     paddingVertical: 10,
