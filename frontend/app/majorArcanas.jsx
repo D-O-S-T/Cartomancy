@@ -1,4 +1,12 @@
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, Dimensions, Image } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  TouchableOpacity,
+  Dimensions,
+  Image,
+} from "react-native";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { LinearGradient } from "expo-linear-gradient";
@@ -10,55 +18,76 @@ export default function MajorArcanas() {
   const router = useRouter();
   const [cartas, setCartas] = useState([]);
 
-useEffect(() => {
-  axios.get("http://localhost:5000/api/cartas")
-    .then((response) => {
-      const ordemArcanosMaiores = [
-        "the-fool", "the-magician", "the-high-priestess", "the-empress",
-        "the-emperor", "the-hierophant", "the-lovers", "the-chariot",
-        "strength", "the-hermit", "wheel-of-fortune", "justice",
-        "the-hanged-man", "death", "temperance", "the-devil",
-        "the-tower", "the-star", "the-moon", "the-sun", "judgement", "the-world"
-      ];
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/api/cartas")
+      .then((response) => {
+        const ordemArcanosMaiores = [
+          "the-fool",
+          "the-magician",
+          "the-high-priestess",
+          "the-empress",
+          "the-emperor",
+          "the-hierophant",
+          "the-lovers",
+          "the-chariot",
+          "strength",
+          "the-hermit",
+          "wheel-of-fortune",
+          "justice",
+          "the-hanged-man",
+          "death",
+          "temperance",
+          "the-devil",
+          "the-tower",
+          "the-star",
+          "the-moon",
+          "the-sun",
+          "judgement",
+          "the-world",
+        ];
 
-      let cartasValidas = ordemArcanosMaiores
-        .map(slug => response.data.find(carta => carta.slug === slug))
-        .filter(Boolean);
+        let cartasValidas = ordemArcanosMaiores
+          .map((slug) => response.data.find((carta) => carta.slug === slug))
+          .filter(Boolean);
 
-      // Completa a última linha se necessário
-      const resto = cartasValidas.length % 3;
-      if (resto !== 0) {
-        const faltando = 3 - resto;
-        for (let i = 0; i < faltando; i++) {
-          cartasValidas.push({ slug: `blank-${i}`, blank: true });
+        // Completa a última linha se necessário
+        const resto = cartasValidas.length % 3;
+        if (resto !== 0) {
+          const faltando = 3 - resto;
+          for (let i = 0; i < faltando; i++) {
+            cartasValidas.push({ slug: `blank-${i}`, blank: true });
+          }
         }
-      }
 
-      setCartas(cartasValidas);
-    })
-    .catch((error) => {
-      console.error("Erro ao buscar cartas:", error);
-    });
-}, []);
+        setCartas(cartasValidas);
+      })
+      .catch((error) => {
+        console.error("Erro ao buscar cartas:", error);
+      });
+  }, []);
 
-const renderItem = ({ item }) => {
-  if (item.blank) {
-    return <View style={[styles.card, { backgroundColor: "transparent" }]} />;
-  }
+  const renderItem = ({ item }) => {
+    if (item.blank) {
+      return <View style={[styles.card, { backgroundColor: "transparent" }]} />;
+    }
 
-  return (
-    <View style={styles.card}>
-      {item.img_url && (
-        <Image
-          source={{ uri: item.img_url }}
-          style={styles.image}
-          resizeMode="contain"
-        />
-      )}
-<Text style={styles.cardText}>{item.nome}</Text>
-    </View>
-  );
-};
+    return (
+      <TouchableOpacity
+        style={styles.card}
+        onPress={() => router.push(`/cartas/${item.slug}`)}
+      >
+        {item.img_url && (
+          <Image
+            source={{ uri: item.img_url }}
+            style={styles.image}
+            resizeMode="contain"
+          />
+        )}
+        <Text style={styles.cardText}>{item.nome}</Text>
+      </TouchableOpacity>
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -71,7 +100,10 @@ const renderItem = ({ item }) => {
 
       <View style={styles.header}>
         <Text style={styles.title}>Arcanos Maiores</Text>
-        <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
+        <TouchableOpacity
+          style={styles.backButton}
+          onPress={() => router.back()}
+        >
           <Text style={styles.backButtonText}>Voltar</Text>
         </TouchableOpacity>
       </View>
