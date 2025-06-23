@@ -40,14 +40,19 @@ export default function MinorArcanas() {
   }, []);
 
 const nomesAlternativos = {
-  "Pajem de Paus": "Valete de Paus",
+  "Page of Wands": "Valete de Paus",
+  "Page of Cups": "Valete de Copas",
+  "Page of Swords": "Valete de Espadas",
+  "Page of Pentacles": "Valete de Ouros",
+  "Pajem de Paus": "Valete de Paus", 
   "Pajem de Copas": "Valete de Copas",
   "Pajem de Espadas": "Valete de Espadas",
   "Pajem de Ouros": "Valete de Ouros"
 };
 
 const renderCarta = ({ item }) => {
-  const nomeCorrigido = nomesAlternativos[item.nome] || item.nome || item.name;
+  const nomeBase = item.nome || item.name_pt || item.name;
+  const nomeCorrigido = nomesAlternativos[nomeBase] || nomeBase;
 
   return (
     <View style={styles.card}>
@@ -62,7 +67,6 @@ const renderCarta = ({ item }) => {
     </View>
   );
 };
-
 
   const renderNaipe = (titulo, data) => {
     const dataCompletada = [...data];
