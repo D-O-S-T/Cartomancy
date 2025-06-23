@@ -55,7 +55,7 @@ const renderItem = ({ item }) => {
           resizeMode="contain"
         />
       )}
-<Text style={styles.cardText}>{item.nome}</Text>
+      <Text style={styles.cardText}>{item.name_pt || item.name}</Text>
     </View>
   );
 };

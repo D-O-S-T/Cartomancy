@@ -170,8 +170,8 @@
     "imagem": "https://data.totl.net/tarot-rwcs-images/w10.jpg"
   },
   {
-    "slug": "pajem-de-paus",
-    "nome": "Pajem de Paus",
+    "slug": "valete-de-paus",
+    "nome": "Valete de Paus",
     "name_short": "w11",
     "imagem": "https://data.totl.net/tarot-rwcs-images/w11.jpg"
   },
@@ -254,8 +254,8 @@
     "imagem": "https://data.totl.net/tarot-rwcs-images/c10.jpg"
   },
   {
-    "slug": "pajem-de-copas",
-    "nome": "Pajem de Copas",
+    "slug": "valete-de-copas",
+    "nome": "Valete de Copas",
     "name_short": "c11",
     "imagem": "https://data.totl.net/tarot-rwcs-images/c11.jpg"
   },
@@ -338,8 +338,8 @@
     "imagem": "https://data.totl.net/tarot-rwcs-images/s10.jpg"
   },
   {
-    "slug": "pajem-de-espadas",
-    "nome": "Pajem de Espadas",
+    "slug": "Valete-de-espadas",
+    "nome": "Valete de Espadas",
     "name_short": "s11",
     "imagem": "https://data.totl.net/tarot-rwcs-images/s11.jpg"
   },
@@ -422,8 +422,8 @@
     "imagem": "https://data.totl.net/tarot-rwcs-images/p10.jpg"
   },
   {
-    "slug": "pajem-de-ouros",
-    "nome": "Pajem de Ouros",
+    "slug": "valete-de-ouros",
+    "nome": "Valete de Ouros",
     "name_short": "p11",
     "imagem": "https://data.totl.net/tarot-rwcs-images/p11.jpg"
   },
