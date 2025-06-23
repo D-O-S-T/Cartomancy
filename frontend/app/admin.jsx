@@ -4,7 +4,7 @@ import { View, Text, TextInput, Button, ScrollView, StyleSheet, Alert, Picker } 
 const BASE_URL_TRILHAS = 'http://localhost:5000/api/trilhas';
 const BASE_URL_VIDEOS = 'http://localhost:5000/api/videos';
 
-export default function AdminPage() {
+export default function Admin() {
   // States trilhas
   const [nomeTrilha, setNomeTrilha] = useState('');
   const [trilhas, setTrilhas] = useState([]);

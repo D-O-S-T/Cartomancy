@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -8,14 +9,34 @@ import {
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Feather } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useRouter } from "expo-router";
 
 export default function Profile() {
-  // Mock do usuário
-  const user = {
-    name: "Visitante",
-    avatar: require("../../assets/avatar-placeholder.jpg"),
-    // email: "dora.araujo@example.com",
-  };
+  const [user, setUser] = useState(null);
+  const router = useRouter();
+
+  useEffect(() => {
+    const carregarUsuario = async () => {
+      const usuarioString = await AsyncStorage.getItem("usuarioLogado");
+      if (usuarioString) {
+        const usuario = JSON.parse(usuarioString);
+        setUser(usuario);
+      } else {
+        setUser({
+          nome: "Visitante",
+          tipo_usuario: "guest",
+          avatar: require("../../assets/avatar-placeholder.jpg"),
+        });
+      }
+    };
+
+    carregarUsuario();
+  }, []);
+
+  if (!user) {
+    return null; // ou um loading
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -27,16 +48,44 @@ export default function Profile() {
       />
 
       <View style={styles.content}>
-        <Image source={user.avatar} style={styles.avatar} />
-        <Text style={styles.name}>{user.name}</Text>
-        <Text style={styles.email}>{user.email}</Text>
+        <Image
+          source={user.avatar || require("../../assets/avatar-placeholder.jpg")}
+          style={styles.avatar}
+        />
+        <Text style={styles.name}>{user.nome}</Text>
+        {user.email && <Text style={styles.email}>{user.email}</Text>}
 
-        <TouchableOpacity style={styles.button}>
-          <Feather name="edit-2" size={20} color="#fff" />
-          <Text style={styles.buttonText}>Editar Perfil</Text>
-        </TouchableOpacity>
+        {/* Só mostra o botão de editar se não for visitante */}
+        {user.tipo_usuario !== "guest" && (
+          <TouchableOpacity style={styles.button}>
+            <Feather name="edit-2" size={20} color="#fff" />
+            <Text style={styles.buttonText}>Editar Perfil</Text>
+          </TouchableOpacity>
+        )}
 
-        <TouchableOpacity style={[styles.button, styles.logoutButton]}>
+        {/* Se for admin, mostra o botão de administração e leva pra /admin */}
+        {user.tipo_usuario === "admin" && (
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => router.push("/admin")}
+          >
+            <Feather name="settings" size={20} color="#fff" />
+            <Text style={styles.buttonText}>Administração</Text>
+          </TouchableOpacity>
+        )}
+
+        <TouchableOpacity
+          style={[styles.button, styles.logoutButton]}
+          onPress={async () => {
+            await AsyncStorage.removeItem("usuarioLogado");
+            setUser({
+              nome: "Visitante",
+              tipo_usuario: "guest",
+              avatar: require("../../assets/avatar-placeholder.jpg"),
+            });
+            router.replace("/"); // Redireciona para a tela inicial
+          }}
+        >
           <Feather name="log-out" size={20} color="#fff" />
           <Text style={styles.buttonText}>Sair</Text>
         </TouchableOpacity>
@@ -46,47 +95,47 @@ export default function Profile() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  container: {
+    flex: 1,
+  },
   content: {
-    marginTop: 80,
+    flex: 1,
     alignItems: "center",
-    paddingHorizontal: 30,
+    justifyContent: "center",
+    padding: 24,
   },
   avatar: {
-    width: 120,
-    height: 120,
-    borderRadius: 60,
-    borderWidth: 3,
-    borderColor: "#fff",
-    marginBottom: 20,
-    backgroundColor: "#aaa", // placeholder se a imagem não carregar
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    marginBottom: 16,
   },
   name: {
-    color: "#fff",
-    fontSize: 28,
+    fontSize: 24,
     fontWeight: "bold",
+    color: "#fff",
     marginBottom: 8,
   },
   email: {
-    color: "#ddd",
     fontSize: 16,
-    marginBottom: 40,
+    color: "#fff",
+    marginBottom: 24,
   },
   button: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "rgba(255,255,255,0.15)",
-    borderRadius: 25,
-    paddingVertical: 14,
-    paddingHorizontal: 40,
-    marginBottom: 20,
+    backgroundColor: "#8E2DE2",
+    padding: 12,
+    borderRadius: 8,
+    marginTop: 12,
   },
   buttonText: {
     color: "#fff",
-    fontSize: 18,
-    marginLeft: 12,
+    marginLeft: 8,
+    fontSize: 16,
   },
   logoutButton: {
     backgroundColor: "#C13584",
+    marginTop: 32,
   },
 });

@@ -10,6 +10,8 @@ import {
   SafeAreaView,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 
 const { width, height } = Dimensions.get("window");
 
@@ -44,8 +46,11 @@ export default function LoginScreen() {
         return;
       }
 
+      // No sucesso do login
       setMessageColor("green");
       setMessage(`Bem-vindo, ${json.usuario.nome}!`);
+
+      await AsyncStorage.setItem("usuarioLogado", JSON.stringify(json.usuario));
 
       setTimeout(() => router.push("/lectures"), 1000);
     } catch (error) {
