@@ -10,6 +10,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { useState } from "react";
 import { useRouter } from "expo-router";
 import DeckPicker from "../components/deckPicker";
+import YoutubePlayer from "react-native-youtube-iframe";
 
 const { width, height } = Dimensions.get("window");
 
@@ -28,16 +29,20 @@ export default function Lectures() {
 
       <ScrollView contentContainerStyle={styles.content}>
         {/* Introdução */}
-        <Text style={styles.welcomeTitle}>Bem-vindo ao Tarot App</Text>
+        <Text style={styles.welcomeTitle}>Bem-vindo ao Eremita</Text>
         <Text style={styles.introText}>
           O Tarot é um antigo oráculo composto por 78 cartas, dividido em Arcanos Maiores e Menores.
           Cada carta carrega um significado simbólico e espiritual, capaz de guiar e aconselhar quem
           busca respostas ou autoconhecimento.
         </Text>
 
-        {/* Vídeo de Introdução (placeholder estilizado) */}
-        <View style={styles.videoPlaceholder}>
-          <Text style={styles.videoText}>🎥 Vídeo de Introdução ao Tarot</Text>
+        {/* YouTube Video */}
+        <View style={styles.videoContainer}>
+          <YoutubePlayer
+            height={180}
+            play={false}
+            videoId={"jIlRpDw-1r8"}
+          />
         </View>
 
         {/* Escolha de Baralho */}
@@ -93,21 +98,13 @@ const styles = StyleSheet.create({
     marginBottom: 30,
     lineHeight: 24,
   },
-  videoPlaceholder: {
+  videoContainer: {
     width: "100%",
     maxWidth: 320,
     height: 180,
-    backgroundColor: "rgba(255,255,255,0.07)",
-    borderRadius: 15,
-    justifyContent: "center",
-    alignItems: "center",
     marginBottom: 30,
-  },
-  videoText: {
-    color: "#fff",
-    fontSize: 16,
-    textAlign: "center",
-    paddingHorizontal: 10,
+    borderRadius: 15,
+    overflow: "hidden",
   },
   title: {
     fontSize: 22,

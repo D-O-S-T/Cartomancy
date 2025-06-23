@@ -91,6 +91,18 @@ export default function AppLayout() {
           ),
         }}
       />
+
+    <Tabs.Screen
+      name="materiais"
+      options={{
+        title: "materiais",
+        headerTitle: () => <HeaderTitle />,
+        headerLeft: () => <HeaderBackButton />,
+        tabBarIcon: ({ color, size }) => (
+          <MaterialIcons name="play-circle-outline" size={size} color={color} />
+        ),
+      }}
+    />
     </Tabs>
   );
 }
