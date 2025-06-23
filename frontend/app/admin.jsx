@@ -1,25 +1,36 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Button, ScrollView, StyleSheet, Alert, Picker } from 'react-native';
+import React, { useState, useEffect } from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  ScrollView,
+  StyleSheet,
+  Alert,
+  SafeAreaView,
+} from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
+import { Picker } from "@react-native-picker/picker";
 
-const BASE_URL_TRILHAS = 'http://localhost:5000/api/trilhas';
-const BASE_URL_VIDEOS = 'http://localhost:5000/api/videos';
+const BASE_URL_TRILHAS = "http://localhost:5000/api/trilhas";
+const BASE_URL_VIDEOS = "http://localhost:5000/api/videos";
 
 export default function Admin() {
-  // States trilhas
-  const [nomeTrilha, setNomeTrilha] = useState('');
+  // Trilhas states
+  const [nomeTrilha, setNomeTrilha] = useState("");
   const [trilhas, setTrilhas] = useState([]);
-  const [editIdTrilha, setEditIdTrilha] = useState('');
-  const [editNomeTrilha, setEditNomeTrilha] = useState('');
-  const [deleteIdTrilha, setDeleteIdTrilha] = useState('');
+  const [editIdTrilha, setEditIdTrilha] = useState("");
+  const [editNomeTrilha, setEditNomeTrilha] = useState("");
+  const [deleteIdTrilha, setDeleteIdTrilha] = useState("");
 
-  // States vídeos
-  const [tituloVideo, setTituloVideo] = useState('');
-  const [descVideo, setDescVideo] = useState('');
-  const [urlVideo, setUrlVideo] = useState('');
-  const [trilhaVideo, setTrilhaVideo] = useState('');
-  const [deleteIdVideo, setDeleteIdVideo] = useState('');
+  // Videos states
+  const [tituloVideo, setTituloVideo] = useState("");
+  const [descVideo, setDescVideo] = useState("");
+  const [urlVideo, setUrlVideo] = useState("");
+  const [trilhaVideo, setTrilhaVideo] = useState("");
+  const [deleteIdVideo, setDeleteIdVideo] = useState("");
 
-  const [resposta, setResposta] = useState('');
+  const [resposta, setResposta] = useState("");
 
   useEffect(() => {
     carregarTrilhas();
@@ -31,192 +42,366 @@ export default function Admin() {
       const data = await res.json();
       setTrilhas(data);
     } catch (err) {
-      setResposta('Erro ao carregar trilhas: ' + err.message);
+      setResposta("Erro ao carregar trilhas: " + err.message);
     }
   };
 
-  // --------------------- Funções CRUD --------------------- //
-    // Criar Trilha
-    const criarTrilha = async () => {
+  // CRUD Functions for Trilhas
+
+  const criarTrilha = async () => {
     if (!nomeTrilha.trim()) {
-        Alert.alert('Informe o nome da trilha.');
-        return;
+      Alert.alert("Informe o nome da trilha.");
+      return;
     }
-
     try {
-        const res = await fetch(BASE_URL_TRILHAS, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nome: nomeTrilha })
-        });
-        const json = await res.json();
-        setResposta(JSON.stringify(json, null, 2));
-        setNomeTrilha('');
-        carregarTrilhas();
+      const res = await fetch(BASE_URL_TRILHAS, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ nome: nomeTrilha }),
+      });
+      const json = await res.json();
+      setResposta("Trilha criada:\n" + JSON.stringify(json, null, 2));
+      setNomeTrilha("");
+      carregarTrilhas();
     } catch (err) {
-        setResposta('Erro ao criar trilha: ' + err.message);
+      setResposta("Erro ao criar trilha: " + err.message);
     }
-    };
+  };
 
-    // Editar Trilha
-    const editarTrilha = async () => {
+  const editarTrilha = async () => {
     if (!editIdTrilha.trim() || !editNomeTrilha.trim()) {
-        Alert.alert('Informe ID e novo nome da trilha.');
-        return;
+      Alert.alert("Informe ID e novo nome da trilha.");
+      return;
     }
-
     try {
-        const res = await fetch(`${BASE_URL_TRILHAS}/${editIdTrilha}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nome: editNomeTrilha })
-        });
-        const json = await res.json();
-        setResposta('Trilha editada:\n' + JSON.stringify(json, null, 2));
-        setEditIdTrilha('');
-        setEditNomeTrilha('');
-        carregarTrilhas();
+      const res = await fetch(`${BASE_URL_TRILHAS}/${editIdTrilha}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ nome: editNomeTrilha }),
+      });
+      const json = await res.json();
+      setResposta("Trilha editada:\n" + JSON.stringify(json, null, 2));
+      setEditIdTrilha("");
+      setEditNomeTrilha("");
+      carregarTrilhas();
     } catch (err) {
-        setResposta('Erro ao editar trilha: ' + err.message);
+      setResposta("Erro ao editar trilha: " + err.message);
     }
-    };
+  };
 
-    // Excluir Trilha
-    const excluirTrilha = async () => {
+  const excluirTrilha = async () => {
     if (!deleteIdTrilha.trim()) {
-        Alert.alert('Informe o ID da trilha para excluir.');
-        return;
+      Alert.alert("Informe o ID da trilha para excluir.");
+      return;
     }
-
     try {
-        const res = await fetch(`${BASE_URL_TRILHAS}/${deleteIdTrilha}`, { method: 'DELETE' });
-        const json = await res.json();
-        setResposta('Trilha excluída:\n' + JSON.stringify(json, null, 2));
-        setDeleteIdTrilha('');
-        carregarTrilhas();
+      const res = await fetch(`${BASE_URL_TRILHAS}/${deleteIdTrilha}`, {
+        method: "DELETE",
+      });
+      const json = await res.json();
+      setResposta("Trilha excluída:\n" + JSON.stringify(json, null, 2));
+      setDeleteIdTrilha("");
+      carregarTrilhas();
     } catch (err) {
-        setResposta('Erro ao excluir trilha: ' + err.message);
+      setResposta("Erro ao excluir trilha: " + err.message);
     }
-    };
+  };
 
-    // Listar Trilhas
-    const listarTrilhas = async () => {
-    try {
-        const res = await fetch(BASE_URL_TRILHAS);
-        const trilhas = await res.json();
-        if (trilhas.length === 0) {
-        setResposta('Nenhuma trilha cadastrada.');
-        return;
-        }
-        let texto = '';
-        trilhas.forEach(t => {
-        texto += `ID: ${t.id}\nNome: ${t.nome}\n\n`;
-        });
-        setResposta(texto);
-    } catch (err) {
-        setResposta('Erro ao listar trilhas: ' + err.message);
-    }
-    };
+  // CRUD Functions for Videos
 
-    // Criar Video
-    const criarVideo = async () => {
+  const criarVideo = async () => {
     if (!tituloVideo.trim() || !urlVideo.trim() || !trilhaVideo) {
-        Alert.alert('Preencha título, URL e selecione a trilha.');
-        return;
+      Alert.alert("Preencha título, URL e selecione a trilha.");
+      return;
     }
-
     const dados = {
-        titulo: tituloVideo,
-        desc: descVideo,
-        url: urlVideo,
-        trilha_id: Number(trilhaVideo)
+      titulo: tituloVideo,
+      desc: descVideo,
+      url: urlVideo,
+      trilha_id: Number(trilhaVideo),
     };
-
     try {
-        const res = await fetch(BASE_URL_VIDEOS, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(dados)
-        });
-        const json = await res.json();
-        setResposta('Vídeo criado:\n' + JSON.stringify(json, null, 2));
-        setTituloVideo('');
-        setDescVideo('');
-        setUrlVideo('');
-        setTrilhaVideo('');
+      const res = await fetch(BASE_URL_VIDEOS, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(dados),
+      });
+      const json = await res.json();
+      setResposta("Vídeo criado:\n" + JSON.stringify(json, null, 2));
+      setTituloVideo("");
+      setDescVideo("");
+      setUrlVideo("");
+      setTrilhaVideo("");
     } catch (err) {
-        setResposta('Erro ao criar vídeo: ' + err.message);
+      setResposta("Erro ao criar vídeo: " + err.message);
     }
-    };
+  };
 
-    // Excluir Video
-    const excluirVideo = async () => {
+  const excluirVideo = async () => {
     if (!deleteIdVideo.trim()) {
-        Alert.alert('Informe o ID do vídeo para excluir.');
-        return;
+      Alert.alert("Informe o ID do vídeo para excluir.");
+      return;
     }
-
     try {
-        const res = await fetch(`${BASE_URL_VIDEOS}/${deleteIdVideo}`, { method: 'DELETE' });
-        const json = await res.json();
-        setResposta('Vídeo excluído:\n' + JSON.stringify(json, null, 2));
-        setDeleteIdVideo('');
+      const res = await fetch(`${BASE_URL_VIDEOS}/${deleteIdVideo}`, {
+        method: "DELETE",
+      });
+      const json = await res.json();
+      setResposta("Vídeo excluído:\n" + JSON.stringify(json, null, 2));
+      setDeleteIdVideo("");
     } catch (err) {
-        setResposta('Erro ao excluir vídeo: ' + err.message);
+      setResposta("Erro ao excluir vídeo: " + err.message);
     }
-    };
+  };
 
-    // Listar Videos
-    const listarVideos = async () => {
+  // List functions (optional UI buttons)
+
+  const listarTrilhas = async () => {
     try {
-        const res = await fetch(BASE_URL_VIDEOS);
-        const videos = await res.json();
-        if (videos.length === 0) {
-        setResposta('Nenhum vídeo cadastrado.');
+      const res = await fetch(BASE_URL_TRILHAS);
+      const data = await res.json();
+      if (data.length === 0) {
+        setResposta("Nenhuma trilha cadastrada.");
         return;
-        }
-        let texto = '';
-        videos.forEach(v => {
-        texto += `ID: ${v.id}\nTítulo: ${v.titulo}\nDescrição: ${v.desc || '(sem descrição)'}\nURL: ${v.url}\nTrilha ID: ${v.trilha_id}\n\n`;
-        });
-        setResposta(texto);
+      }
+      let texto = "";
+      data.forEach((t) => {
+        texto += `ID: ${t.id}\nNome: ${t.nome}\n\n`;
+      });
+      setResposta(texto);
     } catch (err) {
-        setResposta('Erro ao listar vídeos: ' + err.message);
+      setResposta("Erro ao listar trilhas: " + err.message);
     }
-    };
-    //---------------------------------------------------------//
+  };
+
+  const listarVideos = async () => {
+    try {
+      const res = await fetch(BASE_URL_VIDEOS);
+      const data = await res.json();
+      if (data.length === 0) {
+        setResposta("Nenhum vídeo cadastrado.");
+        return;
+      }
+      let texto = "";
+      data.forEach((v) => {
+        texto += `ID: ${v.id}\nTítulo: ${v.titulo}\nDescrição: ${
+          v.desc || "(sem descrição)"
+        }\nURL: ${v.url}\nTrilha ID: ${v.trilha_id}\n\n`;
+      });
+      setResposta(texto);
+    } catch (err) {
+      setResposta("Erro ao listar vídeos: " + err.message);
+    }
+  };
+
   return (
-    <ScrollView style={styles.container}>
-      <Text style={styles.title}>Painel Admin</Text>
+    <SafeAreaView style={{ flex: 1 }}>
+      <LinearGradient
+        colors={["#8E2DE2", "#C13584"]}
+        start={{ x: 0.5, y: 0 }}
+        end={{ x: 0.5, y: 1 }}
+        style={StyleSheet.absoluteFill}
+      />
+      <ScrollView contentContainerStyle={styles.content}>
+        <Text style={styles.title}>Painel Admin</Text>
 
-      <Text style={styles.sectionTitle}>Adicionar Trilha</Text>
-      <TextInput placeholder="Nome da trilha" value={nomeTrilha} onChangeText={setNomeTrilha} style={styles.input} />
-      <Button title="Criar Trilha" onPress={criarTrilha} />
+        {/* Criar Trilha */}
+        <Text style={styles.sectionTitle}>Adicionar Trilha</Text>
+        <TextInput
+          placeholder="Nome da trilha"
+          placeholderTextColor="#ccc"
+          value={nomeTrilha}
+          onChangeText={setNomeTrilha}
+          style={styles.input}
+        />
+        <TouchableOpacity style={styles.button} onPress={criarTrilha}>
+          <Text style={styles.buttonText}>Criar Trilha</Text>
+        </TouchableOpacity>
 
-      {/* Adicione os blocos de edição, exclusão e listagem aqui da mesma forma */}
+        {/* Editar Trilha */}
+        <Text style={styles.sectionTitle}>Editar Trilha</Text>
+        <TextInput
+          placeholder="ID da trilha"
+          placeholderTextColor="#ccc"
+          value={editIdTrilha}
+          onChangeText={setEditIdTrilha}
+          style={styles.input}
+          keyboardType="numeric"
+        />
+        <TextInput
+          placeholder="Novo nome da trilha"
+          placeholderTextColor="#ccc"
+          value={editNomeTrilha}
+          onChangeText={setEditNomeTrilha}
+          style={styles.input}
+        />
+        <TouchableOpacity style={styles.button} onPress={editarTrilha}>
+          <Text style={styles.buttonText}>Editar Trilha</Text>
+        </TouchableOpacity>
 
-      <Text style={styles.sectionTitle}>Adicionar Vídeo</Text>
-      <Picker selectedValue={trilhaVideo} onValueChange={setTrilhaVideo} style={styles.input}>
-        <Picker.Item label="Selecione uma trilha" value="" />
-        {trilhas.map((t) => (
-          <Picker.Item key={t.id} label={t.nome} value={t.id} />
-        ))}
-      </Picker>
-      <TextInput placeholder="Título" value={tituloVideo} onChangeText={setTituloVideo} style={styles.input} />
-      <TextInput placeholder="Descrição" value={descVideo} onChangeText={setDescVideo} style={styles.input} />
-      <TextInput placeholder="URL" value={urlVideo} onChangeText={setUrlVideo} style={styles.input} />
-      <Button title="Criar Vídeo" onPress={criarVideo} />
+        {/* Excluir Trilha */}
+        <Text style={styles.sectionTitle}>Excluir Trilha</Text>
+        <TextInput
+          placeholder="ID da trilha"
+          placeholderTextColor="#ccc"
+          value={deleteIdTrilha}
+          onChangeText={setDeleteIdTrilha}
+          style={styles.input}
+          keyboardType="numeric"
+        />
+        <TouchableOpacity style={styles.deleteButton} onPress={excluirTrilha}>
+          <Text style={styles.deleteText}>Excluir Trilha</Text>
+        </TouchableOpacity>
 
-      <Text style={styles.sectionTitle}>Resposta / Resultado</Text>
-      <Text style={styles.pre}>{resposta}</Text>
-    </ScrollView>
+        {/* Listar Trilhas */}
+        <TouchableOpacity style={styles.button} onPress={listarTrilhas}>
+          <Text style={styles.buttonText}>Listar Trilhas</Text>
+        </TouchableOpacity>
+
+        {/* Criar Video */}
+        <Text style={styles.sectionTitle}>Adicionar Vídeo</Text>
+        <View style={styles.pickerWrapper}>
+          <Picker
+            selectedValue={trilhaVideo}
+            onValueChange={setTrilhaVideo}
+            style={styles.picker}
+            dropdownIconColor="#fff"
+          >
+            <Picker.Item label="Selecione uma trilha" value="" />
+            {trilhas.map((t) => (
+              <Picker.Item key={t.id} label={t.nome} value={t.id} />
+            ))}
+          </Picker>
+        </View>
+
+        <TextInput
+          placeholder="Título"
+          placeholderTextColor="#ccc"
+          value={tituloVideo}
+          onChangeText={setTituloVideo}
+          style={styles.input}
+        />
+        <TextInput
+          placeholder="Descrição"
+          placeholderTextColor="#ccc"
+          value={descVideo}
+          onChangeText={setDescVideo}
+          style={styles.input}
+        />
+        <TextInput
+          placeholder="URL"
+          placeholderTextColor="#ccc"
+          value={urlVideo}
+          onChangeText={setUrlVideo}
+          style={styles.input}
+        />
+        <TouchableOpacity style={styles.button} onPress={criarVideo}>
+          <Text style={styles.buttonText}>Criar Vídeo</Text>
+        </TouchableOpacity>
+
+        {/* Excluir Video */}
+        <Text style={styles.sectionTitle}>Excluir Vídeo</Text>
+        <TextInput
+          placeholder="ID do vídeo"
+          placeholderTextColor="#ccc"
+          value={deleteIdVideo}
+          onChangeText={setDeleteIdVideo}
+          style={styles.input}
+          keyboardType="numeric"
+        />
+        <TouchableOpacity style={styles.deleteButton} onPress={excluirVideo}>
+          <Text style={styles.deleteText}>Excluir Vídeo</Text>
+        </TouchableOpacity>
+
+        {/* Listar Vídeos */}
+        <TouchableOpacity style={styles.button} onPress={listarVideos}>
+          <Text style={styles.buttonText}>Listar Vídeos</Text>
+        </TouchableOpacity>
+
+        <View style={styles.divider} />
+
+        <Text style={styles.sectionTitle}>Resposta</Text>
+        <Text style={styles.responseText}>{resposta}</Text>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { padding: 20 },
-  title: { fontSize: 26, fontWeight: 'bold', marginBottom: 20 },
-  sectionTitle: { fontSize: 20, marginTop: 30, marginBottom: 10 },
-  input: { borderWidth: 1, borderColor: '#ccc', padding: 8, marginBottom: 10 },
-  pre: { padding: 10, backgroundColor: '#eee', marginTop: 10, fontFamily: 'monospace' },
+  content: {
+    padding: 24,
+    paddingBottom: 60,
+  },
+  title: {
+    fontSize: 26,
+    fontWeight: "bold",
+    color: "#fff",
+    textAlign: "center",
+    marginBottom: 30,
+  },
+  sectionTitle: {
+    fontSize: 20,
+    color: "#fff",
+    marginTop: 24,
+    marginBottom: 12,
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: "rgba(255,255,255,0.3)",
+    backgroundColor: "rgba(255,255,255,0.07)",
+    padding: 14,
+    borderRadius: 20,
+    color: "#fff",
+    marginBottom: 10,
+  },
+  pickerWrapper: {
+    borderWidth: 1,
+    borderColor: "rgba(255,255,255,0.3)",
+    borderRadius: 20,
+    marginBottom: 10,
+    overflow: "hidden",
+  },
+  picker: {
+    color: "#fff",
+    backgroundColor: "rgba(255,255,255,0.07)",
+  },
+  button: {
+    backgroundColor: "#8E2DE2",
+    paddingVertical: 12,
+    borderRadius: 20,
+    marginTop: 15,
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: "#fff",
+  },
+  buttonText: {
+    color: "#fff",
+    fontSize: 14,
+  },
+  deleteButton: {
+    backgroundColor: "#C13584",
+    paddingVertical: 12,
+    borderRadius: 20,
+    marginTop: 15,
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: "#fff",
+  },
+  deleteText: {
+    color: "#fff",
+    fontSize: 14,
+  },
+  responseText: {
+    color: "#fff",
+    marginTop: 10,
+    fontSize: 14,
+    lineHeight: 20,
+    fontFamily: "monospace",
+  },
+  divider: {
+    borderBottomWidth: 1,
+    borderBottomColor: "#fff",
+    marginVertical: 20,
+    opacity: 0.5,
+  },
 });
