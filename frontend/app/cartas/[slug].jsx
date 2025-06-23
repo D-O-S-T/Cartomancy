@@ -20,9 +20,11 @@ export default function CardScreen() {
   const [carta, setCarta] = useState(null);
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/cartas")
+    axios
+      // (Talvez seja necessário alterar de localhost para o IP da máquina na hora de apresentar)
+      .get("http://localhost:5000/api/cartas")
       .then((response) => {
-        const cartaEncontrada = response.data.find(c => c.slug === slug);
+        const cartaEncontrada = response.data.find((c) => c.slug === slug);
         setCarta(cartaEncontrada);
       })
       .catch((error) => {
@@ -98,8 +100,8 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   image: {
-    width: width * 0.8,
-    height: width * 1.2,
+    width: 200,
+    height: 300, // 2:3 aspect ratio
     borderRadius: 12,
     marginBottom: 30,
   },

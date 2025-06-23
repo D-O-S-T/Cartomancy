@@ -39,34 +39,37 @@ export default function MinorArcanas() {
       });
   }, []);
 
-const nomesAlternativos = {
-  "Page of Wands": "Valete de Paus",
-  "Page of Cups": "Valete de Copas",
-  "Page of Swords": "Valete de Espadas",
-  "Page of Pentacles": "Valete de Ouros",
-  "Pajem de Paus": "Valete de Paus", 
-  "Pajem de Copas": "Valete de Copas",
-  "Pajem de Espadas": "Valete de Espadas",
-  "Pajem de Ouros": "Valete de Ouros"
-};
+  const nomesAlternativos = {
+    "Page of Wands": "Valete de Paus",
+    "Page of Cups": "Valete de Copas",
+    "Page of Swords": "Valete de Espadas",
+    "Page of Pentacles": "Valete de Ouros",
+    "Pajem de Paus": "Valete de Paus", 
+    "Pajem de Copas": "Valete de Copas",
+    "Pajem de Espadas": "Valete de Espadas",
+    "Pajem de Ouros": "Valete de Ouros"
+  };
 
-const renderCarta = ({ item }) => {
-  const nomeBase = item.nome || item.name_pt || item.name;
-  const nomeCorrigido = nomesAlternativos[nomeBase] || nomeBase;
+  const renderCarta = ({ item }) => {
+    const nomeBase = item.nome || item.name_pt || item.name;
+    const nomeCorrigido = nomesAlternativos[nomeBase] || nomeBase;
 
-  return (
-    <View style={styles.card}>
-      {item.img_url && (
-        <Image
-          source={{ uri: item.img_url }}
-          style={styles.image}
-          resizeMode="contain"
-        />
-      )}
-      <Text style={styles.cardText}>{nomeCorrigido}</Text>
-    </View>
-  );
-};
+    return (
+      <TouchableOpacity
+        style={styles.card}
+        onPress={() => router.push(`/cartas/${item.slug}`)} // Navega para página do detalhe
+      >
+        {item.img_url && (
+          <Image
+            source={{ uri: item.img_url }}
+            style={styles.image}
+            resizeMode="contain"
+          />
+        )}
+        <Text style={styles.cardText}>{nomeCorrigido}</Text>
+      </TouchableOpacity>
+    );
+  };
 
   const renderNaipe = (titulo, data) => {
     const dataCompletada = [...data];
