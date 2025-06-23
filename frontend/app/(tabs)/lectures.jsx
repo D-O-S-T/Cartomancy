@@ -4,6 +4,7 @@ import {
   StyleSheet,
   Dimensions,
   TouchableOpacity,
+  ScrollView,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { useState } from "react";
@@ -18,7 +19,6 @@ export default function Lectures() {
 
   return (
     <View style={styles.container}>
-      {/* Gradient background */}
       <LinearGradient
         colors={["#8E2DE2", "#C13584"]}
         start={{ x: 0.5, y: 0 }}
@@ -26,15 +26,21 @@ export default function Lectures() {
         style={StyleSheet.absoluteFill}
       />
 
-      {/* Circular Eclipse */}
-      {/* <Image
-        source={require("../../assets/gradient.png")}
-        style={styles.eclipse}
-        resizeMode="contain"
-      /> */}
-      {/* Content */}
+      <ScrollView contentContainerStyle={styles.content}>
+        {/* Introdução */}
+        <Text style={styles.welcomeTitle}>Bem-vindo ao Tarot App</Text>
+        <Text style={styles.introText}>
+          O Tarot é um antigo oráculo composto por 78 cartas, dividido em Arcanos Maiores e Menores.
+          Cada carta carrega um significado simbólico e espiritual, capaz de guiar e aconselhar quem
+          busca respostas ou autoconhecimento.
+        </Text>
 
-      <View style={styles.content}>
+        {/* Vídeo de Introdução (placeholder estilizado) */}
+        <View style={styles.videoPlaceholder}>
+          <Text style={styles.videoText}>🎥 Vídeo de Introdução ao Tarot</Text>
+        </View>
+
+        {/* Escolha de Baralho */}
         <Text style={styles.title}>
           Para iniciar a sua jornada, escolha o baralho:
         </Text>
@@ -45,14 +51,20 @@ export default function Lectures() {
         />
 
         {/* Botões */}
-        <TouchableOpacity style={styles.button} onPress={() => router.push("/majorArcanas")}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => router.push("/majorArcanas")}
+        >
           <Text style={styles.buttonText}>Arcanos Maiores</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.button} onPress={() => router.push("/minorArcanas")}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => router.push("/minorArcanas")}
+        >
           <Text style={styles.buttonText}>Arcanos Menores</Text>
         </TouchableOpacity>
-      </View>
+      </ScrollView>
     </View>
   );
 }
@@ -60,56 +72,42 @@ export default function Lectures() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    position: "relative",
     backgroundColor: "#000",
   },
-  eclipse: {
-    position: "absolute",
-    width: height * 1.2,
-    height: height * 1.2,
-    top: height / 2 - (height * 1.2) / 2 + 205,
-    left: width / 2 - (height * 1.2) / 2,
-    zIndex: 0,
-    opacity: 0.2,
-  },
-  topCapsule: {
-    backgroundColor: "#94399B",
-    width: "100%",
-    height: 130,
-    alignItems: "center",
-    justifyContent: "center",
-    paddingTop: 50,
-    position: "absolute",
-    top: 0,
-    zIndex: 3,
-  },
-  topLogo: {
-    width: 50,
-    height: 50,
-  },
-  header: {
-    width: "100%",
-    alignItems: "center",
-    marginTop: 10,
-    zIndex: 4,
-    position: "absolute",
-    top: 40,
-    left: 0,
-  },
-  headerContent: {
-    width: "100%",
-    maxWidth: 280,
-    flexDirection: "row",
-    justifyContent: "flex-start",
-    paddingLeft: 20,
-  },
   content: {
-    marginTop: 180,
-    alignItems: "center",
-    width: "100%",
+    paddingVertical: 60,
     paddingHorizontal: 20,
-    zIndex: 2,
+    alignItems: "center",
+  },
+  welcomeTitle: {
+    fontSize: 28,
+    fontWeight: "bold",
+    color: "#fff",
+    marginBottom: 20,
+    textAlign: "center",
+  },
+  introText: {
+    fontSize: 16,
+    color: "#ccc",
+    textAlign: "center",
+    marginBottom: 30,
+    lineHeight: 24,
+  },
+  videoPlaceholder: {
+    width: "100%",
+    maxWidth: 320,
+    height: 180,
+    backgroundColor: "rgba(255,255,255,0.07)",
+    borderRadius: 15,
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 30,
+  },
+  videoText: {
+    color: "#fff",
+    fontSize: 16,
+    textAlign: "center",
+    paddingHorizontal: 10,
   },
   title: {
     fontSize: 22,
@@ -117,22 +115,6 @@ const styles = StyleSheet.create({
     color: "#fff",
     marginBottom: 20,
     textAlign: "center",
-  },
-  pickerWrapper: {
-    width: "80%",
-    maxWidth: 320,
-    alignSelf: "center",
-    borderRadius: 10,
-    padding: 0,
-    marginBottom: 30,
-    overflow: "hidden",
-  },
-  picker: {
-    fontSize: 16,
-    paddingVertical: 12,
-    paddingHorizontal: 10,
-    borderRadius: 8,
-    outlineStyle: "none", // web only
   },
   button: {
     borderWidth: 1,

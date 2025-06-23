@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -15,9 +16,62 @@ const { width, height } = Dimensions.get("window");
 export default function CadastroScreen() {
   const router = useRouter();
 
+  // Estados para os campos
+  const [nome, setNome] = useState("");
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+  const [confirmarSenha, setConfirmarSenha] = useState("");
+
+  const [message, setMessage] = useState("");
+  const [messageColor, setMessageColor] = useState("red");
+
+  const handleCadastro = async () => {
+    // Validação básica
+    if (!nome || !email || !senha || !confirmarSenha) {
+      setMessageColor("red");
+      setMessage("Preencha todos os campos.");
+      return;
+    }
+
+    if (senha !== confirmarSenha) {
+      setMessageColor("red");
+      setMessage("As senhas não coincidem.");
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:5000/api/usuarios/cadastrar", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          nome,
+          email,
+          senha,
+          tipo_usuario: "usuario", // ou "admin" se quiser
+        }),
+      });
+
+      const json = await response.json();
+
+      if (!response.ok) {
+        setMessageColor("red");
+        setMessage(json.erro || "Erro ao cadastrar.");
+        return;
+      }
+
+      setMessageColor("green");
+      setMessage(`Conta criada para ${json.usuario.nome}!`);
+
+      setTimeout(() => router.push("/"), 1500);
+    } catch (error) {
+      console.error(error);
+      setMessageColor("red");
+      setMessage("Não foi possível conectar ao servidor.");
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container}>
-      {/* Fundo gradiente */}
       <LinearGradient
         colors={["#8E2DE2", "#C13584"]}
         start={{ x: 0.5, y: 0 }}
@@ -25,7 +79,6 @@ export default function CadastroScreen() {
         style={StyleSheet.absoluteFill}
       />
 
-      {/* Conteúdo */}
       <View style={styles.content}>
         <Text style={styles.title}>Criar Conta</Text>
 
@@ -33,6 +86,8 @@ export default function CadastroScreen() {
           placeholder="Nome"
           placeholderTextColor="#ccc"
           style={styles.input}
+          value={nome}
+          onChangeText={setNome}
         />
 
         <TextInput
@@ -41,6 +96,8 @@ export default function CadastroScreen() {
           style={styles.input}
           keyboardType="email-address"
           autoCapitalize="none"
+          value={email}
+          onChangeText={setEmail}
         />
 
         <TextInput
@@ -48,6 +105,8 @@ export default function CadastroScreen() {
           placeholderTextColor="#ccc"
           style={styles.input}
           secureTextEntry
+          value={senha}
+          onChangeText={setSenha}
         />
 
         <TextInput
@@ -55,11 +114,26 @@ export default function CadastroScreen() {
           placeholderTextColor="#ccc"
           style={styles.input}
           secureTextEntry
+          value={confirmarSenha}
+          onChangeText={setConfirmarSenha}
         />
 
-        <TouchableOpacity style={styles.registerButton}>
+        <TouchableOpacity style={styles.registerButton} onPress={handleCadastro}>
           <Text style={styles.registerButtonText}>Cadastrar</Text>
         </TouchableOpacity>
+
+        {message ? (
+          <Text
+            style={{
+              color: messageColor,
+              marginTop: 20,
+              fontSize: 16,
+              fontWeight: "bold",
+            }}
+          >
+            {message}
+          </Text>
+        ) : null}
 
         <TouchableOpacity onPress={() => router.back()}>
           <Text style={styles.backButton}>Voltar</Text>
