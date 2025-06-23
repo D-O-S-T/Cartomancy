@@ -47,7 +47,7 @@ export default function CadastroScreen() {
           nome,
           email,
           senha,
-          tipo_usuario: "usuario", // ou "admin" se quiser
+          tipo_usuario: "estudante", // ou "admin" se quiser
         }),
       });
 

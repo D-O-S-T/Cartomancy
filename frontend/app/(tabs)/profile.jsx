@@ -128,6 +128,8 @@ const styles = StyleSheet.create({
     padding: 12,
     borderRadius: 8,
     marginTop: 12,
+    borderWidth: 1,
+    borderColor: "#fff",
   },
   buttonText: {
     color: "#fff",
