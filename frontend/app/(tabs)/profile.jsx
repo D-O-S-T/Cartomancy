@@ -12,9 +12,9 @@ import { Feather } from "@expo/vector-icons";
 export default function Profile() {
   // Mock do usuário
   const user = {
-    name: "Dora Araújo",
+    name: "Visitante",
     avatar: require("../../assets/avatar-placeholder.jpg"),
-    email: "dora.araujo@example.com",
+    // email: "dora.araujo@example.com",
   };
 
   return (
