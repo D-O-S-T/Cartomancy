@@ -25,6 +25,7 @@ export default function CardScreen() {
       .get("http://localhost:5000/api/cartas")
       .then((response) => {
         const cartaEncontrada = response.data.find((c) => c.slug === slug);
+        console.log("Carta encontrada:", cartaEncontrada);
         setCarta(cartaEncontrada);
       })
       .catch((error) => {
@@ -60,14 +61,23 @@ export default function CardScreen() {
           />
         )}
 
-        <Text style={styles.description}>{carta.descricao}</Text>
-
         <TouchableOpacity
           style={styles.backButton}
           onPress={() => router.back()}
         >
           <Text style={styles.backButtonText}>Voltar</Text>
         </TouchableOpacity>
+
+        <Text style={styles.description}>{carta.desc}</Text>
+
+        {/* {carta.descricao && (
+          <Text style={styles.description}>{carta.descricao}</Text>
+        )} */}
+
+        {/* {typeof carta.descricao === "string" && (
+          <Text style={styles.description}>{carta.descricao}</Text>
+        )} */}
+
       </ScrollView>
     </View>
   );
@@ -118,6 +128,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 30,
     backgroundColor: "rgba(255,255,255,0.07)",
+    marginBottom: 20,
   },
   backButtonText: {
     color: "#fff",
