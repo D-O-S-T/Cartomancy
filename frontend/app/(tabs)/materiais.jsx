@@ -51,10 +51,6 @@ export default function Materiais() {
           <MaterialIcons name="play-circle-outline" size={28} color="#fff" style={styles.icon} />
           <Text style={styles.videoLabel}>Como Ler as Cartas</Text>
         </View>
-
-        <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
-          <Text style={styles.backButtonText}>Voltar</Text>
-        </TouchableOpacity>
       </ScrollView>
 
       {/* Modal customizada */}

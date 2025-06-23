@@ -100,12 +100,6 @@ export default function MajorArcanas() {
 
       <View style={styles.header}>
         <Text style={styles.title}>Arcanos Maiores</Text>
-        <TouchableOpacity
-          style={styles.backButton}
-          onPress={() => router.back()}
-        >
-          <Text style={styles.backButtonText}>Voltar</Text>
-        </TouchableOpacity>
       </View>
 
       <FlatList
