@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   footer: {
-    marginTop: 70,
+    marginTop: 10,
     color: '#fff',
     fontSize: 16,
   },

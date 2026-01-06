@@ -2,447 +2,525 @@
   {
     "slug": "the-fool",
     "nome": "O Louco",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/m00.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/m00.jpg",
+    "descricao": "O Louco representa o início de uma jornada, simbolizando a espontaneidade, a inocência e a fé no desconhecido. Ele convida a abraçar o novo com coragem e liberdade, deixando para trás medos e julgamentos. Este arcano mostra o potencial ilimitado e a abertura para novas experiências, mas alerta para a necessidade de atenção para não agir de forma imprudente."
   },
   {
     "slug": "the-magician",
     "nome": "O Mago",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/m01.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/m01.jpg",
+    "descricao": "O Mago simboliza o poder da manifestação, a habilidade de transformar ideias em realidade. Ele é o canal entre o céu e a terra, utilizando os quatro elementos para criar. Este arcano incentiva o autoconhecimento, a confiança nas próprias capacidades e a iniciativa para agir com foco e determinação, lembrando que o poder está dentro de nós."
   },
   {
     "slug": "the-high-priestess",
     "nome": "A Sacerdotisa",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/m02.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/m02.jpg",
+    "descricao": "A Sacerdotisa representa o mistério, a intuição e o conhecimento oculto. Ela é guardiã das respostas internas e da sabedoria ancestral, convidando a confiar no inconsciente e nos sonhos. Este arcano fala da importância de se conectar com a própria espiritualidade, equilibrando razão e sentimento, e respeitando o silêncio interior para acessar a verdade profunda."
   },
   {
     "slug": "the-empress",
     "nome": "A Imperatriz",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/m03.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/m03.jpg",
+    "descricao": "A Imperatriz é o símbolo da fertilidade, da abundância e do cuidado materno. Ela representa a energia da criação e do crescimento, tanto no plano físico quanto emocional. Este arcano inspira o cultivo da beleza, da sensibilidade e do amor, promovendo a conexão com a natureza e a valorização do afeto e da nutrição nas relações."
   },
   {
     "slug": "the-emperor",
     "nome": "O Imperador",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/m04.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/m04.jpg",
+    "descricao": "O Imperador encarna a autoridade, a estrutura e a ordem. Ele simboliza a força da liderança e a capacidade de estabelecer regras e limites para garantir segurança e estabilidade. Este arcano incentiva o uso da disciplina e da responsabilidade para construir bases sólidas, lembrando que o poder verdadeiro vem da sabedoria e do equilíbrio."
   },
   {
     "slug": "the-hierophant",
     "nome": "O Hierofante",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/m05.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/m05.jpg",
+    "descricao": "O Hierofante representa a tradição, a espiritualidade institucionalizada e o ensino. Ele é o guia que transmite valores morais e religiosos, chamando para a busca de sabedoria dentro de sistemas estabelecidos. Este arcano sugere a importância de aprender com a experiência coletiva, respeitar rituais e cultivar a fé, mas também alerta para a necessidade de questionar dogmas quando necessário."
   },
   {
     "slug": "the-lovers",
     "nome": "Os Amantes",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/m06.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/m06.jpg",
+    "descricao": "Os Amantes simbolizam a união, o amor verdadeiro e as escolhas conscientes. Este arcano fala sobre a harmonia entre opostos, a importância da conexão emocional e dos valores compartilhados. Também representa decisões significativas que envolvem ética, compromisso e alinhamento com o próprio caminho espiritual e afetivo."
   },
   {
     "slug": "the-chariot",
     "nome": "O Carro",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/m07.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/m07.jpg",
+    "descricao": "O Carro representa a vitória através da determinação, do controle e da força de vontade. Ele indica a capacidade de superar obstáculos com foco e disciplina, mantendo o equilíbrio entre diferentes forças internas e externas. Este arcano encoraja a perseverança e a confiança no próprio caminho, mesmo diante de desafios."
   },
   {
     "slug": "strength",
     "nome": "A Força",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/m08.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/m08.jpg",
+    "descricao": "A Força simboliza a coragem, a paciência e o domínio das emoções. Ela demonstra que o verdadeiro poder está na gentileza e na compaixão, não na agressividade. Este arcano convida a enfrentar medos e desafios internos com serenidade, valorizando a persistência e a fé na capacidade de superar as dificuldades com equilíbrio."
   },
   {
     "slug": "the-hermit",
     "nome": "O Eremita",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/m09.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/m09.jpg",
+    "descricao": "O Eremita representa a busca interior, a reflexão e a sabedoria adquirida através do silêncio. Ele simboliza a necessidade de se afastar do mundo exterior para encontrar respostas e compreender o próprio caminho. Este arcano incentiva a introspecção, o autoconhecimento e a paciência para alcançar a iluminação pessoal."
   },
   {
     "slug": "wheel-of-fortune",
     "nome": "A Roda da Fortuna",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/m10.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/m10.jpg",
+    "descricao": "A Roda da Fortuna simboliza as mudanças constantes da vida, os ciclos de sorte e azar e o fluxo do destino. Este arcano lembra que nada é permanente e que as oportunidades surgem e desaparecem. Ele incentiva a adaptação e a aceitação dos altos e baixos com sabedoria, mantendo a fé na continuidade da jornada."
   },
   {
     "slug": "justice",
     "nome": "A Justiça",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/m11.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/m11.jpg",
+    "descricao": "A Justiça representa a verdade, o equilíbrio e a responsabilidade pelos próprios atos. Ela chama para agir com ética, honestidade e imparcialidade, reconhecendo que toda ação tem uma consequência. Este arcano estimula o discernimento e a busca pela harmonia entre as partes envolvidas, promovendo a equidade e a integridade."
   },
   {
     "slug": "the-hanged-man",
     "nome": "O Enforcado",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/m12.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/m12.jpg",
+    "descricao": "O Enforcado simboliza a suspensão, a entrega e a mudança de perspectiva. Ele indica que é necessário abrir mão de velhos padrões e aceitar o momento de espera para alcançar uma compreensão mais profunda. Este arcano fala sobre sacrifício consciente e o poder da transformação através do desapego."
   },
   {
     "slug": "death",
     "nome": "A Morte",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/m13.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/m13.jpg",
+    "descricao": "A Morte representa o fim de ciclos e a transformação radical. Não se refere à morte física, mas ao fechamento de etapas que possibilitam o renascimento e o crescimento. Este arcano enfatiza a importância de deixar ir o que não serve mais para abrir espaço ao novo, promovendo a renovação e a evolução pessoal."
   },
   {
     "slug": "temperance",
     "nome": "A Temperança",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/m14.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/m14.jpg",
+    "descricao": "A Temperança simboliza o equilíbrio, a moderação e a harmonia entre opostos. Este arcano convida a encontrar o meio-termo nas situações da vida, combinando forças diferentes para alcançar a paz interior. Ela destaca a importância da paciência e da adaptação para manter o fluxo natural das coisas."
   },
   {
     "slug": "the-devil",
     "nome": "O Diabo",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/m15.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/m15.jpg",
+    "descricao": "O Diabo representa as amarras, as ilusões e as tentações que aprisionam a consciência. Ele alerta para os vícios, medos e dependências que limitam a liberdade pessoal. Este arcano desafia a encarar as próprias sombras e a buscar a libertação das influências negativas que impedem o crescimento."
   },
   {
     "slug": "the-tower",
     "nome": "A Torre",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/m16.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/m16.jpg",
+    "descricao": "A Torre simboliza a ruptura abrupta, a destruição de estruturas falsas e a revelação da verdade. Este arcano traz mudanças inesperadas que, embora possam causar desconforto, são necessárias para a reconstrução e o crescimento. Ele convida a aceitar a crise como parte do processo de libertação e renovação."
   },
   {
     "slug": "the-star",
     "nome": "A Estrela",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/m17.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/m17.jpg",
+    "descricao": "A Estrela representa a esperança, a inspiração e a cura espiritual. Ela traz uma luz renovadora após períodos difíceis, conectando com a fé no futuro e o otimismo. Este arcano incentiva a confiança no caminho e a conexão com a própria essência e o universo."
   },
   {
     "slug": "the-moon",
     "nome": "A Lua",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/m18.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/m18.jpg",
+    "descricao": "A Lua simboliza o inconsciente, os mistérios e as emoções profundas. Ela indica a presença de ilusões, medos e confusões que precisam ser enfrentados com cuidado. Este arcano convida a explorar os sonhos, a intuição e a parte oculta da psique para alcançar a clareza e o autoconhecimento."
   },
   {
     "slug": "the-sun",
     "nome": "O Sol",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/m19.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/m19.jpg",
+    "descricao": "O Sol representa a alegria, o sucesso e a vitalidade. É a energia positiva que ilumina o caminho, trazendo clareza, confiança e realizações. Este arcano celebra a felicidade genuína, o crescimento e o triunfo através da autenticidade e do otimismo."
   },
   {
     "slug": "judgement",
     "nome": "O Julgamento",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/m20.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/m20.jpg",
+    "descricao": "O Julgamento simboliza o despertar, a avaliação e a renovação espiritual. Ele indica um momento de reflexão sobre o passado, de perdão e de recomeço. Este arcano chama para assumir responsabilidades, aprender com os erros e avançar com consciência e liberdade."
   },
   {
     "slug": "the-world",
     "nome": "O Mundo",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/m21.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/m21.jpg",
+    "descricao": "O Mundo representa a conclusão, a realização plena e a integração dos aspectos da vida. Este arcano simboliza o sucesso, a harmonia e o equilíbrio entre corpo, mente e espírito. Ele celebra o fechamento de ciclos e a preparação para novas jornadas com sabedoria e plenitude."
   },
   {
     "slug": "as-de-paus",
     "nome": "Ás de Paus",
     "name_short": "w01",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/w01.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/w01.jpg",
+    "descricao": "O Ás de Paus representa o início de um novo ciclo criativo, energia pura e potencial para ação. É o momento de inspiração, onde ideias e projetos começam a ganhar forma, impulsionados pela paixão e entusiasmo."
   },
   {
     "slug": "dois-de-paus",
     "nome": "Dois de Paus",
     "name_short": "w02",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/w02.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/w02.jpg",
+    "descricao": "O Dois de Paus simboliza planejamento e visão de futuro. É a fase de avaliação das possibilidades e tomada de decisões estratégicas para expandir seus horizontes e avançar rumo aos objetivos."
   },
   {
     "slug": "três-de-paus",
     "nome": "Três de Paus",
     "name_short": "w03",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/w03.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/w03.jpg",
+    "descricao": "O Três de Paus indica progresso e expansão após as primeiras etapas. Mostra a expectativa pelos resultados do trabalho e o fortalecimento da confiança em novos empreendimentos."
   },
   {
     "slug": "quatro-de-paus",
     "nome": "Quatro de Paus",
     "name_short": "w04",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/w04.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/w04.jpg",
+    "descricao": "O Quatro de Paus representa celebração, harmonia e estabilidade no ambiente social ou familiar. É o momento de reconhecer conquistas e desfrutar da sensação de segurança e pertencimento."
   },
   {
     "slug": "cinco-de-paus",
     "nome": "Cinco de Paus",
     "name_short": "w05",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/w05.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/w05.jpg",
+    "descricao": "O Cinco de Paus traz conflitos, desafios e competição. Indica um período em que a luta por espaço e reconhecimento exige coragem e habilidade para lidar com divergências."
   },
   {
     "slug": "seis-de-paus",
     "nome": "Seis de Paus",
     "name_short": "w06",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/w06.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/w06.jpg",
+    "descricao": "O Seis de Paus simboliza vitória, reconhecimento e sucesso público. É o prêmio pelo esforço dedicado, que traz orgulho e motivação para continuar avançando."
   },
   {
     "slug": "sete-de-paus",
     "nome": "Sete de Paus",
     "name_short": "w07",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/w07.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/w07.jpg",
+    "descricao": "O Sete de Paus mostra a necessidade de defender suas posições e enfrentar desafios com determinação. É a resistência ativa para manter o que foi conquistado."
   },
   {
     "slug": "oito-de-paus",
     "nome": "Oito de Paus",
     "name_short": "w08",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/w08.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/w08.jpg",
+    "descricao": "O Oito de Paus representa velocidade, movimento e transformação rápida. Indica que mudanças e acontecimentos importantes estão acontecendo ou prestes a acontecer."
   },
   {
     "slug": "nove-de-paus",
     "nome": "Nove de Paus",
     "name_short": "w09",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/w09.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/w09.jpg",
+    "descricao": "O Nove de Paus simboliza resistência e coragem para continuar apesar dos obstáculos e cansaço. É o momento de manter a guarda erguida e aprender com as dificuldades enfrentadas."
   },
   {
     "slug": "dez-de-paus",
     "nome": "Dez de Paus",
     "name_short": "w10",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/w10.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/w10.jpg",
+    "descricao": "O Dez de Paus indica sobrecarga, responsabilidade excessiva e esgotamento. Recomenda a necessidade de delegar, reorganizar prioridades e buscar equilíbrio para evitar o colapso."
   },
   {
     "slug": "valete-de-paus",
     "nome": "Valete de Paus",
     "name_short": "w11",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/w11.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/w11.jpg",
+    "descricao": "O Valete de Paus é o símbolo da curiosidade, energia juvenil e disposição para explorar novas ideias. Representa um mensageiro de novidades e entusiasmo para iniciar projetos."
   },
   {
     "slug": "cavaleiro-de-paus",
     "nome": "Cavaleiro de Paus",
     "name_short": "w12",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/w12.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/w12.jpg",
+    "descricao": "O Cavaleiro de Paus representa ação, aventura e coragem para seguir adiante com paixão. É o espírito impulsivo que busca experiências intensas e está sempre pronto para o desafio."
   },
   {
     "slug": "rainha-de-paus",
     "nome": "Rainha de Paus",
     "name_short": "w13",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/w13.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/w13.jpg",
+    "descricao": "A Rainha de Paus é a personificação da confiança, independência e magnetismo. Ela lidera com energia, criatividade e calor humano, inspirando quem está ao seu redor."
   },
   {
     "slug": "rei-de-paus",
     "nome": "Rei de Paus",
     "name_short": "w14",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/w14.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/w14.jpg",
+    "descricao": "O Rei de Paus é um líder carismático, visionário e determinado. Com grande energia e sabedoria, conduz projetos e pessoas rumo ao sucesso, sempre motivado pela paixão."
   },
   {
     "slug": "as-de-copas",
     "nome": "Ás de Copas",
     "name_short": "c01",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/c01.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/c01.jpg",
+    "descricao": "O Ás de Copas simboliza o surgimento de sentimentos profundos e o início de um novo ciclo emocional. É a abertura para o amor, a intuição e a conexão espiritual."
   },
   {
     "slug": "dois-de-copas",
     "nome": "Dois de Copas",
     "name_short": "c02",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/c02.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/c02.jpg",
+    "descricao": "O Dois de Copas representa união, parceria e harmonia emocional. Indica relacionamentos equilibrados baseados em respeito, amor e conexão mútua."
   },
   {
     "slug": "três-de-copas",
     "nome": "Três de Copas",
     "name_short": "c03",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/c03.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/c03.jpg",
+    "descricao": "O Três de Copas é a carta da celebração, amizade e apoio emocional. Reflete momentos de alegria compartilhada, comunhão e reconhecimento entre pessoas queridas."
   },
   {
     "slug": "quatro-de-copas",
     "nome": "Quatro de Copas",
     "name_short": "c04",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/c04.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/c04.jpg",
+    "descricao": "O Quatro de Copas indica insatisfação e apatia emocional. Sugere a necessidade de reflexão sobre as oportunidades afetivas, evitando o fechamento para o novo por desânimo."
   },
   {
     "slug": "cinco-de-copas",
     "nome": "Cinco de Copas",
     "name_short": "c05",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/c05.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/c05.jpg",
+    "descricao": "O Cinco de Copas traz sentimentos de perda, tristeza e arrependimento. É um convite para aceitar as emoções dolorosas e encontrar forças para superar as mágoas."
   },
   {
     "slug": "seis-de-copas",
     "nome": "Seis de Copas",
     "name_short": "c06",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/c06.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/c06.jpg",
+    "descricao": "O Seis de Copas remete à nostalgia, memórias felizes e à inocência da infância. Incentiva a reconexão com sentimentos puros e a valorização das raízes afetivas."
   },
   {
     "slug": "sete-de-copas",
     "nome": "Sete de Copas",
     "name_short": "c07",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/c07.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/c07.jpg",
+    "descricao": "O Sete de Copas representa ilusões, escolhas e sonhos. Alerta para o risco de se perder em fantasias e destaca a importância do discernimento para tomar decisões conscientes."
   },
   {
     "slug": "oito-de-copas",
     "nome": "Oito de Copas",
     "name_short": "c08",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/c08.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/c08.jpg",
+    "descricao": "O Oito de Copas simboliza a necessidade de deixar para trás situações emocionais que não satisfazem mais. Indica a busca por crescimento e novos caminhos afetivos."
   },
   {
     "slug": "nove-de-copas",
     "nome": "Nove de Copas",
     "name_short": "c09",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/c09.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/c09.jpg",
+    "descricao": "O Nove de Copas é conhecido como a carta da realização dos desejos e da felicidade emocional. Representa satisfação, gratidão e abundância afetiva."
   },
   {
     "slug": "dez-de-copas",
     "nome": "Dez de Copas",
     "name_short": "c10",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/c10.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/c10.jpg",
+    "descricao": "O Dez de Copas simboliza a realização plena no campo emocional e familiar, expressando harmonia, felicidade duradoura e realização dos sonhos afetivos. Representa o amor verdadeiro, a paz interior e a sensação de completude em relacionamentos."
   },
   {
     "slug": "valete-de-copas",
     "nome": "Valete de Copas",
     "name_short": "c11",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/c11.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/c11.jpg",
+    "descricao": "O Valete de Copas representa a sensibilidade, o romance e a intuição jovem. É o mensageiro das emoções, trazendo novidades afetivas, convites para encontros ou o despertar para um novo sentimento."
   },
   {
     "slug": "cavaleiro-de-copas",
     "nome": "Cavaleiro de Copas",
     "name_short": "c12",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/c12.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/c12.jpg",
+    "descricao": "O Cavaleiro de Copas simboliza um sonhador apaixonado, que age guiado pelo coração e pela busca de conexões profundas. É o convite para seguir o caminho da emoção e da criatividade com coragem e charme."
   },
   {
     "slug": "rainha-de-copas",
     "nome": "Rainha de Copas",
     "name_short": "c13",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/c13.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/c13.jpg",
+    "descricao": "A Rainha de Copas é a figura da empatia, intuição e cuidado emocional. Ela representa a capacidade de compreender as emoções próprias e alheias, sendo fonte de conforto e apoio nas relações."
   },
   {
     "slug": "rei-de-copas",
     "nome": "Rei de Copas",
     "name_short": "c14",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/c14.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/c14.jpg",
+    "descricao": "O Rei de Copas é um líder emocionalmente equilibrado, que domina suas paixões e age com sabedoria afetiva. Ele inspira confiança e estabilidade em relacionamentos, mantendo a compaixão e o controle."
   },
   {
     "slug": "as-de-espadas",
     "nome": "Ás de Espadas",
     "name_short": "s01",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/s01.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/s01.jpg",
+    "descricao": "O Ás de Espadas representa clareza mental, verdade e novos começos intelectuais. É a força da mente que corta a confusão, trazendo decisões firmes, justiça e o poder da comunicação clara."
   },
   {
     "slug": "dois-de-espadas",
     "nome": "Dois de Espadas",
     "name_short": "s02",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/s02.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/s02.jpg",
+    "descricao": "O Dois de Espadas simboliza indecisão, bloqueios e a necessidade de equilíbrio entre a razão e a emoção. Indica um momento de escolha difícil que exige reflexão profunda e neutralidade."
   },
   {
     "slug": "três-de-espadas",
     "nome": "Três de Espadas",
     "name_short": "s03",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/s03.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/s03.jpg",
+    "descricao": "O Três de Espadas é a carta da dor emocional, sofrimento e traição. Representa os cortes no coração que ensinam sobre perdas, tristezas e a importância da cura interior."
   },
   {
     "slug": "quatro-de-espadas",
     "nome": "Quatro de Espadas",
     "name_short": "s04",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/s04.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/s04.jpg",
+    "descricao": "O Quatro de Espadas indica repouso, recuperação e introspecção. É o momento para recarregar as energias, meditar e preparar a mente para os próximos desafios."
   },
   {
     "slug": "cinco-de-espadas",
     "nome": "Cinco de Espadas",
     "name_short": "s05",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/s05.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/s05.jpg",
+    "descricao": "O Cinco de Espadas traz conflitos, derrotas e a luta pelo poder. Alerta para a importância de escolher batalhas com sabedoria e considerar as consequências das ações."
   },
   {
     "slug": "seis-de-espadas",
     "nome": "Seis de Espadas",
     "name_short": "s06",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/s06.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/s06.jpg",
+    "descricao": "O Seis de Espadas representa transição, viagem e mudança mental. Indica um afastamento de situações difíceis rumo a um futuro mais tranquilo e esclarecido."
   },
   {
     "slug": "sete-de-espadas",
     "nome": "Sete de Espadas",
     "name_short": "s07",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/s07.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/s07.jpg",
+    "descricao": "O Sete de Espadas simboliza furtividade, estratégias e possíveis enganos. Indica a necessidade de agir com cautela e de estar atento a segredos e intenções ocultas."
   },
   {
     "slug": "oito-de-espadas",
     "nome": "Oito de Espadas",
     "name_short": "s08",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/s08.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/s08.jpg",
+    "descricao": "O Oito de Espadas representa aprisionamento mental, limitações autoimpostas e falta de clareza. Sugere a importância de libertar-se das amarras mentais e encontrar soluções para os problemas."
   },
   {
     "slug": "nove-de-espadas",
     "nome": "Nove de Espadas",
     "name_short": "s09",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/s09.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/s09.jpg",
+    "descricao": "O Nove de Espadas simboliza ansiedade, medo e preocupação intensa. Representa noites mal dormidas e o impacto do estresse mental sobre o bem-estar emocional."
   },
   {
     "slug": "dez-de-espadas",
     "nome": "Dez de Espadas",
     "name_short": "s10",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/s10.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/s10.jpg",
+    "descricao": "O Dez de Espadas indica um fim doloroso, traição ou derrota. Apesar da intensidade do sofrimento, também traz a oportunidade de renascimento e aprendizado após a queda."
   },
   {
-    "slug": "Valete-de-espadas",
+    "slug": "valete-de-espadas",
     "nome": "Valete de Espadas",
     "name_short": "s11",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/s11.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/s11.jpg",
+    "descricao": "O Valete de Espadas representa a mente curiosa, aguda e vigilante. É o mensageiro das ideias inovadoras, debates e comunicação ativa, embora às vezes possa ser imaturo ou impetuoso."
   },
   {
     "slug": "cavaleiro-de-espadas",
     "nome": "Cavaleiro de Espadas",
     "name_short": "s12",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/s12.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/s12.jpg",
+    "descricao": "O Cavaleiro de Espadas é a força impulsiva da mente, que avança com rapidez e determinação. Pode representar coragem e iniciativa, mas também impaciência e agressividade."
   },
   {
     "slug": "rainha-de-espadas",
     "nome": "Rainha de Espadas",
     "name_short": "s13",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/s13.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/s13.jpg",
+    "descricao": "A Rainha de Espadas simboliza inteligência, independência e clareza. Ela é uma figura que age com justiça e discernimento, valorizando a verdade e a objetividade."
   },
   {
     "slug": "rei-de-espadas",
     "nome": "Rei de Espadas",
     "name_short": "s14",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/s14.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/s14.jpg",
+    "descricao": "O Rei de Espadas é um líder racional, justo e estratégico. Domina o uso da lógica e da comunicação para resolver conflitos, tomar decisões firmes e conduzir com autoridade."
   },
   {
     "slug": "as-de-ouros",
     "nome": "Ás de Ouros",
     "name_short": "p01",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/p01.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/p01.jpg",
+    "descricao": "O Ás de Ouros representa o início de um ciclo próspero no plano material. Simboliza oportunidades de crescimento financeiro, estabilidade e concretização de objetivos palpáveis."
   },
   {
     "slug": "dois-de-ouros",
     "nome": "Dois de Ouros",
     "name_short": "p02",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/p02.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/p02.jpg",
+    "descricao": "O Dois de Ouros indica equilíbrio e adaptação diante de mudanças. Expressa a habilidade de administrar múltiplas responsabilidades e encontrar harmonia em meio ao caos."
   },
   {
     "slug": "três-de-ouros",
     "nome": "Três de Ouros",
     "name_short": "p03",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/p03.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/p03.jpg",
+    "descricao": "O Três de Ouros simboliza trabalho em equipe, colaboração e reconhecimento das habilidades. Reflete o sucesso obtido através do esforço conjunto e planejamento cuidadoso."
   },
   {
     "slug": "quatro-de-ouros",
     "nome": "Quatro de Ouros",
     "name_short": "p04",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/p04.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/p04.jpg",
+    "descricao": "O Quatro de Ouros representa a busca por segurança material e controle financeiro. Pode indicar apego excessivo a bens e resistência à mudança, sugerindo a necessidade de equilíbrio."
   },
   {
     "slug": "cinco-de-ouros",
     "nome": "Cinco de Ouros",
     "name_short": "p05",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/p05.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/p05.jpg",
+    "descricao": "O Cinco de Ouros simboliza dificuldades financeiras, perdas e sensação de exclusão. É um alerta para buscar ajuda, reavaliar recursos e manter a fé durante tempos difíceis."
   },
   {
     "slug": "seis-de-ouros",
     "nome": "Seis de Ouros",
     "name_short": "p06",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/p06.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/p06.jpg",
+    "descricao": "O Seis de Ouros representa generosidade, equilíbrio na troca e ajuda mútua. Indica momentos em que dar e receber se harmonizam, promovendo justiça social e apoio recíproco."
   },
   {
     "slug": "sete-de-ouros",
     "nome": "Sete de Ouros",
     "name_short": "p07",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/p07.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/p07.jpg",
+    "descricao": "O Sete de Ouros é o símbolo da paciência e da avaliação dos frutos do trabalho. Reflete a necessidade de persistir, planejar a longo prazo e reconhecer o valor dos esforços feitos."
   },
   {
     "slug": "oito-de-ouros",
     "nome": "Oito de Ouros",
     "name_short": "p08",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/p08.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/p08.jpg",
+    "descricao": "O Oito de Ouros representa dedicação, aprendizado e aprimoramento de habilidades. Reflete o valor do esforço contínuo e da disciplina para construir algo sólido e valioso."
   },
   {
     "slug": "nove-de-ouros",
     "nome": "Nove de Ouros",
     "name_short": "p09",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/p09.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/p09.jpg",
+    "descricao": "O Nove de Ouros simboliza realização material, independência e bem-estar conquistado através do esforço próprio. É a carta da satisfação pessoal e do prazer pelos frutos do trabalho."
   },
   {
     "slug": "dez-de-ouros",
     "nome": "Dez de Ouros",
     "name_short": "p10",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/p10.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/p10.jpg",
+    "descricao": "O Dez de Ouros representa estabilidade, herança e segurança material duradoura. Reflete conquistas que beneficiam não só o indivíduo, mas também a família e as futuras gerações."
   },
   {
     "slug": "valete-de-ouros",
     "nome": "Valete de Ouros",
     "name_short": "p11",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/p11.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/p11.jpg",
+    "descricao": "O Valete de Ouros é o mensageiro de oportunidades concretas e novos aprendizados. Representa o início de projetos no campo material, convidando ao estudo, planejamento e dedicação."
   },
   {
     "slug": "cavaleiro-de-ouros",
     "nome": "Cavaleiro de Ouros",
     "name_short": "p12",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/p12.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/p12.jpg",
+    "descricao": "O Cavaleiro de Ouros simboliza responsabilidade, constância e trabalho árduo. Representa alguém metódico e persistente, que alcança seus objetivos pela paciência e comprometimento."
   },
   {
     "slug": "rainha-de-ouros",
     "nome": "Rainha de Ouros",
     "name_short": "p13",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/p13.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/p13.jpg",
+    "descricao": "A Rainha de Ouros reflete prosperidade, cuidado e praticidade. Ela representa a harmonia entre a vida material e afetiva, sendo generosa e zelosa com os recursos e as pessoas ao redor."
   },
   {
     "slug": "rei-de-ouros",
     "nome": "Rei de Ouros",
     "name_short": "p14",
-    "imagem": "https://data.totl.net/tarot-rwcs-images/p14.jpg"
+    "imagem": "https://data.totl.net/tarot-rwcs-images/p14.jpg",
+    "descricao": "O Rei de Ouros é o símbolo da maturidade financeira, liderança prática e segurança material. Ele usa sua experiência para gerir recursos, construir estabilidade e apoiar aqueles sob sua proteção."
   }
 ]

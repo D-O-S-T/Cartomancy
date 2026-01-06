@@ -107,9 +107,6 @@ export default function MinorArcanas() {
 
       <View style={styles.header}>
         <Text style={styles.title}>Arcanos Menores</Text>
-        <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
-          <Text style={styles.backButtonText}>Voltar</Text>
-        </TouchableOpacity>
       </View>
 
       <ScrollView contentContainerStyle={styles.grid}>
